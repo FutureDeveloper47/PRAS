@@ -1,0 +1,372 @@
+﻿Domicilio:Address
+Localidad:City
+Teléfono:Phone
+Email:Email
+(*) Campo obligatorio:(*) Required field
+Guardar:Save
+Cancelar:Cancel
+Agencia:Agency
+Buscar:Search
+Mostrar deshabilitadas:Show disabled
+Razón social:Company name
+CUIT:Tax ID (CUIT)
+Activa:Active
+Nueva:New
+Modificar:Edit
+Deshabilitar:Disable
+Cerrar:Close
+Agencias:Agencies
+VEHÍCULO *:VEHICLE *
+Seleccionar mecánico *:Select mechanic *
+Diagnóstico inicial *:Initial diagnosis *
+Prioridad:Priority
+Baja:Low
+Alta:High
+Media:Medium
+GUARDAR Y ENVIAR:SAVE AND SEND
+Asignación de Presupuesto:Budget Assignment
+Realizar backup:Create backup
+Archivo de destino:Destination file
+Examinar...:Browse...
+Restaurar backup:Restore backup
+Archivo de backup:Backup file
+¡Atención! Se reemplazan todos los datos actuales por los del backup.:Warning! All current data will be replaced with the backup data.
+Restaurar:Restore
+Backup y restore:Backup and restore
+Desde:From
+Hasta:To
+Nivel:Level
+Usuario:User
+Limpiar:Clear
+Fecha:Date
+Mensaje:Message
+Detalle del error:Error detail
+Bitácora:Audit log
+ESTADO:STATUS
+Buscar Patente:Search plate
+Patente:Plate
+Marca:Make
+Modelo:Model
+Año:Year
+Color:Color
+0 vehículo(s):0 vehicle(s)
+Ver Detalle:View detail
+Eliminar:Delete
+BUSCADOR DE AUTOS:CAR FINDER
+SELECCIONAR AUTO:SELECT CAR
+Tipo de Gasto:Expense type
+Descripción:Description
+Cantidad:Quantity
+Precio unitario $:Unit price $
+Agregar gasto:Add expense
+Cant.:Qty.
+Precio unit.:Unit price
+Subtotal:Subtotal
+Quitar gasto nuevo:Remove new expense
+TOTAL ACUMULADO = $ 0,00:ACCUMULATED TOTAL = $ 0.00
+Finalizar reparación:Finish repair
+Carga de Costos:Cost Entry
+Cliente:Customer
+Compras (autos que le compró la empresa):Purchases (cars the company bought from them)
+Vehículo:Vehicle
+Precio:Price
+Forma de pago:Payment method
+Ventas (autos que compró):Sales (cars they bought)
+Historial del cliente:Customer history
+Mostrar deshabilitados:Show disabled
+Apellido:Last name
+Nombre:First name
+DNI:ID number (DNI)
+Activo:Active
+Nuevo:New
+Historial:History
+Clientes:Customers
+Dominio:Plate
+Vendedor:Seller
+Nueva compra:New purchase
+Consultar compras:View purchases
+DETALLE:DETAIL
+Persona:Person
+Monto:Amount
+Total:Total
+Si los cambios son correctos, recalcule los dígitos verificadores. Si no, restaure un backup anterior al problema.:If the changes are correct, recalculate the check digits. Otherwise, restore a backup from before the problem.
+Verificar nuevamente:Check again
+Recalcular dígitos:Recalculate digits
+Restaurar backup...:Restore backup...
+Integridad de datos:Data integrity
+PRAS - Ingreso:PRAS - Login
+Contraseña:Password
+Ingresar:Log in
+PRAS - Iniciar sesión:PRAS - Log in
+Especialidad:Specialty
+Mecánico:Mechanic
+Mecánicos:Mechanics
+&Sistema:&System
+Idioma:Language
+Cerrar sesión:Log out
+Salir:Exit
+S&eguridad:S&ecurity
+Usuarios:Users
+Verificar integridad:Check integrity
+&Maestros:&Master data
+Proveedores:Suppliers
+&Compras:&Purchases
+Registrar compra de vehículo:Register vehicle purchase
+&Taller:&Workshop
+Asignación de presupuesto (ingreso a taller):Budget assignment (workshop entry)
+Registrar diagnóstico:Register diagnosis
+Consultar diagnóstico:View diagnosis
+Órdenes de trabajo:Work orders
+Consultar órdenes de trabajo:View work orders
+Registrar tareas realizadas:Register completed tasks
+&Repuestos:Spare &parts
+Registrar pedido:Register order
+Registrar entrega de pedido:Register order delivery
+Consultar pedidos:View orders
+C&omercial:C&ommercial
+Consignaciones:Consignments
+Publicaciones:Listings
+Ventas:Sales
+Re&portes:Re&ports
+Vehículos:Vehicles
+Reparaciones:Repairs
+Presupuestos:Budgets
+TALLER:WORKSHOP
+Ver detalle ›:View detail ›
+INGRESOS:INCOMING
+(en el mes actual):(this month)
+ACTIVIDAD RECIENTE:RECENT ACTIVITY
+SISTEMA - INICIO:SYSTEM - HOME
+Proveedor:Supplier
+DATOS DEL VEHÍCULO:VEHICLE DATA
+AÑO *:YEAR *
+PATENTE *:PLATE *
+MODELO *:MODEL *
+MARCA *:MAKE *
+Nº CHASIS:CHASSIS No.
+Nº MOTOR:ENGINE No.
+DATOS DE LA COMPRA:PURCHASE DATA
+DNI VENDEDOR *:SELLER ID *
+Sin seleccionar:Not selected
+Nuevo cliente:New customer
+FECHA *:DATE *
+PRECIO *:PRICE *
+OBSERVACIONES:NOTES
+FALTAN COMPLETAR DATOS PARA SU REGISTRO:SOME DATA IS MISSING TO REGISTER IT
+AUTO REGISTRADO EXITOSAMENTE!:CAR SUCCESSFULLY REGISTERED!
+SISTEMA DE GESTIÓN AUTOMOTOR - Registrar vehículo:AUTOMOTIVE MANAGEMENT SYSTEM - Register vehicle
+Repetir contraseña:Repeat password
+Mínimo 6 caracteres.:At least 6 characters.
+Rol:Role
+El backup se realizó correctamente.:The backup was created successfully.
+Seleccione el archivo de backup que quiere restaurar.:Select the backup file you want to restore.
+Se van a reemplazar TODOS los datos actuales por los del backup.:ALL current data will be replaced with the backup data.
+Lo que se cargó después de ese backup se pierde.:Anything entered after that backup will be lost.
+¿Desea continuar?:Do you want to continue?
+(Todos):(All)
+registros:records
+Tablas protegidas:Protected tables
+La base de datos está íntegra. No se detectaron cambios externos.:The database is intact. No external changes were detected.
+Se detectaron cambios realizados por fuera del sistema:Changes made outside the system were detected
+Se van a aceptar los datos actuales como correctos y se recalcularán todos los dígitos verificadores.:The current data will be accepted as correct and all check digits will be recalculated.
+Los dígitos verificadores se recalcularon correctamente.:The check digits were recalculated successfully.
+Se detectaron cambios en la base de datos realizados por fuera del sistema.:Changes made to the database outside the system were detected.
+Solo un Administrador puede ingresar para revisarlo.:Only an Administrator can log in to review it.
+La base fue restaurada. Vuelva a iniciar sesión.:The database was restored. Please log in again.
+Vehículos en taller:Vehicles in workshop
+Chocados ingresados:Damaged cars received
+Ventas del mes:Sales this month
+Todavía no hay movimientos.:No activity yet.
+Hoy:Today
+Ayer:Yesterday
+¿Desea cerrar la sesión?:Do you want to log out?
+se implementa en una próxima etapa.:will be implemented in a later stage.
+Ocurrió un error inesperado:An unexpected error occurred
+Dueño:Owner
+Administrador:Administrator
+(ninguna):(none)
+(sin cliente):(no customer)
+AGENCIA:AGENCY
+Abierta:Open
+Abrir evidencia:Open evidence
+Actualizar:Refresh
+Agencia *:Agency *
+Agregar:Add
+Agregar a la familia:Add to family
+Agregar evidencia...:Add evidence...
+Agregar tarea:Add task
+Archivo:File
+Asignar familia:Assign family
+Asignar patente:Assign permission
+Buscador de autos:Car finder
+Cambiar prioridad:Change priority
+Carga de costos:Cost entry
+Cheque:Check
+Comisiones:Commissions
+Comisión:Commission
+Comisión %:Commission %
+Comisión de la agencia:Agency commission
+Comisión de la agencia (%) *:Agency commission (%) *
+Comprado (chocado):Purchased (damaged)
+Comprador:Buyer
+Consignaciones (autos en agencias):Consignments (cars at agencies)
+Consignación registrada. El auto quedó En agencia.:Consignment registered. The car is now At agency.
+Consultar pedidos de repuestos:View parts orders
+Consultar ventas:View sales
+Costo:Cost
+Costo de reparación:Repair cost
+Costo estimado:Estimated cost
+Crear familia:Create family
+DESHABILITADO:DISABLED
+DNI del comprador *:Buyer ID (DNI) *
+Dar de baja:Take down
+Descripción de daños *:Damage description *
+Diagnóstico:Diagnosis
+Diagnóstico finalizado.:Diagnosis finished.
+Diagnóstico guardado.:Diagnosis saved.
+Días en taller:Days in workshop
+Efectivo:Cash
+El auto quedó Vendido.:The car is now Sold.
+Eliminar familia seleccionada:Delete selected family
+En agencia:At agency
+En curso:In progress
+En diagnóstico:In diagnosis
+En reparación:In repair
+Entrega:Delivery
+Entrega registrada. El costo se sumó al presupuesto de la reparación.:Delivery registered. The cost was added to the repair budget.
+Entregado:Delivered
+Entregados:Delivered
+Entregar auto a una agencia:Deliver car to an agency
+Estado:Status
+Estado del auto:Car status
+Evidencias (fotos, videos o documentos):Evidence (photos, videos or documents)
+Exportar a CSV...:Export to CSV...
+Familia:Family
+Familia seleccionada:Selected family
+Familias:Families
+Familias y sus permisos:Families and their permissions
+Fecha de compra:Purchase date
+Fecha de entrega *:Delivery date *
+Fecha de venta *:Sale date *
+Fin:End
+Finalización:End date
+Finalizada:Finished
+Finalizado:Finished
+Finalizar:Finish
+Finalizar diagnóstico:Finish diagnosis
+Finalizar orden (auto reparado):Finish order (car repaired)
+Financiado:Financed
+Forma de pago *:Payment method *
+Ganancia:Profit
+Generar:Generate
+Gestión de la orden seleccionada:Selected order management
+Guardar cambios:Save changes
+Iniciar tarea:Start task
+Inicio:Start
+Inversión total:Total investment
+Mano de obra y otros:Labor and other
+Mostrar solo las publicaciones activas:Show only active listings
+Mostrar solo los autos que están en las agencias:Show only cars currently at agencies
+Mostrar también las tareas finalizadas:Also show finished tasks
+Mostrar también los autos que ya salieron del taller:Also show cars that already left the workshop
+No hay autos en agencias para vender.:There are no cars at agencies to sell.
+No hay autos en agencias sin publicar.:There are no unlisted cars at agencies.
+No hay autos en estado Reparado para entregar a una agencia.:There are no Repaired cars to deliver to an agency.
+No hay datos para exportar.:There is no data to export.
+No hay ningún cliente con ese DNI. ¿Desea darlo de alta?:There is no customer with that ID. Do you want to add one?
+No se encontró el archivo de la evidencia:The evidence file was not found
+Nueva consignación:New consignment
+Nueva familia:New family
+Nueva publicación:New listing
+Nueva venta:New sale
+Nuevo cliente...:New customer...
+Nuevo pedido:New order
+N°:No.
+OT:WO
+Observaciones:Notes
+Ocurrió un error inesperado. El detalle quedó registrado en la bitácora.:An unexpected error occurred. The details were saved in the log.
+Orden de trabajo *:Work order *
+Orden de trabajo finalizada. El auto quedó Reparado.:Work order finished. The car is now Repaired.
+Patrón Composite. Una familia puede contener patentes (permisos concretos) y otras familias. Seleccione una familia en el árbol para agregarle o quitarle elementos. La familia Administrador está protegida.:Composite pattern. A family can contain permissions and other families. Select a family in the tree to add or remove items. The Administrator family is protected.
+Pedido registrado con el número:Order registered with number
+Pedidos de repuestos:Parts orders
+Pendiente:Pending
+Pendientes:Pending
+Permisos (familias y patentes):Permissions (families and permissions)
+Permisos asignados:Assigned permissions
+Permisos de usuarios (familias y patentes):User permissions (families and permissions)
+Permisos efectivos (todas sus patentes):Effective permissions (all of them)
+Plataforma:Platform
+Plataforma *:Platform *
+Precio de compra:Purchase price
+Precio de venta:Sale price
+Precio de venta *:Sale price *
+Precio mínimo:Minimum price
+Precio mínimo de venta:Minimum sale price
+Precio mínimo de venta *:Minimum sale price *
+Precio publicado:Listed price
+Precio publicado *:Listed price *
+Precio unitario:Unit price
+Presupuesto:Budget
+Proveedor *:Supplier *
+Publicación registrada. El auto quedó Publicado.:Listing registered. The car is now Listed.
+Publicado:Listed
+Publicar:Publish
+Publicar auto:List car
+Quitar elemento seleccionado:Remove selected item
+Quitar permiso seleccionado:Remove selected permission
+Quitar repuesto:Remove part
+Registrar como finalizada:Mark as finished
+Registrar consignación:Register consignment
+Registrar entrega:Register delivery
+Registrar pedido de repuestos:Register parts order
+Registrar retiro:Register withdrawal
+Registrar venta:Register sale
+Reparado:Repaired
+Reporte:Report
+Reporte de presupuestos:Budgets report
+Reporte de reparaciones:Repairs report
+Reporte de vehículos:Vehicles report
+Reporte de ventas:Sales report
+Reporte exportado.:Report exported.
+Repuesto:Part
+Repuestos:Parts
+Repuestos del pedido seleccionado:Parts of the selected order
+Requiere reparación:Requires repair
+Retirada:Withdrawn
+Retiro / venta:Withdrawal / sale
+Seleccionar evidencia:Select evidence
+Seleccione en el árbol el elemento (patente o familia) que quiere quitar de su familia.:Select in the tree the item (permission or family) you want to remove from its family.
+Seleccione un pedido de la lista.:Select an order from the list.
+Seleccione un permiso del primer nivel del árbol (lo que está asignado directamente al usuario).:Select a first-level permission in the tree (assigned directly to the user).
+Seleccione un vehículo de la lista.:Select a vehicle from the list.
+Seleccione una consignación de la lista.:Select a consignment from the list.
+Seleccione una evidencia de la lista.:Select an evidence item from the list.
+Seleccione una familia del primer nivel del árbol.:Select a first-level family in the tree.
+Seleccione una orden de trabajo de la lista.:Select a work order from the list.
+Seleccione una publicación de la lista.:Select a listing from the list.
+Tarea:Task
+Tareas:Tasks
+Tareas de la orden seleccionada:Tasks of the selected order
+Tipo:Type
+Todos:All
+Total vendido:Total sold
+Transferencia:Bank transfer
+Vehículo en agencia *:Car at agency *
+Vehículo reparado *:Repaired car *
+Vendida:Sold
+Vendido:Sold
+Venta registrada con el número:Sale registered with number
+Vigente:Active
+registro(s):record(s)
+venta(s):sale(s)
+Ítems:Items
+Abiertas:Open
+Finalizadas:Finished
+Todas:All
+Modificar publicación:Edit listing
+Publicación modificada.:Listing updated.
+Solo se pueden modificar las publicaciones activas.:Only active listings can be edited.
+Exportar...:Export...
+Período:Period
+Stock al:Stock as of

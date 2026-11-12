@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    PRAS.Services: servicios "transversales" (los usa cualquier capa), armado así:
+      - Facade      -> lo ÚNICO público. Las otras capas solo llaman a estas clases.
+      - Logic       -> la lógica de cada servicio (internal).
+      - DataAccess  -> archivos y SQL de cada servicio (internal).
+      - DomainModel -> clases que viajan entre capas (LogEntry, LogLevel).
+    Servicios: Idioma (multi idioma), Logger (bitácora), Cryptography,
+               DigitoVerificador y Backup.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

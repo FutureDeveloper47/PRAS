@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PRAS.Entidades\PRAS.Entidades.csproj" />
+    <ProjectReference Include="..\PRAS.DAL\PRAS.DAL.csproj" />
+    <ProjectReference Include="..\PRAS.Services\PRAS.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- QuestPDF: arma los reportes en PDF (licencia Community, gratuita para este uso) -->
+    <PackageReference Include="QuestPDF" Version="2024.3.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,109 @@
+﻿using PRAS.BLL;
+using PRAS.Entidades;
+using PRAS.Services.Facade;
+using PRAS.Services.Facade.Extensions;
+using PRAS.BLL.Excepciones;
+
+namespace PRAS.UI
+{
+    /// <summary>
+    /// CU Seguridad.001 - Iniciar Sesión.
+    /// Si el login es correcto, el formulario se cierra con DialogResult.OK
+    /// y Program.cs abre el menú principal.
+    /// </summary>
+    public partial class FrmLogin : FormBase
+    {
+        private const int MaximoIntentos = 3;
+        private readonly UsuarioService _usuarioService = new UsuarioService();
+        private readonly IntegridadService _integridadService = new IntegridadService();
+        private readonly ClienteService _clienteService = new ClienteService();
+        private int _intentosFallidos = 0;
+
+        public FrmLogin()
+        {
+            InitializeComponent();
+        }
+
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Usuario usuario = _usuarioService.IniciarSesion(txtUsuario.Text, txtContrasena.Text);
+
+                // Pasamos al idioma que este usuario eligió la última vez
+                // (si nunca eligió, queda en español).
+                IdiomaService.CambiarIdioma(usuario.Idioma);
+
+                // Antes de entrar revisamos los dígitos verificadores, para ver que nadie
+                // haya tocado la base por afuera del sistema.
+                if (!IntegridadCorrecta(usuario))
+                {
+                    _usuarioService.CerrarSesion();
+                    IdiomaService.CambiarIdioma("es-AR");
+                    txtContrasena.Clear();
+                    return;
+                }
+
+                // Datos de clientes cargados antes del encriptado AES: se encriptan ahora (una sola vez).
+                _clienteService.EncriptarDatosPendientes();
+
+                DialogResult = DialogResult.OK;   // cierra el formulario
+            }
+            catch (ReglaNegocioException ex)
+            {
+                _intentosFallidos++;
+                if (_intentosFallidos >= MaximoIntentos)
+                {
+                    Mensajes.Advertencia($"Superó los {MaximoIntentos} intentos permitidos. El sistema se cerrará.");
+                    DialogResult = DialogResult.Cancel;
+                    return;
+                }
+
+                Mensajes.Advertencia(ex.Message);
+                txtContrasena.Clear();
+                txtContrasena.Focus();
+            }
+            catch (Exception ex)
+            {
+                if (Sesion.HayUsuarioLogueado)
+                    _usuarioService.CerrarSesion();
+                Mensajes.Error(ex);   // por ejemplo, no hay conexión con la base
+            }
+        }
+
+        /// <summary>
+        /// Verifica los dígitos verificadores (DVH y DVV). Devuelve true si se puede entrar.
+        /// - Si la base está bien: entra.
+        /// - Si hay problemas y es Administrador: se le muestra la pantalla de Integridad
+        ///   para que recalcule los dígitos o restaure un backup.
+        /// - Si hay problemas y NO es Administrador: no puede entrar.
+        /// </summary>
+        private bool IntegridadCorrecta(Usuario usuario)
+        {
+            List<string> errores = _integridadService.Verificar();
+            if (errores.Count == 0)
+                return true;
+
+            if (!Sesion.TienePermiso(Funcion.VerificarIntegridad))
+            {
+                Mensajes.Advertencia(
+                    "Se detectaron cambios en la base de datos realizados por fuera del sistema.".Traducir() + "\n\n" +
+                    "Solo un Administrador puede ingresar para revisarlo.".Traducir());
+                return false;
+            }
+
+            using (var frm = new FrmIntegridad(errores))
+            {
+                frm.ShowDialog(this);
+
+                if (frm.SeRestauroBackup)
+                {
+                    Mensajes.Info("La base fue restaurada. Vuelva a iniciar sesión.".Traducir());
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+}

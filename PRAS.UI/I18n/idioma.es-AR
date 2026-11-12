@@ -1,0 +1,372 @@
+﻿Domicilio:Domicilio
+Localidad:Localidad
+Teléfono:Teléfono
+Email:Email
+(*) Campo obligatorio:(*) Campo obligatorio
+Guardar:Guardar
+Cancelar:Cancelar
+Agencia:Agencia
+Buscar:Buscar
+Mostrar deshabilitadas:Mostrar deshabilitadas
+Razón social:Razón social
+CUIT:CUIT
+Activa:Activa
+Nueva:Nueva
+Modificar:Modificar
+Deshabilitar:Deshabilitar
+Cerrar:Cerrar
+Agencias:Agencias
+VEHÍCULO *:VEHÍCULO *
+Seleccionar mecánico *:Seleccionar mecánico *
+Diagnóstico inicial *:Diagnóstico inicial *
+Prioridad:Prioridad
+Baja:Baja
+Alta:Alta
+Media:Media
+GUARDAR Y ENVIAR:GUARDAR Y ENVIAR
+Asignación de Presupuesto:Asignación de Presupuesto
+Realizar backup:Realizar backup
+Archivo de destino:Archivo de destino
+Examinar...:Examinar...
+Restaurar backup:Restaurar backup
+Archivo de backup:Archivo de backup
+¡Atención! Se reemplazan todos los datos actuales por los del backup.:¡Atención! Se reemplazan todos los datos actuales por los del backup.
+Restaurar:Restaurar
+Backup y restore:Backup y restore
+Desde:Desde
+Hasta:Hasta
+Nivel:Nivel
+Usuario:Usuario
+Limpiar:Limpiar
+Fecha:Fecha
+Mensaje:Mensaje
+Detalle del error:Detalle del error
+Bitácora:Bitácora
+ESTADO:ESTADO
+Buscar Patente:Buscar Patente
+Patente:Patente
+Marca:Marca
+Modelo:Modelo
+Año:Año
+Color:Color
+0 vehículo(s):0 vehículo(s)
+Ver Detalle:Ver Detalle
+Eliminar:Eliminar
+BUSCADOR DE AUTOS:BUSCADOR DE AUTOS
+SELECCIONAR AUTO:SELECCIONAR AUTO
+Tipo de Gasto:Tipo de Gasto
+Descripción:Descripción
+Cantidad:Cantidad
+Precio unitario $:Precio unitario $
+Agregar gasto:Agregar gasto
+Cant.:Cant.
+Precio unit.:Precio unit.
+Subtotal:Subtotal
+Quitar gasto nuevo:Quitar gasto nuevo
+TOTAL ACUMULADO = $ 0,00:TOTAL ACUMULADO = $ 0,00
+Finalizar reparación:Finalizar reparación
+Carga de Costos:Carga de Costos
+Cliente:Cliente
+Compras (autos que le compró la empresa):Compras (autos que le compró la empresa)
+Vehículo:Vehículo
+Precio:Precio
+Forma de pago:Forma de pago
+Ventas (autos que compró):Ventas (autos que compró)
+Historial del cliente:Historial del cliente
+Mostrar deshabilitados:Mostrar deshabilitados
+Apellido:Apellido
+Nombre:Nombre
+DNI:DNI
+Activo:Activo
+Nuevo:Nuevo
+Historial:Historial
+Clientes:Clientes
+Dominio:Dominio
+Vendedor:Vendedor
+Nueva compra:Nueva compra
+Consultar compras:Consultar compras
+DETALLE:DETALLE
+Persona:Persona
+Monto:Monto
+Total:Total
+Si los cambios son correctos, recalcule los dígitos verificadores. Si no, restaure un backup anterior al problema.:Si los cambios son correctos, recalcule los dígitos verificadores. Si no, restaure un backup anterior al problema.
+Verificar nuevamente:Verificar nuevamente
+Recalcular dígitos:Recalcular dígitos
+Restaurar backup...:Restaurar backup...
+Integridad de datos:Integridad de datos
+PRAS - Ingreso:PRAS - Ingreso
+Contraseña:Contraseña
+Ingresar:Ingresar
+PRAS - Iniciar sesión:PRAS - Iniciar sesión
+Especialidad:Especialidad
+Mecánico:Mecánico
+Mecánicos:Mecánicos
+&Sistema:&Sistema
+Idioma:Idioma
+Cerrar sesión:Cerrar sesión
+Salir:Salir
+S&eguridad:S&eguridad
+Usuarios:Usuarios
+Verificar integridad:Verificar integridad
+&Maestros:&Maestros
+Proveedores:Proveedores
+&Compras:&Compras
+Registrar compra de vehículo:Registrar compra de vehículo
+&Taller:&Taller
+Asignación de presupuesto (ingreso a taller):Asignación de presupuesto (ingreso a taller)
+Registrar diagnóstico:Registrar diagnóstico
+Consultar diagnóstico:Consultar diagnóstico
+Órdenes de trabajo:Órdenes de trabajo
+Consultar órdenes de trabajo:Consultar órdenes de trabajo
+Registrar tareas realizadas:Registrar tareas realizadas
+&Repuestos:&Repuestos
+Registrar pedido:Registrar pedido
+Registrar entrega de pedido:Registrar entrega de pedido
+Consultar pedidos:Consultar pedidos
+C&omercial:C&omercial
+Consignaciones:Consignaciones
+Publicaciones:Publicaciones
+Ventas:Ventas
+Re&portes:Re&portes
+Vehículos:Vehículos
+Reparaciones:Reparaciones
+Presupuestos:Presupuestos
+TALLER:TALLER
+Ver detalle ›:Ver detalle ›
+INGRESOS:INGRESOS
+(en el mes actual):(en el mes actual)
+ACTIVIDAD RECIENTE:ACTIVIDAD RECIENTE
+SISTEMA - INICIO:SISTEMA - INICIO
+Proveedor:Proveedor
+DATOS DEL VEHÍCULO:DATOS DEL VEHÍCULO
+AÑO *:AÑO *
+PATENTE *:PATENTE *
+MODELO *:MODELO *
+MARCA *:MARCA *
+Nº CHASIS:Nº CHASIS
+Nº MOTOR:Nº MOTOR
+DATOS DE LA COMPRA:DATOS DE LA COMPRA
+DNI VENDEDOR *:DNI VENDEDOR *
+Sin seleccionar:Sin seleccionar
+Nuevo cliente:Nuevo cliente
+FECHA *:FECHA *
+PRECIO *:PRECIO *
+OBSERVACIONES:OBSERVACIONES
+FALTAN COMPLETAR DATOS PARA SU REGISTRO:FALTAN COMPLETAR DATOS PARA SU REGISTRO
+AUTO REGISTRADO EXITOSAMENTE!:AUTO REGISTRADO EXITOSAMENTE!
+SISTEMA DE GESTIÓN AUTOMOTOR - Registrar vehículo:SISTEMA DE GESTIÓN AUTOMOTOR - Registrar vehículo
+Repetir contraseña:Repetir contraseña
+Mínimo 6 caracteres.:Mínimo 6 caracteres.
+Rol:Rol
+El backup se realizó correctamente.:El backup se realizó correctamente.
+Seleccione el archivo de backup que quiere restaurar.:Seleccione el archivo de backup que quiere restaurar.
+Se van a reemplazar TODOS los datos actuales por los del backup.:Se van a reemplazar TODOS los datos actuales por los del backup.
+Lo que se cargó después de ese backup se pierde.:Lo que se cargó después de ese backup se pierde.
+¿Desea continuar?:¿Desea continuar?
+(Todos):(Todos)
+registros:registros
+Tablas protegidas:Tablas protegidas
+La base de datos está íntegra. No se detectaron cambios externos.:La base de datos está íntegra. No se detectaron cambios externos.
+Se detectaron cambios realizados por fuera del sistema:Se detectaron cambios realizados por fuera del sistema
+Se van a aceptar los datos actuales como correctos y se recalcularán todos los dígitos verificadores.:Se van a aceptar los datos actuales como correctos y se recalcularán todos los dígitos verificadores.
+Los dígitos verificadores se recalcularon correctamente.:Los dígitos verificadores se recalcularon correctamente.
+Se detectaron cambios en la base de datos realizados por fuera del sistema.:Se detectaron cambios en la base de datos realizados por fuera del sistema.
+Solo un Administrador puede ingresar para revisarlo.:Solo un Administrador puede ingresar para revisarlo.
+La base fue restaurada. Vuelva a iniciar sesión.:La base fue restaurada. Vuelva a iniciar sesión.
+Vehículos en taller:Vehículos en taller
+Chocados ingresados:Chocados ingresados
+Ventas del mes:Ventas del mes
+Todavía no hay movimientos.:Todavía no hay movimientos.
+Hoy:Hoy
+Ayer:Ayer
+¿Desea cerrar la sesión?:¿Desea cerrar la sesión?
+se implementa en una próxima etapa.:se implementa en una próxima etapa.
+Ocurrió un error inesperado:Ocurrió un error inesperado
+Dueño:Dueño
+Administrador:Administrador
+(ninguna):(ninguna)
+(sin cliente):(sin cliente)
+AGENCIA:AGENCIA
+Abierta:Abierta
+Abrir evidencia:Abrir evidencia
+Actualizar:Actualizar
+Agencia *:Agencia *
+Agregar:Agregar
+Agregar a la familia:Agregar a la familia
+Agregar evidencia...:Agregar evidencia...
+Agregar tarea:Agregar tarea
+Archivo:Archivo
+Asignar familia:Asignar familia
+Asignar patente:Asignar patente
+Buscador de autos:Buscador de autos
+Cambiar prioridad:Cambiar prioridad
+Carga de costos:Carga de costos
+Cheque:Cheque
+Comisiones:Comisiones
+Comisión:Comisión
+Comisión %:Comisión %
+Comisión de la agencia:Comisión de la agencia
+Comisión de la agencia (%) *:Comisión de la agencia (%) *
+Comprado (chocado):Comprado (chocado)
+Comprador:Comprador
+Consignaciones (autos en agencias):Consignaciones (autos en agencias)
+Consignación registrada. El auto quedó En agencia.:Consignación registrada. El auto quedó En agencia.
+Consultar pedidos de repuestos:Consultar pedidos de repuestos
+Consultar ventas:Consultar ventas
+Costo:Costo
+Costo de reparación:Costo de reparación
+Costo estimado:Costo estimado
+Crear familia:Crear familia
+DESHABILITADO:DESHABILITADO
+DNI del comprador *:DNI del comprador *
+Dar de baja:Dar de baja
+Descripción de daños *:Descripción de daños *
+Diagnóstico:Diagnóstico
+Diagnóstico finalizado.:Diagnóstico finalizado.
+Diagnóstico guardado.:Diagnóstico guardado.
+Días en taller:Días en taller
+Efectivo:Efectivo
+El auto quedó Vendido.:El auto quedó Vendido.
+Eliminar familia seleccionada:Eliminar familia seleccionada
+En agencia:En agencia
+En curso:En curso
+En diagnóstico:En diagnóstico
+En reparación:En reparación
+Entrega:Entrega
+Entrega registrada. El costo se sumó al presupuesto de la reparación.:Entrega registrada. El costo se sumó al presupuesto de la reparación.
+Entregado:Entregado
+Entregados:Entregados
+Entregar auto a una agencia:Entregar auto a una agencia
+Estado:Estado
+Estado del auto:Estado del auto
+Evidencias (fotos, videos o documentos):Evidencias (fotos, videos o documentos)
+Exportar a CSV...:Exportar a CSV...
+Familia:Familia
+Familia seleccionada:Familia seleccionada
+Familias:Familias
+Familias y sus permisos:Familias y sus permisos
+Fecha de compra:Fecha de compra
+Fecha de entrega *:Fecha de entrega *
+Fecha de venta *:Fecha de venta *
+Fin:Fin
+Finalización:Finalización
+Finalizada:Finalizada
+Finalizado:Finalizado
+Finalizar:Finalizar
+Finalizar diagnóstico:Finalizar diagnóstico
+Finalizar orden (auto reparado):Finalizar orden (auto reparado)
+Financiado:Financiado
+Forma de pago *:Forma de pago *
+Ganancia:Ganancia
+Generar:Generar
+Gestión de la orden seleccionada:Gestión de la orden seleccionada
+Guardar cambios:Guardar cambios
+Iniciar tarea:Iniciar tarea
+Inicio:Inicio
+Inversión total:Inversión total
+Mano de obra y otros:Mano de obra y otros
+Mostrar solo las publicaciones activas:Mostrar solo las publicaciones activas
+Mostrar solo los autos que están en las agencias:Mostrar solo los autos que están en las agencias
+Mostrar también las tareas finalizadas:Mostrar también las tareas finalizadas
+Mostrar también los autos que ya salieron del taller:Mostrar también los autos que ya salieron del taller
+No hay autos en agencias para vender.:No hay autos en agencias para vender.
+No hay autos en agencias sin publicar.:No hay autos en agencias sin publicar.
+No hay autos en estado Reparado para entregar a una agencia.:No hay autos en estado Reparado para entregar a una agencia.
+No hay datos para exportar.:No hay datos para exportar.
+No hay ningún cliente con ese DNI. ¿Desea darlo de alta?:No hay ningún cliente con ese DNI. ¿Desea darlo de alta?
+No se encontró el archivo de la evidencia:No se encontró el archivo de la evidencia
+Nueva consignación:Nueva consignación
+Nueva familia:Nueva familia
+Nueva publicación:Nueva publicación
+Nueva venta:Nueva venta
+Nuevo cliente...:Nuevo cliente...
+Nuevo pedido:Nuevo pedido
+N°:N°
+OT:OT
+Observaciones:Observaciones
+Ocurrió un error inesperado. El detalle quedó registrado en la bitácora.:Ocurrió un error inesperado. El detalle quedó registrado en la bitácora.
+Orden de trabajo *:Orden de trabajo *
+Orden de trabajo finalizada. El auto quedó Reparado.:Orden de trabajo finalizada. El auto quedó Reparado.
+Patrón Composite. Una familia puede contener patentes (permisos concretos) y otras familias. Seleccione una familia en el árbol para agregarle o quitarle elementos. La familia Administrador está protegida.:Patrón Composite. Una familia puede contener patentes (permisos concretos) y otras familias. Seleccione una familia en el árbol para agregarle o quitarle elementos. La familia Administrador está protegida.
+Pedido registrado con el número:Pedido registrado con el número
+Pedidos de repuestos:Pedidos de repuestos
+Pendiente:Pendiente
+Pendientes:Pendientes
+Permisos (familias y patentes):Permisos (familias y patentes)
+Permisos asignados:Permisos asignados
+Permisos de usuarios (familias y patentes):Permisos de usuarios (familias y patentes)
+Permisos efectivos (todas sus patentes):Permisos efectivos (todas sus patentes)
+Plataforma:Plataforma
+Plataforma *:Plataforma *
+Precio de compra:Precio de compra
+Precio de venta:Precio de venta
+Precio de venta *:Precio de venta *
+Precio mínimo:Precio mínimo
+Precio mínimo de venta:Precio mínimo de venta
+Precio mínimo de venta *:Precio mínimo de venta *
+Precio publicado:Precio publicado
+Precio publicado *:Precio publicado *
+Precio unitario:Precio unitario
+Presupuesto:Presupuesto
+Proveedor *:Proveedor *
+Publicación registrada. El auto quedó Publicado.:Publicación registrada. El auto quedó Publicado.
+Publicado:Publicado
+Publicar:Publicar
+Publicar auto:Publicar auto
+Quitar elemento seleccionado:Quitar elemento seleccionado
+Quitar permiso seleccionado:Quitar permiso seleccionado
+Quitar repuesto:Quitar repuesto
+Registrar como finalizada:Registrar como finalizada
+Registrar consignación:Registrar consignación
+Registrar entrega:Registrar entrega
+Registrar pedido de repuestos:Registrar pedido de repuestos
+Registrar retiro:Registrar retiro
+Registrar venta:Registrar venta
+Reparado:Reparado
+Reporte:Reporte
+Reporte de presupuestos:Reporte de presupuestos
+Reporte de reparaciones:Reporte de reparaciones
+Reporte de vehículos:Reporte de vehículos
+Reporte de ventas:Reporte de ventas
+Reporte exportado.:Reporte exportado.
+Repuesto:Repuesto
+Repuestos:Repuestos
+Repuestos del pedido seleccionado:Repuestos del pedido seleccionado
+Requiere reparación:Requiere reparación
+Retirada:Retirada
+Retiro / venta:Retiro / venta
+Seleccionar evidencia:Seleccionar evidencia
+Seleccione en el árbol el elemento (patente o familia) que quiere quitar de su familia.:Seleccione en el árbol el elemento (patente o familia) que quiere quitar de su familia.
+Seleccione un pedido de la lista.:Seleccione un pedido de la lista.
+Seleccione un permiso del primer nivel del árbol (lo que está asignado directamente al usuario).:Seleccione un permiso del primer nivel del árbol (lo que está asignado directamente al usuario).
+Seleccione un vehículo de la lista.:Seleccione un vehículo de la lista.
+Seleccione una consignación de la lista.:Seleccione una consignación de la lista.
+Seleccione una evidencia de la lista.:Seleccione una evidencia de la lista.
+Seleccione una familia del primer nivel del árbol.:Seleccione una familia del primer nivel del árbol.
+Seleccione una orden de trabajo de la lista.:Seleccione una orden de trabajo de la lista.
+Seleccione una publicación de la lista.:Seleccione una publicación de la lista.
+Tarea:Tarea
+Tareas:Tareas
+Tareas de la orden seleccionada:Tareas de la orden seleccionada
+Tipo:Tipo
+Todos:Todos
+Total vendido:Total vendido
+Transferencia:Transferencia
+Vehículo en agencia *:Vehículo en agencia *
+Vehículo reparado *:Vehículo reparado *
+Vendida:Vendida
+Vendido:Vendido
+Venta registrada con el número:Venta registrada con el número
+Vigente:Vigente
+registro(s):registro(s)
+venta(s):venta(s)
+Ítems:Ítems
+Abiertas:Abiertas
+Finalizadas:Finalizadas
+Todas:Todas
+Modificar publicación:Modificar publicación
+Publicación modificada.:Publicación modificada.
+Solo se pueden modificar las publicaciones activas.:Solo se pueden modificar las publicaciones activas.
+Exportar...:Exportar...
+Período:Período
+Stock al:Stock al

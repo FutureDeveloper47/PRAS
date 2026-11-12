@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>PRAS.UI</RootNamespace>
+    <!-- No se cruzan las capas: la UI solo "ve" los proyectos que referencia directamente
+         (BLL, Entidades y la fachada de Services). La DAL no es visible desde las pantallas,
+         aunque su .dll se copia igual porque la necesita la BLL para funcionar. -->
+    <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
+    <!-- Ícono del programa: lo muestra el .exe, los accesos directos y la barra de título de las pantallas -->
+    <ApplicationIcon>PRAS.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- El .ico también se copia junto al .exe para que el instalador lo use en los accesos directos -->
+  <ItemGroup>
+    <Content Include="PRAS.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PRAS.Entidades\PRAS.Entidades.csproj" />
+    <ProjectReference Include="..\PRAS.BLL\PRAS.BLL.csproj" />
+    <ProjectReference Include="..\PRAS.Services\PRAS.Services.csproj" />
+  </ItemGroup>
+
+  <!-- Script de instalación de la base: se copia junto al .exe (carpeta BaseDeDatos).
+       La primera vez que se abre el programa en una PC, crea las bases con este script. -->
+  <ItemGroup>
+    <None Include="..\BaseDeDatos\PRAS_InstalacionCompleta.sql" Link="BaseDeDatos\PRAS_InstalacionCompleta.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Archivos de idioma: se copian junto al .exe (carpeta I18n) -->
+  <ItemGroup>
+    <None Update="I18n\idioma.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Instalador: la DAL no es referencia directa de la UI (DisableTransitiveProjectReferences),
+       por eso al publicar no se incluía PRAS.DAL.dll y el programa instalado no arrancaba.
+       Este paso la agrega a la lista de archivos que se publican y que toma el instalador.
+       La UI sigue sin poder usar clases de la DAL en el código. -->
+  <Target Name="IncluirDalAlPublicar" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish Include="$(OutDir)PRAS.DAL.dll" Condition="Exists('$(OutDir)PRAS.DAL.dll')">
+        <RelativePath>PRAS.DAL.dll</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

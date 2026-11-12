@@ -1,0 +1,105 @@
+﻿PRAS - Sistema de gestión de compra, reparación y venta de autos
+Cuarta entrega - Matías Montoto
+=================================================================
+
+ARQUITECTURA
+- PRAS.Entidades : clases del negocio (Vehiculo, Cliente, Venta, ...).
+                   NO depende de ningún otro proyecto.
+- PRAS.DAL       : acceso a SQL Server (ADO.NET), armado con Repository + Adapter + Factory:
+    * Interfaces\        IGenericRepository<T>, ICrudRepository<T>, IAddRepository<T>,
+                         IGetByIdRepository<T>, IAdaptador<T> y una interfaz por
+                         repositorio (IClienteRepository, IVehiculoRepository, ...).
+    * Implementaciones\SqlServer\            un repositorio por tabla (23), sealed y
+                                             singleton (.Current), con #region Statements.
+    * Implementaciones\SqlServer\Adaptadores\ un adaptador por entidad (22): convierte
+                                             la fila de la base en el objeto.
+    * Factory\FactoryDataAccess  única puerta de entrada: la BLL pide los repositorios
+                                 acá y solo conoce las INTERFACES. Las implementaciones
+                                 y los adaptadores son internal.
+    * Tools\SqlHelper, Tools\Conexion (internal).
+- PRAS.BLL       : casos de uso y reglas de negocio (un servicio por caso de uso, en una
+                   carpeta por módulo). Usan FactoryDataAccess y tiran excepciones de
+                   negocio propias. Cada operación aplica la política de excepciones
+                   con try/catch y ExceptionManager, en todos los servicios.
+    * Excepciones\  una excepción base por tema (ClienteBusinessException,
+                    VehiculoBusinessException, TallerBusinessException, ...) y las
+                    excepciones concretas (ClienteDuplicadoException,
+                    PrecioMenorAlMinimoException, OrdenConPendientesException, ...).
+- PRAS.UI        : pantallas WinForms, una carpeta por módulo. Solo ve la BLL, las
+                   Entidades y la fachada de Services: la DAL NO es visible desde la UI
+                   (DisableTransitiveProjectReferences en PRAS.UI.csproj).
+- PRAS.Services  : servicios transversales. Desde afuera
+                   solo se ven Facade y DomainModel; Logic y DataAccess son internal.
+    * Bitácora (LoggerService)            * Multi idioma (IdiomaService)
+    * Backup y restore (BackupService)    * Dígitos verificadores
+    * Criptografía (CryptographyService)
+    * Permisos con patrón COMPOSITE (Familia / Patente) -> FamiliaService,
+      PatenteService y UsuarioPermisoService.
+    * Manejo de excepciones: ApplicationException, BusinessRuleException,
+      DataAccessException, ConcurrencyException, RecordNotFoundException,
+      UIException, ExceptionManager y ex.Handle() (ExceptionHandler).
+
+Referencias entre proyectos (no se cruzan las capas):
+  UI -> BLL, Entidades, Services (fachada)
+  BLL -> DAL (solo Factory e Interfaces), Entidades, Services (fachada)
+  DAL -> Entidades, Services (fachada y excepciones)
+  Entidades -> nada
+
+DOS BASES DE DATOS
+- PRAS           -> datos del negocio.
+- PRAS_Seguridad -> usuarios, permisos (familias y patentes),
+                    dígitos verificadores y bitácora.
+
+CASOS DE USO DE NEGOCIO
+- Compras: Registrar compra, Consultar compras, Buscador de autos.
+- Taller : Ingreso a taller, Registrar diagnóstico (con evidencias: fotos,
+           videos y documentos), Consultar diagnóstico, Carga de costos,
+           Órdenes de trabajo (prioridad, tareas, finalizar),
+           Consultar órdenes de trabajo, Registrar tareas realizadas.
+- Repuestos: Registrar pedido, Registrar entrega (el costo se suma solo al
+           presupuesto de la reparación), Consultar pedidos.
+- Comercial: Consignaciones (entregar y retirar autos de agencias),
+           Publicaciones, Registrar venta (comisión automática) y
+           Consultar ventas.
+- Reportes: Vehículos (stock e inversión), Reparaciones, Presupuestos y
+           Ventas (con la ganancia de cada auto). Exportan a CSV (Excel).
+- Maestros: Clientes (con historial), Mecánicos, Proveedores, Agencias.
+
+Ciclo de vida del auto:
+  Comprado -> En diagnóstico -> En reparación -> Reparado -> En agencia
+  -> Publicado -> Vendido
+
+REQUISITOS
+- Visual Studio 2022 con .NET 8 (desarrollo de escritorio .NET).
+- SQL Server (probado con LocalDB: (localdb)\MSSQLLocalDB).
+
+INSTALACIÓN DE LAS BASES DE DATOS
+A) Instalación nueva (PC sin las bases):
+     Ejecutar en SQL Server Management Studio:
+       BaseDeDatos\PRAS_InstalacionCompleta.sql
+     Crea PRAS y PRAS_Seguridad completas, con datos de prueba.
+B) PC que ya tenía las bases de la 3ra entrega:
+     Ejecutar SOLO:
+       BaseDeDatos\Actualizar_base_existente_Permisos.sql
+     Agrega las tablas de permisos (Composite) sin borrar nada.
+
+Si el servidor no es LocalDB, cambiar las cadenas de conexión "PRAS"
+y "PRAS_Seguridad" en PRAS.UI\App.config.
+
+EJECUTAR
+  Abrir PRAS.sln en Visual Studio, compilar y ejecutar (F5).
+  Los paquetes NuGet (Microsoft.Data.SqlClient) se descargan solos al compilar.
+
+USUARIOS DE PRUEBA (instalación nueva)
+  admin    / admin123     -> familia Administrador (todo)
+  dueno    / dueno123     -> familia Dueño (todo menos Seguridad)
+  mecanico / mecanico123  -> familia Mecánico (Carlos Ferreyra)
+
+PERMISOS (patrón Composite)
+  Seguridad > Permisos (familias y patentes).
+  - Patente = un permiso (una función del sistema).
+  - Familia = grupo de patentes y/o de otras familias.
+      Dueño         = Maestros + Compras + Taller + Repuestos + Comercial + Reportes
+      Administrador = Dueño + Seguridad
+  - A cada usuario se le asignan familias y/o patentes sueltas.
+  - El menú muestra solo las opciones de las patentes del usuario.
