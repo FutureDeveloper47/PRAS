@@ -822,3 +822,19 @@ Doble clic en un usuario para copiarlo en el ingreso. La respuesta de la pregunt
 deshabilitado:deshabilitado
 Revisando los datos de prueba...:Revisando los datos de prueba...
 Nombre y apellido:Nombre y apellido
+Administrar usuarios:Administrar usuarios
+Restablecer contraseña:Restablecer contraseña
+RESTABLECER CONTRASEÑA:RESTABLECER CONTRASEÑA
+Último ingreso:Último ingreso
+Habilitado:Habilitado
+Deshabilitado:Deshabilitado
+Nunca:Nunca
+Las contraseñas no se pueden ver:Las contraseñas no se pueden ver
+se guardan con hash SHA-256.:se guardan con hash SHA-256.
+La contraseña actual no se puede ver:La contraseña actual no se puede ver
+se guarda con hash SHA-256. Escriba una contraseña temporal y comuníquesela al usuario; después la puede cambiar en Mi perfil.:se guarda con hash SHA-256. Escriba una contraseña temporal y comuníquesela al usuario; después la puede cambiar en Mi perfil.
+Contraseña temporal:Contraseña temporal
+Se restableció la contraseña de {0}.:Se restableció la contraseña de {0}.
+Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.
+Habilitó al usuario "{0}".:Habilitó al usuario "{0}".
+Restableció la contraseña del usuario "{0}".:Restableció la contraseña del usuario "{0}".

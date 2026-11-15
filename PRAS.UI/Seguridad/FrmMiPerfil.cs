@@ -15,9 +15,33 @@ namespace PRAS.UI
     {
         private readonly UsuarioService _usuarioService = new UsuarioService();
 
+        /// <summary>Solo lo ve quien tiene el permiso de administrar usuarios (patente GestionarUsuarios).</summary>
+        private readonly Button btnAdministrarUsuarios = new Button();
+
         public FrmMiPerfil()
         {
             InitializeComponent();
+            AgregarAdministrarUsuarios();
+        }
+
+        /// <summary>
+        /// Botón "Administrar usuarios" (a la izquierda de Cerrar). Se decide por el PERMISO y no por el rol:
+        /// si el administrador le saca la patente a alguien, el botón desaparece (Composite).
+        /// </summary>
+        private void AgregarAdministrarUsuarios()
+        {
+            if (!Sesion.TienePermiso(Funcion.GestionarUsuarios))
+                return;
+
+            btnAdministrarUsuarios.Name = "btnAdministrarUsuarios";
+            btnAdministrarUsuarios.Text = "Administrar usuarios";
+            btnAdministrarUsuarios.SetBounds(grpDatos.Left, btnCerrar.Top, 200, btnCerrar.Height);
+            btnAdministrarUsuarios.Click += (sender, e) =>
+            {
+                using (var frm = new FrmUsuarios())
+                    frm.ShowDialog(this);
+            };
+            Controls.Add(btnAdministrarUsuarios);
         }
 
         private void FrmMiPerfil_Load(object sender, EventArgs e)

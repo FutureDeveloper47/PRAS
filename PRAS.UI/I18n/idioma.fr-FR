@@ -822,3 +822,19 @@ Doble clic en un usuario para copiarlo en el ingreso. La respuesta de la pregunt
 deshabilitado:désactivé
 Revisando los datos de prueba...:Vérification des données de test...
 Nombre y apellido:Nom et prénom
+Administrar usuarios:Gérer les utilisateurs
+Restablecer contraseña:Réinitialiser le mot de passe
+RESTABLECER CONTRASEÑA:RÉINITIALISER LE MOT DE PASSE
+Último ingreso:Dernière connexion
+Habilitado:Activé
+Deshabilitado:Désactivé
+Nunca:Jamais
+Las contraseñas no se pueden ver:Les mots de passe ne peuvent pas être affichés
+se guardan con hash SHA-256.:ils sont stockés sous forme de hachage SHA-256.
+La contraseña actual no se puede ver:Le mot de passe actuel ne peut pas être affiché
+se guarda con hash SHA-256. Escriba una contraseña temporal y comuníquesela al usuario; después la puede cambiar en Mi perfil.:il est stocké sous forme de hachage SHA-256. Saisissez un mot de passe temporaire et communiquez-le à l'utilisateur ; il pourra le changer dans Mon profil.
+Contraseña temporal:Mot de passe temporaire
+Se restableció la contraseña de {0}.:Le mot de passe de {0} a été réinitialisé.
+Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:Votre propre mot de passe se change dans Mon profil, en saisissant le mot de passe actuel.
+Habilitó al usuario "{0}".:A activé l'utilisateur « {0} ».
+Restableció la contraseña del usuario "{0}".:A réinitialisé le mot de passe de l'utilisateur « {0} ».

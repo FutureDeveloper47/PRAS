@@ -459,13 +459,80 @@ namespace PRAS.BLL
             }
         }
 
+        /// <summary>
+        /// Vuelve a habilitar un usuario deshabilitado. También es el paso que "aprueba" una cuenta
+        /// pedida desde la pantalla de ingreso (Solicitar cuenta), que nace deshabilitada.
+        /// </summary>
         public void Habilitar(int idUsuario)
         {
-            Sesion.ExigirPermiso(Funcion.GestionarUsuarios);
-            _repositorio.CambiarEstado(idUsuario, true);
+            try
+            {
+                Sesion.ExigirPermiso(Funcion.GestionarUsuarios);
 
-            DigitoVerificadorService.RecalcularRegistro("Usuario", idUsuario);
-            LoggerService.Info($"Habilitó al usuario con Id {idUsuario}.");
+                Usuario usuario = _repositorio.GetById(idUsuario)
+                    ?? throw new UsuarioNoEncontradoException(idUsuario);
+
+                _repositorio.CambiarEstado(idUsuario, true);
+
+                DigitoVerificadorService.RecalcularRegistro("Usuario", idUsuario);
+                LoggerService.Info($"Habilitó al usuario \"{usuario.NombreUsuario}\".");
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        // Restablecer contraseña (Mi perfil > Administrar usuarios)
+
+        /// <summary>
+        /// El administrador le pone una contraseña TEMPORAL a otro usuario (por ejemplo, si se la olvidó
+        /// y no tiene pregunta de seguridad). La contraseña anterior no se puede ver ni recuperar:
+        /// solo está guardado su hash SHA-256. La nueva también se guarda como hash.
+        /// </summary>
+        public void RestablecerContrasena(int idUsuario, string nueva, string confirmacion)
+        {
+            try
+            {
+                Sesion.ExigirPermiso(Funcion.GestionarUsuarios);
+
+                Usuario usuario = _repositorio.GetById(idUsuario)
+                    ?? throw new UsuarioNoEncontradoException(idUsuario);
+
+                // La propia se cambia en Mi perfil, escribiendo la actual.
+                if (idUsuario == Sesion.UsuarioActual.IdUsuario)
+                    throw new AutoRestablecimientoException();
+
+                ValidarContrasena(nueva, confirmacion);
+                _repositorio.CambiarContrasena(idUsuario, CalcularHash(nueva));
+
+                DigitoVerificadorService.RecalcularRegistro("Usuario", idUsuario);
+                LoggerService.Warn($"Restableció la contraseña del usuario \"{usuario.NombreUsuario}\".");
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
         }
 
         // Métodos de ayuda

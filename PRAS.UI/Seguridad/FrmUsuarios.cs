@@ -12,10 +12,89 @@ namespace PRAS.UI
     {
         private readonly UsuarioService _usuarioService = new UsuarioService();
 
+        // Columnas y botón agregados por código (Mi perfil > Administrar usuarios).
+        private readonly DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
+        private readonly DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn();
+        private readonly DataGridViewTextBoxColumn colUltimoIngreso = new DataGridViewTextBoxColumn();
+        private readonly Button btnRestablecer = new Button();
+        private readonly Label lblAvisoContrasenas = new Label();
+
         public FrmUsuarios()
         {
             InitializeComponent();
             dgvUsuarios.AutoGenerateColumns = false;   // usamos solo las columnas del diseñador
+            AgregarControlDeUsuarios();
+        }
+
+        /// <summary>
+        /// Lista completa para el control de usuarios: usuario, nombre, rol, estado y último ingreso,
+        /// y el botón "Restablecer contraseña". Las contraseñas NO aparecen en ningún lado:
+        /// se guardan con hash SHA-256 y no se pueden leer.
+        /// </summary>
+        private void AgregarControlDeUsuarios()
+        {
+            // La pantalla se agranda para que entren las columnas nuevas (la grilla está anclada y crece sola).
+            ClientSize = new Size(Math.Max(ClientSize.Width, 900), Math.Max(ClientSize.Height, 440));
+
+            colNombre.Name = "colNombre";
+            colNombre.HeaderText = "Nombre y apellido";
+            colNombre.DataPropertyName = nameof(Usuario.NombrePersona);   // del mecánico o de sus datos personales
+            colNombre.ReadOnly = true;
+
+            colEstado.Name = "colEstado";
+            colEstado.HeaderText = "Estado";
+            colEstado.DataPropertyName = nameof(Usuario.Activo);
+            colEstado.ReadOnly = true;
+
+            colUltimoIngreso.Name = "colUltimoIngreso";
+            colUltimoIngreso.HeaderText = "Último ingreso";
+            colUltimoIngreso.DataPropertyName = nameof(Usuario.UltimoIngreso);
+            colUltimoIngreso.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+            colUltimoIngreso.ReadOnly = true;
+
+            // El nombre reemplaza a la columna "Mecánico" (ya muestra el nombre del mecánico)
+            // y "Estado" en texto reemplaza a la casilla "Activo".
+            colMecanico.Visible = false;
+            colActivo.Visible = false;
+            dgvUsuarios.Columns.Insert(1, colNombre);
+            dgvUsuarios.Columns.Add(colEstado);
+            dgvUsuarios.Columns.Add(colUltimoIngreso);
+
+            // Botones de la derecha más anchos, y el nuevo debajo de Deshabilitar.
+            int anchoBotones = 180;
+            int x = ClientSize.Width - anchoBotones - 12;
+            dgvUsuarios.Width = x - dgvUsuarios.Left - 12;
+            foreach (Button boton in new[] { btnNuevo, btnModificar, btnDeshabilitar, btnCerrar })
+                boton.SetBounds(x, boton.Top, anchoBotones, boton.Height);
+
+            btnRestablecer.Name = "btnRestablecer";
+            btnRestablecer.Text = "Restablecer contraseña";
+            btnRestablecer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRestablecer.SetBounds(x, btnDeshabilitar.Bottom + 6, anchoBotones, btnDeshabilitar.Height);
+            btnRestablecer.Click += btnRestablecer_Click;
+            Controls.Add(btnRestablecer);
+
+            lblAvisoContrasenas.Name = "lblAvisoContrasenas";
+            lblAvisoContrasenas.Text = "Las contraseñas no se pueden ver: se guardan con hash SHA-256.";
+            lblAvisoContrasenas.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblAvisoContrasenas.SetBounds(x, btnRestablecer.Bottom + 8, anchoBotones, 110);
+            lblAvisoContrasenas.ForeColor = Tema.TextoApagado;
+            Controls.Add(lblAvisoContrasenas);
+        }
+
+        /// <summary>El administrador le pone una contraseña temporal a otro usuario.</summary>
+        private void btnRestablecer_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = UsuarioSeleccionado();
+            if (usuario == null)
+            {
+                Mensajes.Advertencia("Seleccione un usuario de la lista.");
+                return;
+            }
+
+            using var frm = new FrmRestablecerContrasena(usuario);
+            if (frm.ShowDialog(this) == DialogResult.OK)
+                CargarGrilla();
         }
 
         private void FrmUsuarios_Load(object sender, EventArgs e)
@@ -126,7 +205,23 @@ namespace PRAS.UI
         {
             if (dgvUsuarios.Columns[e.ColumnIndex] == colRol && e.Value is Rol rol)
             {
-                e.Value = Sesion.TextoRol(rol);
+                e.Value = Sesion.TextoRol(rol).Traducir();
+                e.FormattingApplied = true;
+            }
+            else if (dgvUsuarios.Columns[e.ColumnIndex] == colEstado && e.Value is bool activo)
+            {
+                e.Value = (activo ? "Habilitado" : "Deshabilitado").Traducir();
+                e.CellStyle.ForeColor = activo ? Tema.Texto : Tema.Peligro;
+                e.FormattingApplied = true;
+            }
+            else if (dgvUsuarios.Columns[e.ColumnIndex] == colUltimoIngreso && e.Value == null)
+            {
+                e.Value = "Nunca".Traducir();
+                e.FormattingApplied = true;
+            }
+            else if (dgvUsuarios.Columns[e.ColumnIndex] == colNombre && e.Value == null)
+            {
+                e.Value = "-";
                 e.FormattingApplied = true;
             }
             else if (dgvUsuarios.Columns[e.ColumnIndex] == colMecanico)

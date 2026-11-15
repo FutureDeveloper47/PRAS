@@ -822,3 +822,19 @@ Doble clic en un usuario para copiarlo en el ingreso. La respuesta de la pregunt
 deshabilitado:disabled
 Revisando los datos de prueba...:Checking test data...
 Nombre y apellido:Full name
+Administrar usuarios:Manage users
+Restablecer contraseña:Reset password
+RESTABLECER CONTRASEÑA:RESET PASSWORD
+Último ingreso:Last login
+Habilitado:Enabled
+Deshabilitado:Disabled
+Nunca:Never
+Las contraseñas no se pueden ver:Passwords cannot be viewed
+se guardan con hash SHA-256.:they are stored as SHA-256 hashes.
+La contraseña actual no se puede ver:The current password cannot be viewed
+se guarda con hash SHA-256. Escriba una contraseña temporal y comuníquesela al usuario; después la puede cambiar en Mi perfil.:it is stored as a SHA-256 hash. Type a temporary password and give it to the user; they can change it later in My profile.
+Contraseña temporal:Temporary password
+Se restableció la contraseña de {0}.:The password of {0} was reset.
+Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:Your own password is changed from My profile, by typing the current password.
+Habilitó al usuario "{0}".:Enabled user "{0}".
+Restableció la contraseña del usuario "{0}".:Reset the password of user "{0}".
