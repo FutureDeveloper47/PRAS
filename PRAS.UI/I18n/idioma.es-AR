@@ -919,3 +919,17 @@ Ingrese su usuario y su contraseña.:Ingrese su usuario y su contraseña.
 Compra de autos chocados · Taller · Agencia:Compra de autos chocados · Taller · Agencia
 Versión {0}:Versión {0}
 Bloq Mayús está activado.:Bloq Mayús está activado.
+Hola:Hola
+SISTEMA:SISTEMA
+ÚLTIMOS EVENTOS DE LA BITÁCORA:ÚLTIMOS EVENTOS DE LA BITÁCORA
+Integridad:Integridad
+la base está íntegra (DVH y DVV correctos).:la base está íntegra (DVH y DVV correctos).
+{0} problema(s) detectado(s).:{0} problema(s) detectado(s).
+no se pudo verificar.:no se pudo verificar.
+Último backup:Último backup
+nunca (desde 2024).:nunca (desde 2024).
+{0} en total, {1} activos, {2} deshabilitados, {3} solicitud(es) pendiente(s).:{0} en total, {1} activos, {2} deshabilitados, {3} solicitud(es) pendiente(s).
+Sin eventos en los últimos 30 días.:Sin eventos en los últimos 30 días.
+Backup:Backup
+Se crearon los usuarios de prueba:Se crearon los usuarios de prueba
+Se cargaron los datos de prueba del negocio ({0} cliente(s) nuevos).:Se cargaron los datos de prueba del negocio ({0} cliente(s) nuevos).

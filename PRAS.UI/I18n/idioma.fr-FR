@@ -919,3 +919,17 @@ Ingrese su usuario y su contraseña.:Saisissez votre utilisateur et votre mot de
 Compra de autos chocados · Taller · Agencia:Achat de voitures accidentées · Atelier · Agence
 Versión {0}:Version {0}
 Bloq Mayús está activado.:La touche Verr. Maj est activée.
+Hola:Bonjour
+SISTEMA:SYSTÈME
+ÚLTIMOS EVENTOS DE LA BITÁCORA:DERNIERS ÉVÉNEMENTS DU JOURNAL
+Integridad:Intégrité
+la base está íntegra (DVH y DVV correctos).:la base est intègre (DVH et DVV corrects).
+{0} problema(s) detectado(s).:{0} problème(s) détecté(s).
+no se pudo verificar.:impossible de vérifier.
+Último backup:Dernière sauvegarde
+nunca (desde 2024).:jamais (depuis 2024).
+{0} en total, {1} activos, {2} deshabilitados, {3} solicitud(es) pendiente(s).:{0} au total, {1} actifs, {2} désactivés, {3} demande(s) en attente.
+Sin eventos en los últimos 30 días.:Aucun événement au cours des 30 derniers jours.
+Backup:Sauvegarde
+Se crearon los usuarios de prueba:Les utilisateurs de test ont été créés
+Se cargaron los datos de prueba del negocio ({0} cliente(s) nuevos).:Les données de test ont été chargées ({0} nouveau(x) client(s)).

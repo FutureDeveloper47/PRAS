@@ -919,3 +919,17 @@ Ingrese su usuario y su contraseña.:Enter your user name and password.
 Compra de autos chocados · Taller · Agencia:Damaged car purchases · Workshop · Agency
 Versión {0}:Version {0}
 Bloq Mayús está activado.:Caps Lock is on.
+Hola:Hello
+SISTEMA:SYSTEM
+ÚLTIMOS EVENTOS DE LA BITÁCORA:LATEST LOG EVENTS
+Integridad:Integrity
+la base está íntegra (DVH y DVV correctos).:the database is intact (DVH and DVV are correct).
+{0} problema(s) detectado(s).:{0} problem(s) found.
+no se pudo verificar.:could not be checked.
+Último backup:Last backup
+nunca (desde 2024).:never (since 2024).
+{0} en total, {1} activos, {2} deshabilitados, {3} solicitud(es) pendiente(s).:{0} in total, {1} active, {2} disabled, {3} pending request(s).
+Sin eventos en los últimos 30 días.:No events in the last 30 days.
+Backup:Backup
+Se crearon los usuarios de prueba:Test users were created
+Se cargaron los datos de prueba del negocio ({0} cliente(s) nuevos).:Business test data was loaded ({0} new customer(s)).

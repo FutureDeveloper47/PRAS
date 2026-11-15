@@ -1,7 +1,9 @@
 using System.Globalization;
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.DomainModel;
 using PRAS.Services.Facade;
+using PRAS.Services.Facade.ExtensionsMethods;
 using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
@@ -59,6 +61,239 @@ namespace PRAS.UI
             PrepararActividad();
             CrearInicioMecanico();
             CrearMenuTema();
+            CrearEncabezadoInicio();
+            CrearPanelSistema();
+        }
+
+        // Saludo y "Actualizar" (arriba del inicio, para todos)
+
+        private readonly Label lblSaludo = new Label();
+        private readonly Button btnActualizarInicio = new Button();
+
+        private void CrearEncabezadoInicio()
+        {
+            lblSaludo.Name = "lblSaludo";
+            lblSaludo.AutoSize = false;
+            lblSaludo.TextAlign = ContentAlignment.MiddleLeft;
+            lblSaludo.Font = new Font("Segoe UI", 10.5F);
+            pnlInicio.Controls.Add(lblSaludo);
+
+            btnActualizarInicio.Name = "btnActualizarInicio";
+            btnActualizarInicio.Text = "Actualizar";
+            btnActualizarInicio.Click += (sender, e) => CargarInicio();
+            pnlInicio.Controls.Add(btnActualizarInicio);
+        }
+
+        /// <summary>"Hola, Matías Montoto · domingo, 15 de noviembre de 2026" (en el idioma elegido).</summary>
+        private void MostrarSaludo()
+        {
+            Usuario usuario = Sesion.UsuarioActual;
+            if (usuario == null)
+                return;
+            string nombre = usuario.NombrePersona ?? usuario.NombreUsuario;
+            string fecha = DateTime.Today.ToString("D", CultureInfo.CurrentCulture);
+            lblSaludo.Text = $"{"Hola".Traducir()}, {nombre}  ·  {fecha}";
+        }
+
+        // Panel SISTEMA (solo para quien administra la seguridad)
+
+        private readonly Panel pnlSistema = new Panel();
+        private readonly Label lblSistemaTitulo = new Label();
+        private readonly Label lblIntegridadIndicador = new Label();
+        private readonly Label lblIntegridadDato = new Label();
+        private readonly Label lblBackupDato = new Label();
+        private readonly Label lblUsuariosDato = new Label();
+        private readonly Label lblEventosTitulo = new Label();
+        private readonly ListBox lstEventos = new ListBox();
+        private readonly FlowLayoutPanel pnlAccesos = new FlowLayoutPanel();
+        private readonly List<(Button Boton, Funcion Permiso)> _accesosSistema = new List<(Button, Funcion)>();
+        private readonly IntegridadService _integridadService = new IntegridadService();
+        private readonly BitacoraService _bitacoraService = new BitacoraService();
+
+        /// <summary>
+        /// Panel del administrador del sistema: integridad (DVH/DVV) con color, último backup, usuarios
+        /// (activos, deshabilitados y solicitudes pendientes), últimos eventos de la bitácora y accesos rápidos.
+        /// Todo sale de servicios que ya existen; cada dato y cada botón aparece solo con su permiso (Composite).
+        /// </summary>
+        private void CrearPanelSistema()
+        {
+            pnlSistema.Name = "pnlSistema";
+            pnlSistema.BorderStyle = BorderStyle.FixedSingle;   // Tema lo dibuja como tarjeta
+            pnlSistema.Visible = false;
+
+            lblSistemaTitulo.Name = "lblSistemaTitulo";
+            lblSistemaTitulo.Text = "SISTEMA";
+            lblSistemaTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblSistemaTitulo.AutoSize = true;
+
+            // Indicador de integridad: un círculo de color (verde = bien, rojo = cambios por fuera del sistema).
+            lblIntegridadIndicador.Name = "lblIntegridadIndicador";
+            lblIntegridadIndicador.Text = "●";
+            lblIntegridadIndicador.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblIntegridadIndicador.AutoSize = true;
+
+            foreach (Label dato in new[] { lblIntegridadDato, lblBackupDato, lblUsuariosDato })
+            {
+                dato.AutoSize = false;
+                dato.Font = new Font("Segoe UI", 10.5F);
+                dato.Cursor = Cursors.Hand;   // los datos llevan a la pantalla que corresponde
+            }
+            lblIntegridadDato.Name = "lblIntegridadDato";
+            lblBackupDato.Name = "lblBackupDato";
+            lblUsuariosDato.Name = "lblUsuariosDato";
+            lblIntegridadDato.Click += (sender, e) => { if (Sesion.TienePermiso(Funcion.VerificarIntegridad)) mnuIntegridad_Click(sender, e); };
+            lblIntegridadIndicador.Click += (sender, e) => { if (Sesion.TienePermiso(Funcion.VerificarIntegridad)) mnuIntegridad_Click(sender, e); };
+            lblBackupDato.Click += (sender, e) => { if (Sesion.TienePermiso(Funcion.RealizarBackup)) mnuBackup_Click(sender, e); };
+            lblUsuariosDato.Click += (sender, e) => { if (Sesion.TienePermiso(Funcion.GestionarUsuarios)) mnuUsuarios_Click(sender, e); };
+
+            lblEventosTitulo.Name = "lblEventosTitulo";
+            lblEventosTitulo.Text = "ÚLTIMOS EVENTOS DE LA BITÁCORA";
+            lblEventosTitulo.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblEventosTitulo.AutoSize = true;
+
+            lstEventos.Name = "lstEventos";
+            lstEventos.IntegralHeight = false;
+            lstEventos.SelectionMode = SelectionMode.None;
+            lstEventos.Cursor = Cursors.Hand;
+            lstEventos.Click += (sender, e) => { if (Sesion.TienePermiso(Funcion.VerBitacora)) mnuBitacora_Click(sender, e); };
+
+            pnlAccesos.Name = "pnlAccesos";
+            pnlAccesos.WrapContents = true;
+            AgregarAcceso("btnAccesoBackup", "Backup", Funcion.RealizarBackup, mnuBackup_Click);
+            AgregarAcceso("btnAccesoBitacora", "Bitácora", Funcion.VerBitacora, mnuBitacora_Click);
+            AgregarAcceso("btnAccesoPermisos", "Permisos", Funcion.GestionarPermisos, mnuPermisos_Click);
+            AgregarAcceso("btnAccesoUsuarios", "Administrar usuarios", Funcion.GestionarUsuarios, mnuUsuarios_Click);
+            AgregarAcceso("btnAccesoIntegridad", "Integridad", Funcion.VerificarIntegridad, mnuIntegridad_Click);
+
+            pnlSistema.Controls.AddRange(new Control[] { lblSistemaTitulo, lblIntegridadIndicador, lblIntegridadDato, lblBackupDato,
+                                                         lblUsuariosDato, lblEventosTitulo, lstEventos, pnlAccesos });
+            pnlInicio.Controls.Add(pnlSistema);
+        }
+
+        private void AgregarAcceso(string nombre, string texto, Funcion permiso, EventHandler accion)
+        {
+            var boton = new Button { Name = nombre, Text = texto, AutoSize = true, Padding = new Padding(10, 2, 10, 2), Margin = new Padding(0, 0, 8, 8) };
+            boton.Click += accion;
+            pnlAccesos.Controls.Add(boton);
+            _accesosSistema.Add((boton, permiso));
+        }
+
+        /// <summary>El panel SISTEMA se ve si el usuario tiene alguna de las funciones de Seguridad.</summary>
+        private bool MostrarPanelSistema()
+        {
+            return Sesion.HayUsuarioLogueado && _inicioService.PuedeVerResumen()
+                && _accesosSistema.Any(a => Sesion.TienePermiso(a.Permiso));
+        }
+
+        private void CargarPanelSistema()
+        {
+            bool mostrar = MostrarPanelSistema();
+            pnlSistema.Visible = mostrar;
+            if (!mostrar)
+                return;
+
+            foreach (var acceso in _accesosSistema)
+                acceso.Boton.Visible = Sesion.TienePermiso(acceso.Permiso);
+
+            // Integridad (DVH y DVV)
+            try
+            {
+                List<string> problemas = _integridadService.Verificar();
+                bool bien = problemas.Count == 0;
+                lblIntegridadIndicador.ForeColor = bien ? Tema.Exito : Tema.Peligro;
+                lblIntegridadDato.Text = bien
+                    ? "Integridad: la base está íntegra (DVH y DVV correctos).".TraducirMensaje()
+                    : $"Integridad: {problemas.Count} problema(s) detectado(s).".TraducirMensaje();
+                lblIntegridadDato.ForeColor = bien ? Tema.Texto : Tema.Peligro;
+            }
+            catch (Exception ex)
+            {
+                lblIntegridadIndicador.ForeColor = Tema.TextoApagado;
+                lblIntegridadDato.Text = "Integridad: no se pudo verificar.".TraducirMensaje();
+                ex.Handle();
+            }
+
+            // Último backup y últimos eventos: salen de la bitácora (cada backup queda registrado ahí).
+            if (Sesion.TienePermiso(Funcion.VerBitacora))
+            {
+                try
+                {
+                    List<LogEntry> backups = _bitacoraService.Listar(FiltroFechas.DesdePorDefecto, DateTime.Today, null, "", "Realizó un backup");
+                    LogEntry ultimo = backups.OrderByDescending(b => b.TimeStamp).FirstOrDefault();
+                    lblBackupDato.Text = ultimo == null
+                        ? "Último backup: nunca (desde 2024).".TraducirMensaje()
+                        : $"Último backup: {ultimo.TimeStamp:dd/MM/yyyy HH:mm}".TraducirMensaje();
+                    lblBackupDato.ForeColor = ultimo == null || ultimo.TimeStamp < DateTime.Today.AddDays(-7) ? Tema.Peligro : Tema.Texto;
+
+                    lstEventos.Items.Clear();
+                    foreach (LogEntry evento in _bitacoraService.Listar(DateTime.Today.AddDays(-30), DateTime.Today, null, "", "")
+                                                               .OrderByDescending(b => b.TimeStamp).Take(8))
+                        lstEventos.Items.Add($"{evento.TimeStamp:dd/MM HH:mm}  {evento.Usuario}  {evento.Message.TraducirMensaje()}");
+                    if (lstEventos.Items.Count == 0)
+                        lstEventos.Items.Add("Sin eventos en los últimos 30 días.".Traducir());
+                }
+                catch (Exception ex)
+                {
+                    ex.Handle();
+                }
+            }
+            lblBackupDato.Visible = lblEventosTitulo.Visible = lstEventos.Visible = Sesion.TienePermiso(Funcion.VerBitacora);
+
+            // Usuarios: total, activos, deshabilitados y solicitudes de acceso pendientes
+            // (una cuenta pedida desde el ingreso queda deshabilitada y nunca entró).
+            if (Sesion.TienePermiso(Funcion.GestionarUsuarios))
+            {
+                try
+                {
+                    List<Usuario> usuarios = _usuarioService.Listar(true);
+                    int activos = usuarios.Count(u => u.Activo);
+                    int deshabilitados = usuarios.Count - activos;
+                    int pendientes = usuarios.Count(u => !u.Activo && u.UltimoIngreso == null);
+                    lblUsuariosDato.Text = $"Usuarios: {usuarios.Count} en total, {activos} activos, {deshabilitados} deshabilitados, {pendientes} solicitud(es) pendiente(s).".TraducirMensaje();
+                    lblUsuariosDato.ForeColor = pendientes > 0 ? Tema.Peligro : Tema.Texto;
+                }
+                catch (Exception ex)
+                {
+                    ex.Handle();
+                }
+            }
+            lblUsuariosDato.Visible = Sesion.TienePermiso(Funcion.GestionarUsuarios);
+            AcomodarInicio();
+        }
+
+        /// <summary>Ubica los datos del panel SISTEMA según su tamaño.</summary>
+        private void AcomodarPanelSistema()
+        {
+            // Medidas pensadas al 100 %: se multiplican por la escala de Windows (k).
+            float k = DeviceDpi / 96f;
+            int S(int valor) => (int)(valor * k);
+            int ancho = pnlSistema.ClientSize.Width;
+            int alto = pnlSistema.ClientSize.Height;
+            int m = S(14);
+            int renglon = S(26);
+            lblSistemaTitulo.Location = new Point(m, S(10));
+            int y = lblSistemaTitulo.Bottom + S(4);
+            lblIntegridadIndicador.Location = new Point(m - S(3), y - S(4));
+            lblIntegridadDato.SetBounds(m + S(22), y, ancho - 2 * m - S(22), renglon);
+            y += renglon;
+            foreach (Label dato in new[] { lblBackupDato, lblUsuariosDato })
+            {
+                if (!dato.Visible)
+                    continue;
+                dato.SetBounds(m, y, ancho - 2 * m, renglon);
+                y += renglon;
+            }
+
+            // Los accesos rápidos pueden ocupar uno o dos renglones según el ancho.
+            int altoAccesos = pnlAccesos.GetPreferredSize(new Size(ancho - 2 * m, 0)).Height;
+            pnlAccesos.SetBounds(m, alto - altoAccesos - S(6), ancho - 2 * m, altoAccesos);
+            int abajoEventos = pnlAccesos.Top - 8;
+            if (lstEventos.Visible)
+            {
+                lblEventosTitulo.Location = new Point(m, y + 8);
+                int arribaLista = lblEventosTitulo.Bottom + 4;
+                lstEventos.SetBounds(m, arribaLista, ancho - 2 * m, Math.Max(40, abajoEventos - arribaLista));
+            }
         }
 
         // Tema claro / oscuro
@@ -119,7 +354,7 @@ namespace PRAS.UI
 
             const int margen = 24;
             const int separacion = 20;
-            const int arribaTarjetas = 75;
+            const int arribaTarjetas = 92;
 
             int arriba = menuPrincipal.Bottom + 10;
             int abajo = barraEstado.Top - 10;
@@ -128,12 +363,22 @@ namespace PRAS.UI
 
             pnlInicio.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             pnlInicio.SetBounds(Math.Max(0, (ClientSize.Width - ancho) / 2), arriba, ancho, alto);
-            lblTitulo.SetBounds(0, 5, ancho, 50);
+            lblTitulo.SetBounds(0, 0, ancho, 50);
+            lblSaludo.SetBounds(0, 52, ancho - 160, 28);
+            btnActualizarInicio.SetBounds(ancho - 140, 50, 140, 32);
 
             int columna = (ancho - 2 * separacion) / 4;
             int altoTarjetas = alto - arribaTarjetas - 5;
-            pnlTaller.SetBounds(0, arribaTarjetas, columna, altoTarjetas);
-            pnlIngresos.SetBounds(columna + separacion, arribaTarjetas, columna, altoTarjetas);
+            // Si se ve el panel SISTEMA, TALLER e INGRESOS se achican y el panel ocupa el espacio de abajo.
+            int altoIzquierda = MostrarPanelSistema() ? Math.Max(170, altoTarjetas * 36 / 100) : altoTarjetas;
+            pnlTaller.SetBounds(0, arribaTarjetas, columna, altoIzquierda);
+            pnlIngresos.SetBounds(columna + separacion, arribaTarjetas, columna, altoIzquierda);
+            if (MostrarPanelSistema())
+            {
+                pnlSistema.SetBounds(0, arribaTarjetas + altoIzquierda + separacion, 2 * columna + separacion,
+                                     altoTarjetas - altoIzquierda - separacion);
+                AcomodarPanelSistema();
+            }
 
             int xDerecha = 2 * (columna + separacion);
             int anchoDerecha = ancho - xDerecha;
@@ -245,6 +490,7 @@ namespace PRAS.UI
             lblActividadTitulo.Visible = puedeVer;
             lstActividad.Visible = puedeVer;
             pnlMecanico.Visible = !puedeVer;
+            MostrarSaludo();
 
             if (!puedeVer)
             {
@@ -254,6 +500,7 @@ namespace PRAS.UI
 
             try
             {
+                CargarPanelSistema();
                 ResumenInicio resumen = _inicioService.ObtenerResumen();
 
                 lblTallerDato.Text = $"{"Vehículos en taller".Traducir()}: {resumen.VehiculosEnTaller}";
