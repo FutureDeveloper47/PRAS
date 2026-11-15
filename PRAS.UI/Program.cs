@@ -25,6 +25,9 @@ namespace PRAS.UI
             // 0) Arrancamos en español. Al iniciar sesión pasa al idioma de cada usuario.
             IdiomaService.CambiarIdioma("es-AR");
 
+            // Tema: antes de iniciar sesión se usa el último que se usó en esta PC (presentación e ingreso).
+            Tema.CambiarModo(PreferenciasLocales.TemaOscuroDe(null));
+
             var sistema = new SistemaService();
 
             // Pantalla de presentación mientras revisamos la base de datos.
@@ -117,6 +120,9 @@ namespace PRAS.UI
                     if (login.ShowDialog() != DialogResult.OK)
                         return;   // canceló o se pasó de intentos, cerramos el programa
                 }
+
+                // Cada usuario ve el tema que eligió la última vez (se guarda en %AppData%\PRAS).
+                Tema.CambiarModo(PreferenciasLocales.TemaOscuroDe(Sesion.UsuarioActual?.NombreUsuario));
 
                 var principal = new FrmPrincipal();
                 Application.Run(principal);

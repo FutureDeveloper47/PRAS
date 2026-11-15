@@ -49,7 +49,7 @@ namespace PRAS.UI
             lblTitular.AutoSize = false;
             lblTitular.SetBounds(txtUsuario.Left, txtUsuario.Bottom + 6, btnVerPregunta.Right - txtUsuario.Left, 20);
             lblTitular.Font = new Font(Font, FontStyle.Bold);
-            lblTitular.ForeColor = Tema.Primario;
+            lblTitular.ForeColor = Tema.Acento;
             Controls.Add(lblTitular);
         }
 

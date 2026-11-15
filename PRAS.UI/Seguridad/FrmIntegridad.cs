@@ -67,7 +67,7 @@ namespace PRAS.UI
             if (_errores.Count == 0)
             {
                 lblEstado.Text = "La base de datos está íntegra. No se detectaron cambios externos.".Traducir();
-                lblEstado.ForeColor = Color.FromArgb(46, 125, 50);   // verde
+                lblEstado.ForeColor = Tema.Exito;   // verde
                 btnRecalcular.Enabled = false;
             }
             else

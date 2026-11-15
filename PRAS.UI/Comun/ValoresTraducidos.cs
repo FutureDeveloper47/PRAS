@@ -54,8 +54,7 @@ namespace PRAS.UI
             // Las listas dibujadas "a mano" (OwnerDraw) ya traducen su propio texto.
             if (lista is ListBox listBox && listBox.DrawMode != DrawMode.Normal)
                 return;
-            if (lista is ComboBox combo && combo.DrawMode != DrawMode.Normal)
-                return;
+            // (Los combos dibujados por el Tema sí se conectan: dibujan con GetItemText, que usa Format.)
 
             lista.FormattingEnabled = true;   // sin esto, el evento Format no se dispara
             lista.Format -= Lista_Format;

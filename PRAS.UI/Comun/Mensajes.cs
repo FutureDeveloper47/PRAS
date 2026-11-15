@@ -8,26 +8,24 @@ namespace PRAS.UI
     /// muestren los avisos y errores de la misma forma.
     /// Todos los textos pasan por TraducirMensaje(): así cualquier aviso sale en el idioma
     /// elegido, aunque traiga datos (ej: "¿Deshabilitar al mecánico Juan Perez?").
+    /// Se muestran con FrmMensaje (y no con MessageBox) para que respeten el tema claro u oscuro.
     /// </summary>
     public static class Mensajes
     {
-        private const string Titulo = "PRAS";
-
         public static void Info(string texto)
         {
-            MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FrmMensaje.Mostrar(texto.TraducirMensaje(), FrmMensaje.Tipo.Informacion);
         }
 
         public static void Advertencia(string texto)
         {
-            MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            FrmMensaje.Mostrar(texto.TraducirMensaje(), FrmMensaje.Tipo.Advertencia);
         }
 
         /// <summary>Pregunta Sí/No. Devuelve true si el usuario eligió "Sí".</summary>
         public static bool Confirmar(string texto)
         {
-            return MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                   == DialogResult.Yes;
+            return FrmMensaje.Mostrar(texto.TraducirMensaje(), FrmMensaje.Tipo.Pregunta) == DialogResult.Yes;
         }
 
         /// <summary>
@@ -48,7 +46,7 @@ namespace PRAS.UI
             if (ExceptionManager.EsReglaDeNegocio(ex))
                 Advertencia(mensaje);
             else
-                MessageBox.Show(mensaje, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FrmMensaje.Mostrar(mensaje, FrmMensaje.Tipo.Error);
         }
     }
 }

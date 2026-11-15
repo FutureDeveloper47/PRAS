@@ -104,7 +104,7 @@ namespace PRAS.UI
             switch (registro.LogLevel)
             {
                 case LogLevel.Warn:
-                    e.CellStyle.BackColor = Color.FromArgb(255, 248, 220);   // amarillo suave
+                    e.CellStyle.BackColor = Tema.AdvertenciaFondo;   // amarillo suave (oscuro en modo oscuro)
                     break;
                 case LogLevel.Error:
                 case LogLevel.Fatal:

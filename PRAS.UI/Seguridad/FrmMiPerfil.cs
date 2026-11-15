@@ -18,10 +18,55 @@ namespace PRAS.UI
         /// <summary>Solo lo ve quien tiene el permiso de administrar usuarios (patente GestionarUsuarios).</summary>
         private readonly Button btnAdministrarUsuarios = new Button();
 
+        private readonly Label lblTema = new Label();
+        private readonly ComboBox cmbTema = new ComboBox();
+        private bool _cargandoTema;
+
         public FrmMiPerfil()
         {
             InitializeComponent();
+            AgregarTema();
             AgregarAdministrarUsuarios();
+        }
+
+        /// <summary>
+        /// Renglón "Tema: Claro / Oscuro" en Mis datos (debajo de Idioma). Se aplica al elegirlo:
+        /// todas las ventanas abiertas se repintan y queda guardado para la próxima vez.
+        /// Lo de abajo se corre un renglón para hacerle lugar.
+        /// </summary>
+        private void AgregarTema()
+        {
+            int alto = cmbIdioma.Height + 14;
+            foreach (Control control in Controls)
+                if (control.Top > grpDatos.Top)
+                    control.Top += alto;
+            grpDatos.Height += alto;
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + alto);
+
+            lblTema.Text = "Tema:";
+            lblTema.AutoSize = true;
+            lblTema.Location = new Point(lblIdioma.Left, lblIdioma.Top + alto);
+            cmbTema.Name = "cmbTema";
+            cmbTema.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTema.Items.AddRange(new object[] { PreferenciasLocales.TemaClaro, PreferenciasLocales.TemaOscuro });   // se ven traducidos
+            cmbTema.SetBounds(cmbIdioma.Left, cmbIdioma.Top + alto, cmbIdioma.Width, cmbIdioma.Height);
+            cmbTema.SelectedIndexChanged += cmbTema_SelectedIndexChanged;
+            grpDatos.Controls.Add(lblTema);
+            grpDatos.Controls.Add(cmbTema);
+
+            _cargandoTema = true;
+            cmbTema.SelectedIndex = Tema.Oscuro ? 1 : 0;
+            _cargandoTema = false;
+        }
+
+        private void cmbTema_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_cargandoTema)
+                return;
+
+            bool oscuro = cmbTema.SelectedIndex == 1;
+            Tema.CambiarModo(oscuro);
+            PreferenciasLocales.GuardarTema(Sesion.UsuarioActual?.NombreUsuario, oscuro);
         }
 
         /// <summary>
@@ -88,7 +133,7 @@ namespace PRAS.UI
             }
 
             lblPreguntaEstado.Text = "Ya tiene una pregunta de seguridad cargada. Puede cambiarla.".Traducir();
-            lblPreguntaEstado.ForeColor = Color.FromArgb(46, 125, 50);   // verde
+            lblPreguntaEstado.ForeColor = Tema.Exito;   // verde
 
             foreach (OpcionTraducida opcion in cmbPregunta.Items)
             {

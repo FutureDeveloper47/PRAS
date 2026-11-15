@@ -149,12 +149,12 @@ namespace PRAS.UI
             if (_vendedor == null)
             {
                 lblVendedor.Text = "Sin seleccionar".Traducir();
-                lblVendedor.ForeColor = SystemColors.GrayText;
+                lblVendedor.ForeColor = Tema.TextoApagado;
             }
             else
             {
                 lblVendedor.Text = _vendedor.NombreCompleto;
-                lblVendedor.ForeColor = SystemColors.ControlText;
+                lblVendedor.ForeColor = Tema.Texto;
             }
         }
 

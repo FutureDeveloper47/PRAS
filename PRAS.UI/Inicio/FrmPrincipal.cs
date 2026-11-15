@@ -23,8 +23,8 @@ namespace PRAS.UI
         /// <summary>Espacio libre entre el borde de la tarjeta y sus textos (así los textos no tapan el borde).</summary>
         private const int MargenTarjeta = 4;
 
-        /// <summary>Color de fondo de la tarjeta mientras tiene el mouse encima (celeste muy suave).</summary>
-        private static readonly Color FondoTarjetaResaltada = Color.FromArgb(240, 246, 252);
+        /// <summary>Color de fondo de la tarjeta mientras tiene el mouse encima (sale del tema: claro u oscuro).</summary>
+        private static Color FondoTarjetaResaltada => Tema.FondoResaltado;
 
         /// <summary>Renglón de "Actividad reciente" que tiene el mouse encima (se dibuja subrayado). -1 = ninguno.</summary>
         private int _actividadResaltada = -1;
@@ -58,6 +58,41 @@ namespace PRAS.UI
 
             PrepararActividad();
             CrearInicioMecanico();
+            CrearMenuTema();
+        }
+
+        // Tema claro / oscuro
+
+        private readonly ToolStripMenuItem mnuTema = new ToolStripMenuItem("Tema");
+        private readonly ToolStripMenuItem mnuTemaClaro = new ToolStripMenuItem("Claro");
+        private readonly ToolStripMenuItem mnuTemaOscuro = new ToolStripMenuItem("Oscuro");
+
+        /// <summary>Sistema > Tema > Claro / Oscuro (debajo de Idioma). Se crea por código para no tocar el diseñador.</summary>
+        private void CrearMenuTema()
+        {
+            mnuTema.Name = "mnuTema";
+            mnuTemaClaro.Name = "mnuTemaClaro";
+            mnuTemaOscuro.Name = "mnuTemaOscuro";
+            mnuTemaClaro.Click += (sender, e) => ElegirTema(false);
+            mnuTemaOscuro.Click += (sender, e) => ElegirTema(true);
+            mnuTema.DropDownItems.AddRange(new ToolStripItem[] { mnuTemaClaro, mnuTemaOscuro });
+            mnuSistema.DropDownItems.Insert(mnuSistema.DropDownItems.IndexOf(mnuIdioma) + 1, mnuTema);
+            MarcarTema();
+        }
+
+        private void MarcarTema()
+        {
+            mnuTemaClaro.Checked = !Tema.Oscuro;
+            mnuTemaOscuro.Checked = Tema.Oscuro;
+        }
+
+        /// <summary>Cambia el tema, repinta las ventanas abiertas y lo recuerda para la próxima vez (por usuario).</summary>
+        private void ElegirTema(bool oscuro)
+        {
+            Tema.CambiarModo(oscuro);
+            PreferenciasLocales.GuardarTema(Sesion.UsuarioActual?.NombreUsuario, oscuro);
+            MarcarTema();
+            lstActividad.Invalidate();
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -291,7 +326,7 @@ namespace PRAS.UI
                 e.Graphics.FillRectangle(fondo, e.Bounds);
 
             // Los renglones con auto van en azul (como un link); el aviso "no hay movimientos", en gris.
-            Color color = item.IdVehiculo.HasValue ? Tema.Primario : Tema.TextoApagado;
+            Color color = item.IdVehiculo.HasValue ? Tema.Acento : Tema.TextoApagado;
             FontStyle estilo = resaltado ? FontStyle.Underline : FontStyle.Regular;
             using (var fuente = new Font(lstActividad.Font, estilo))
             {
@@ -359,7 +394,7 @@ namespace PRAS.UI
             PrepararTarjeta(pnlAgencia, TipoDetalleInicio.Agencia);
 
             foreach (Label ver in new[] { lblTallerVer, lblIngresosVer, lblAgenciaVer })
-                ver.ForeColor = Tema.Primario;
+                ver.ForeColor = Tema.Acento;
         }
 
         private void PrepararTarjeta(Panel tarjeta, TipoDetalleInicio tipo)
@@ -489,7 +524,7 @@ namespace PRAS.UI
             var lblDato = new Label
             {
                 Name = nombre + "Dato", Text = "0", TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 28F, FontStyle.Bold), ForeColor = Tema.Primario
+                Font = new Font("Segoe UI", 28F, FontStyle.Bold), ForeColor = Tema.Acento
             };
             var lblAclaracion = new Label
             {
@@ -501,7 +536,7 @@ namespace PRAS.UI
             tarjeta.Controls.AddRange(new Control[] { lblTitulo, lblDato, lblAclaracion, lblVer });
             pnlMecanico.Controls.Add(tarjeta);
             PrepararTarjeta(tarjeta, tipo);   // misma manito, resaltado y clic que las tarjetas del administrador
-            lblVer.ForeColor = Tema.Primario;
+            lblVer.ForeColor = Tema.Acento;
             lblVer.Font = new Font(lblVer.Font, FontStyle.Underline);
 
             _tarjetasMecanico.Add((tarjeta, lblTitulo, lblDato, lblAclaracion, lblVer, permiso));
@@ -691,6 +726,7 @@ namespace PRAS.UI
             Traductor.Traducir(this);
             MostrarUsuario();
             CargarIdiomas();
+            MarcarTema();   // por si cambió el tema desde Mi perfil
             CargarInicio();
         }
 
