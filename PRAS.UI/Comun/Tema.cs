@@ -194,12 +194,20 @@ namespace PRAS.UI
                     foreach (ToolStripItem item in barra.Items)
                         RecolorearItem(item, textos);
                     break;
+                case TabControl pestanias:
+                    pestanias.Invalidate();
+                    break;
+                case TabPage pagina:
+                    pagina.UseVisualStyleBackColor = false;
+                    break;
                 case LinkLabel link:
                     link.LinkColor = Oscuro ? Acento : Color.FromArgb(0, 0, 255);
                     link.ActiveLinkColor = link.LinkColor;
                     link.VisitedLinkColor = link.LinkColor;
                     break;
             }
+
+            BarrasDeDesplazamiento(control);
 
             foreach (Control hijo in control.Controls)
                 RecolorearControl(hijo, fondos, textos);
@@ -234,6 +242,7 @@ namespace PRAS.UI
                     fila.DefaultCellStyle.ForeColor = Cambiar(fila.DefaultCellStyle.ForeColor, textos);
                 }
             }
+            BarrasDeDesplazamiento(grilla);
             grilla.Invalidate();
         }
 
@@ -371,15 +380,30 @@ namespace PRAS.UI
                     case GroupBox grupo:
                         grupo.ForeColor = Texto;
                         break;
+                    case TabControl pestanias:
+                        EstilizarPestanias(pestanias);
+                        break;
+                    case TabPage pagina:
+                        // Con UseVisualStyleBackColor Windows la pinta siempre clara (en oscuro quedaba blanca).
+                        pagina.UseVisualStyleBackColor = false;
+                        pagina.BackColor = Fondo;
+                        pagina.ForeColor = Texto;
+                        break;
+                    case TreeView arbol:
+                        arbol.BackColor = Entrada;
+                        arbol.ForeColor = Texto;
+                        arbol.LineColor = TextoApagado;
+                        arbol.BorderStyle = BorderStyle.FixedSingle;
+                        break;
                     case StatusStrip barra:
                         barra.BackColor = Primario;
                         barra.ForeColor = Color.White;
                         barra.SizingGrip = false;
-                        barra.Renderer = new ToolStripProfessionalRenderer(new ColoresMenu());
+                        barra.Renderer = new RendererMenu(esBarraDeEstado: true);
                         break;
                     case MenuStrip menu:
                         menu.BackColor = Superficie;
-                        menu.Renderer = new ToolStripProfessionalRenderer(new ColoresMenu());
+                        menu.Renderer = new RendererMenu(esBarraDeEstado: false);
                         menu.Padding = new Padding(6, 4, 0, 4);
                         break;
                     case Panel panel:
@@ -389,6 +413,8 @@ namespace PRAS.UI
                         EstilizarEtiqueta(etiqueta);
                         break;
                 }
+
+                BarrasDeDesplazamiento(control);
 
                 // Si un control tiene otros adentro (por ejemplo un Panel), los recorremos también.
                 // Grillas, combos y números tienen partes internas que no hay que tocar.
@@ -418,6 +444,92 @@ namespace PRAS.UI
                 var area = new Rectangle(e.Bounds.X + 2, e.Bounds.Y, e.Bounds.Width - 2, e.Bounds.Height);
                 TextRenderer.DrawText(e.Graphics, texto, combo.Font, area, color,
                     TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
+            }
+        }
+
+        // Pestañas (TabControl)
+
+        /// <summary>
+        /// Las pestañas las dibujamos nosotros: Windows las pinta siempre claras.
+        /// La elegida va con el fondo de la página y el texto en azul (Acento); las otras, más apagadas.
+        /// </summary>
+        private static void EstilizarPestanias(TabControl pestanias)
+        {
+            if (pestanias.DrawMode == TabDrawMode.OwnerDrawFixed)
+                return;   // ya estaba preparado
+            pestanias.DrawMode = TabDrawMode.OwnerDrawFixed;
+            pestanias.SizeMode = TabSizeMode.Fixed;
+            pestanias.ItemSize = new Size(Math.Max(pestanias.ItemSize.Width, 140), Math.Max(pestanias.ItemSize.Height, 30));
+            pestanias.DrawItem += DibujarPestania;
+        }
+
+        private static void DibujarPestania(object sender, DrawItemEventArgs e)
+        {
+            var pestanias = (TabControl)sender;
+            bool elegida = e.Index == pestanias.SelectedIndex;
+            Rectangle area = e.Bounds;
+
+            using (var fondo = new SolidBrush(elegida ? Fondo : Superficie))
+                e.Graphics.FillRectangle(fondo, area);
+            if (elegida)
+            {
+                using var franja = new SolidBrush(Primario);
+                e.Graphics.FillRectangle(franja, area.X, area.Y, area.Width, 3);
+            }
+
+            string texto = pestanias.TabPages[e.Index].Text;
+            using var fuente = new Font(pestanias.Font, elegida ? FontStyle.Bold : FontStyle.Regular);
+            TextRenderer.DrawText(e.Graphics, texto, fuente, area, elegida ? Acento : TextoApagado,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+        }
+
+        // Barras de desplazamiento
+
+        [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+        private static extern int SetWindowTheme(IntPtr hwnd, string tema, string lista);
+
+        /// <summary>
+        /// Las barras de desplazamiento las dibuja Windows. En Windows 10/11 existe el tema "DarkMode_Explorer",
+        /// que las pinta oscuras: se lo pedimos a las listas, árboles, cuadros de texto de varias líneas y grillas.
+        /// En el tema claro se vuelve al normal ("Explorer"). Si Windows no lo tiene, no pasa nada.
+        /// </summary>
+        private static void BarrasDeDesplazamiento(Control control)
+        {
+            bool tieneBarras = control is ListBox || control is TreeView || control is DataGridView
+                               || control is ListView || (control is ScrollableControl { AutoScroll: true } && !(control is Form))
+                               || (control is TextBox texto && texto.Multiline);
+            if (!tieneBarras)
+                return;
+
+            if (control.IsHandleCreated)
+                PonerTemaDeBarras(control);
+            else
+            {
+                control.HandleCreated -= Control_HandleCreated;
+                control.HandleCreated += Control_HandleCreated;
+            }
+
+            // Las grillas tienen sus barras como controles hijos.
+            if (control is DataGridView grilla)
+                foreach (Control barra in grilla.Controls)
+                    if (barra is ScrollBar && barra.IsHandleCreated)
+                        PonerTemaDeBarras(barra);
+        }
+
+        private static void Control_HandleCreated(object sender, EventArgs e)
+        {
+            PonerTemaDeBarras((Control)sender);
+        }
+
+        private static void PonerTemaDeBarras(Control control)
+        {
+            try
+            {
+                SetWindowTheme(control.Handle, Oscuro ? "DarkMode_Explorer" : "Explorer", null);
+            }
+            catch
+            {
+                // Windows viejo: las barras quedan como estaban.
             }
         }
 
@@ -643,8 +755,45 @@ namespace PRAS.UI
         // Menú
 
         /// <summary>Colores del menú principal y de la barra de estado de abajo.</summary>
+        /// <summary>
+        /// Dibuja los menús con los colores del tema. El texto de cada opción se pinta acá
+        /// (y no con el ForeColor de cada ítem): así también se leen las opciones que se crean
+        /// por código, como la lista de idiomas, y las flechas de los submenús.
+        /// En la barra de estado de abajo (azul) el texto queda blanco.
+        /// </summary>
+        private class RendererMenu : ToolStripProfessionalRenderer
+        {
+            private readonly bool _esBarraDeEstado;
+
+            public RendererMenu(bool esBarraDeEstado) : base(new ColoresMenu())
+            {
+                _esBarraDeEstado = esBarraDeEstado;
+                RoundedEdges = false;
+            }
+
+            protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
+            {
+                if (_esBarraDeEstado)
+                    e.TextColor = Color.White;
+                else
+                    e.TextColor = e.Item.Enabled ? Texto : TextoApagado;
+                base.OnRenderItemText(e);
+            }
+
+            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
+            {
+                e.ArrowColor = _esBarraDeEstado ? Color.White : Texto;
+                base.OnRenderArrow(e);
+            }
+        }
+
         private class ColoresMenu : ProfessionalColorTable
         {
+            public override Color CheckBackground => Seleccion;
+            public override Color CheckSelectedBackground => Seleccion;
+            public override Color CheckPressedBackground => Seleccion;
+            public override Color SeparatorDark => Borde;
+            public override Color SeparatorLight => Borde;
             public override Color MenuStripGradientBegin => Superficie;
             public override Color MenuStripGradientEnd => Superficie;
             public override Color MenuItemSelected => Seleccion;
