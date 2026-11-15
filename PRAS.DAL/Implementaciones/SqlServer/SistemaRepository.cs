@@ -93,12 +93,35 @@ namespace PRAS.DAL.Implementaciones.SqlServer
               WHERE NOT EXISTS (SELECT 1 FROM UsuarioPersona P WHERE P.IdUsuario = U.IdUsuario)"
         };
 
+        /// <summary>
+        /// Cambios del 15/11 en la base del negocio (PRAS): ficha del auto para venderlo (en Vehiculo)
+        /// y observaciones de la publicación (en Publicacion). Cada columna se agrega solo si no existe.
+        /// </summary>
+        private static readonly string[] ActualizacionesNegocio =
+        {
+            "IF COL_LENGTH('Vehiculo', 'Kilometraje') IS NULL ALTER TABLE Vehiculo ADD Kilometraje INT NULL CONSTRAINT CK_Vehiculo_Kilometraje CHECK (Kilometraje >= 0)",
+            "IF COL_LENGTH('Vehiculo', 'Combustible') IS NULL ALTER TABLE Vehiculo ADD Combustible NVARCHAR(20) NULL",
+            "IF COL_LENGTH('Vehiculo', 'TieneGNC') IS NULL ALTER TABLE Vehiculo ADD TieneGNC BIT NULL",
+            "IF COL_LENGTH('Vehiculo', 'Transmision') IS NULL ALTER TABLE Vehiculo ADD Transmision NVARCHAR(20) NULL",
+            "IF COL_LENGTH('Vehiculo', 'Puertas') IS NULL ALTER TABLE Vehiculo ADD Puertas TINYINT NULL CONSTRAINT CK_Vehiculo_Puertas CHECK (Puertas BETWEEN 2 AND 5)",
+            "IF COL_LENGTH('Vehiculo', 'CantidadDuenos') IS NULL ALTER TABLE Vehiculo ADD CantidadDuenos TINYINT NULL CONSTRAINT CK_Vehiculo_Duenos CHECK (CantidadDuenos BETWEEN 1 AND 20)",
+            "IF COL_LENGTH('Vehiculo', 'VTVVigente') IS NULL ALTER TABLE Vehiculo ADD VTVVigente BIT NULL",
+            "IF COL_LENGTH('Vehiculo', 'ServiceOficial') IS NULL ALTER TABLE Vehiculo ADD ServiceOficial BIT NULL",
+            "IF COL_LENGTH('Vehiculo', 'AireAcondicionado') IS NULL ALTER TABLE Vehiculo ADD AireAcondicionado BIT NULL",
+            "IF COL_LENGTH('Vehiculo', 'DireccionAsistida') IS NULL ALTER TABLE Vehiculo ADD DireccionAsistida BIT NULL",
+            "IF COL_LENGTH('Vehiculo', 'EstadoChapaPintura') IS NULL ALTER TABLE Vehiculo ADD EstadoChapaPintura NVARCHAR(20) NULL",
+            "IF COL_LENGTH('Publicacion', 'Observaciones') IS NULL ALTER TABLE Publicacion ADD Observaciones NVARCHAR(500) NULL"
+        };
+
         public void ActualizarEstructura()
         {
             SqlHelper.ExecuteNonQuerySeguridad(ActualizarEstructuraStatement);
 
             foreach (string actualizacion in ActualizacionesSeguridad)
                 SqlHelper.ExecuteNonQuerySeguridad(actualizacion);
+
+            foreach (string actualizacion in ActualizacionesNegocio)
+                SqlHelper.ExecuteNonQuery(actualizacion);
         }
 
         /// <summary>Pregunta a SQL Server (base master) si existen PRAS y PRAS_Seguridad.</summary>

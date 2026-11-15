@@ -133,6 +133,21 @@ namespace PRAS.UI
             Renglon(auto, "Nº de motor", v.NumeroMotor);
             Renglon(auto, "Estado actual", VehiculoService.TextoEstado(v.EstadoVehiculo).Traducir());
 
+            // Ficha para la venta (se carga al publicarlo): solo si ya se cargó.
+            if (v.Kilometraje.HasValue)
+            {
+                Renglon(auto, "Kilometraje", v.Kilometraje.Value.ToString("N0", CultureInfo.CurrentCulture) + " km");
+                Renglon(auto, "Combustible", Valor(v.Combustible) + (v.TieneGNC == true && v.Combustible != "GNC" ? " + " + "GNC".Traducir() : ""));
+                Renglon(auto, "Transmisión", Valor(v.Transmision));
+                Renglon(auto, "Puertas", v.Puertas?.ToString());
+                Renglon(auto, "Cantidad de dueños", v.CantidadDuenos?.ToString());
+                Renglon(auto, "Chapa y pintura", Valor(v.EstadoChapaPintura));
+                Renglon(auto, "VTV vigente", SiNo(v.VTVVigente));
+                Renglon(auto, "Service oficial", SiNo(v.ServiceOficial));
+                Renglon(auto, "Aire acondicionado", SiNo(v.AireAcondicionado));
+                Renglon(auto, "Dirección asistida", SiNo(v.DireccionAsistida));
+            }
+
             if (ficha.FechaCompra.HasValue)
             {
                 var compra = NuevaSeccion("Compra");
@@ -317,6 +332,8 @@ namespace PRAS.UI
         private static string Fecha(DateTime? fecha) => fecha?.ToString("dd/MM/yyyy");
 
         private static string Plata(decimal? monto) => monto?.ToString(FormatoPlata, Argentina);
+
+        private static string SiNo(bool? valor) => valor == null ? null : (valor.Value ? "Sí" : "No").Traducir();
 
         /// <summary>
         /// Valores que vienen de la base en español (estados, prioridad, forma de pago):

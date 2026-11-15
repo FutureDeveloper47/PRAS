@@ -19,8 +19,17 @@ namespace PRAS.BLL
         public static readonly string[] Plataformas =
             { "MercadoLibre", "Facebook Marketplace", "Instagram", "Autocosmos", "DeAutos", "Sitio web de la agencia" };
 
+        // Opciones de la ficha del auto (se guardan en español; la pantalla las muestra traducidas).
+        public static readonly string[] Combustibles = { "Nafta", "Diésel", "GNC", "Híbrido", "Eléctrico" };
+        public static readonly string[] Transmisiones = { "Manual", "Automática" };
+        public static readonly string[] EstadosChapaPintura = { "Excelente", "Muy bueno", "Bueno", "Regular" };
+
         private const int LargoPlataforma = 50;
         private const int LargoDescripcion = 1000;
+        private const int LargoObservaciones = 500;
+        private const int KilometrajeMaximo = 2000000;
+
+        private readonly ITareaOrdenTrabajoRepository _tareaRepositorio = FactoryDataAccess.TareaOrdenTrabajoRepository;
 
         private readonly IPublicacionRepository _repositorio = FactoryDataAccess.PublicacionRepository;
         private readonly IConsignacionRepository _consignacionRepositorio = FactoryDataAccess.ConsignacionRepository;
@@ -60,7 +69,13 @@ namespace PRAS.BLL
 
                 publicacion.Plataforma = Validar.Requerido(publicacion.Plataforma, "Plataforma", LargoPlataforma);
                 publicacion.Descripcion = Validar.Opcional(publicacion.Descripcion, "Descripción", LargoDescripcion);
+                publicacion.Observaciones = Validar.Opcional(publicacion.Observaciones, "Observaciones", LargoObservaciones);
                 publicacion.FechaPublicacion = DateTime.Now;
+
+                // Ficha del auto (km, combustible, etc.): se valida y se graba junto con la publicación.
+                publicacion.Vehiculo ??= new Vehiculo();
+                publicacion.Vehiculo.IdVehiculo = publicacion.IdVehiculo;
+                ValidarFicha(publicacion.Vehiculo);
 
                 _repositorio.Add(publicacion);
                 LoggerService.Info($"Publicó el vehículo {consignacion.Vehiculo.Dominio} en {publicacion.Plataforma} a {publicacion.PrecioPublicado:C2}.");
@@ -121,6 +136,14 @@ namespace PRAS.BLL
 
                 actual.Plataforma = Validar.Requerido(publicacion.Plataforma, "Plataforma", LargoPlataforma);
                 actual.Descripcion = Validar.Opcional(publicacion.Descripcion, "Descripción", LargoDescripcion);
+                actual.Observaciones = Validar.Opcional(publicacion.Observaciones, "Observaciones", LargoObservaciones);
+
+                // La ficha del auto: lo que trae la pantalla, sobre el auto de la publicación de la base.
+                if (publicacion.Vehiculo != null)
+                {
+                    CopiarFicha(publicacion.Vehiculo, actual.Vehiculo);
+                    ValidarFicha(actual.Vehiculo);
+                }
                 decimal precioAnterior = actual.PrecioPublicado;
                 actual.PrecioPublicado = publicacion.PrecioPublicado;
 
@@ -144,6 +167,71 @@ namespace PRAS.BLL
                 ExceptionManager.HandleException(ex);
                 throw;
             }
+        }
+
+        // Ficha del auto
+
+        /// <summary>
+        /// Reglas de la ficha del auto para venderlo:
+        /// kilometraje obligatorio y entre 0 y 2.000.000; combustible, transmisión y estado de chapa y pintura
+        /// obligatorios (de la lista); puertas entre 2 y 5; dueños entre 1 y 20.
+        /// Si el combustible es GNC, el auto tiene GNC (se marca solo para que no quede contradictorio).
+        /// </summary>
+        internal static void ValidarFicha(Vehiculo ficha)
+        {
+            if (ficha.Kilometraje == null || ficha.Kilometraje < 0 || ficha.Kilometraje > KilometrajeMaximo)
+                throw new ValorFueraDeRangoException("Kilometraje", 0, KilometrajeMaximo);
+
+            ficha.Combustible = ValidarOpcionDeLista(ficha.Combustible, Combustibles, "el combustible");
+            ficha.Transmision = ValidarOpcionDeLista(ficha.Transmision, Transmisiones, "la transmisión");
+            ficha.EstadoChapaPintura = ValidarOpcionDeLista(ficha.EstadoChapaPintura, EstadosChapaPintura, "el estado de chapa y pintura");
+
+            if (ficha.Puertas == null || ficha.Puertas < 2 || ficha.Puertas > 5)
+                throw new ValorFueraDeRangoException("Puertas", 2, 5);
+            if (ficha.CantidadDuenos == null || ficha.CantidadDuenos < 1 || ficha.CantidadDuenos > 20)
+                throw new ValorFueraDeRangoException("Cantidad de dueños", 1, 20);
+
+            if (ficha.Combustible == "GNC")
+                ficha.TieneGNC = true;
+
+            // Las casillas sí/no: si no vienen, es "no".
+            ficha.TieneGNC ??= false;
+            ficha.VTVVigente ??= false;
+            ficha.ServiceOficial ??= false;
+            ficha.AireAcondicionado ??= false;
+            ficha.DireccionAsistida ??= false;
+        }
+
+        private static string ValidarOpcionDeLista(string valor, string[] opciones, string que)
+        {
+            if (string.IsNullOrWhiteSpace(valor) || !opciones.Contains(valor.Trim()))
+                throw new SeleccionObligatoriaException(que);
+            return valor.Trim();
+        }
+
+        private static void CopiarFicha(Vehiculo desde, Vehiculo hacia)
+        {
+            hacia.Kilometraje = desde.Kilometraje;
+            hacia.Combustible = desde.Combustible;
+            hacia.TieneGNC = desde.TieneGNC;
+            hacia.Transmision = desde.Transmision;
+            hacia.Puertas = desde.Puertas;
+            hacia.CantidadDuenos = desde.CantidadDuenos;
+            hacia.VTVVigente = desde.VTVVigente;
+            hacia.ServiceOficial = desde.ServiceOficial;
+            hacia.AireAcondicionado = desde.AireAcondicionado;
+            hacia.DireccionAsistida = desde.DireccionAsistida;
+            hacia.EstadoChapaPintura = desde.EstadoChapaPintura;
+        }
+
+        /// <summary>
+        /// Reparaciones que se le hicieron al auto en el taller (tareas finalizadas de sus órdenes de trabajo).
+        /// La pantalla las pone en la descripción del aviso con "Armar descripción".
+        /// </summary>
+        public List<string> ObtenerReparacionesDelTaller(int idVehiculo)
+        {
+            Sesion.ExigirPermiso(Funcion.GestionarPublicaciones);
+            return _tareaRepositorio.ListarRealizadasPorVehiculo(idVehiculo);
         }
 
         /// <summary>Da de baja el aviso sin vender: el auto vuelve a En agencia.</summary>

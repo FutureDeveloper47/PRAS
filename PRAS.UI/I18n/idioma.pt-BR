@@ -838,3 +838,38 @@ Se restableció la contraseña de {0}.:A senha de {0} foi redefinida.
 Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:A sua própria senha é alterada em Meu perfil, digitando a senha atual.
 Habilitó al usuario "{0}".:Habilitou o usuário "{0}".
 Restableció la contraseña del usuario "{0}".:Redefiniu a senha do usuário "{0}".
+Ficha del auto:Ficha do carro
+Kilometraje:Quilometragem
+Combustible:Combustível
+Tiene GNC:Tem GNV
+GNC:GNV
+Transmisión:Câmbio
+Puertas:Portas
+Cantidad de dueños:Quantidade de donos
+VTV vigente:VTV em dia
+Service oficial:Revisões na concessionária
+Aire acondicionado:Ar-condicionado
+Dirección asistida:Direção assistida
+Reparaciones hechas en el taller:Reparos feitos na oficina
+Armar descripción:Montar descrição
+Sin reparaciones registradas.:Sem reparos registrados.
+Seleccione el vehículo a publicar.:Selecione o veículo a anunciar.
+¿Reemplazar la descripción actual por la que se arma con la ficha del auto?:Substituir a descrição atual pela montada com a ficha do carro?
+Reparado en nuestro taller:Reparado em nossa oficina
+Papeles al día, listo para transferir.:Documentos em dia, pronto para transferir.
+Nafta:Gasolina
+Diésel:Diesel
+Híbrido:Híbrido
+Eléctrico:Elétrico
+Manual:Manual
+Automática:Automático
+Excelente:Excelente
+Muy bueno:Muito bom
+Bueno:Bom
+Regular:Regular
+Sí:Sim
+No:Não
+El campo {0} debe estar entre {1} y {2}.:O campo {0} deve estar entre {1} e {2}.
+el combustible:o combustível
+la transmisión:o câmbio
+el estado de chapa y pintura:o estado da lataria e pintura

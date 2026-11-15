@@ -34,6 +34,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer.Adaptadores
                 Plataforma = (string)fila["Plataforma"],
                 Descripcion = fila["Descripcion"] as string,
                 EstadoPublicacion = (string)fila["EstadoPublicacion"],
+                Observaciones = fila.Table.Columns.Contains("Observaciones") ? fila["Observaciones"] as string : null,
                 Vehiculo = VehiculoAdaptador.Current.Fill(fila)
             };
         }

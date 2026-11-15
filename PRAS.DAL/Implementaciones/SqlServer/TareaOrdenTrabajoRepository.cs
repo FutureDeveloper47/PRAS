@@ -78,6 +78,20 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             return TareaOrdenTrabajoAdaptador.Current.FillPrimero(tabla);
         }
 
+        public List<string> ListarRealizadasPorVehiculo(int idVehiculo)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                @"SELECT T.DescripcionTarea
+                  FROM TareaOrdenTrabajo T
+                  INNER JOIN OrdenTrabajo OT ON OT.IdOrdenTrabajo = T.IdOrdenTrabajo
+                  WHERE OT.IdVehiculo = @IdVehiculo AND T.EstadoTarea = @Finalizada
+                  ORDER BY T.FechaFin, T.IdTarea",
+                SqlHelper.Param("@IdVehiculo", idVehiculo),
+                SqlHelper.Param("@Finalizada", Estados.TareaFinalizada));
+
+            return tabla.Rows.Cast<System.Data.DataRow>().Select(fila => (string)fila["DescripcionTarea"]).ToList();
+        }
+
         public List<TareaOrdenTrabajo> ListarPorOrden(int idOrdenTrabajo)
         {
             var tabla = SqlHelper.ExecuteDataTable(SelectByOrdenStatement, SqlHelper.Param("@IdOrden", idOrdenTrabajo));

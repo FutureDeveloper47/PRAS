@@ -29,7 +29,9 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         #region Statements
         /// <summary>Columnas del vehículo con el alias "V". Las usan también los repositorios que hacen JOIN a Vehiculo.</summary>
         internal const string ColumnasConAlias =
-            "V.IdVehiculo, V.Dominio, V.Marca, V.Modelo, V.Anio, V.Color, V.NumeroChasis, V.NumeroMotor, V.EstadoVehiculo";
+            "V.IdVehiculo, V.Dominio, V.Marca, V.Modelo, V.Anio, V.Color, V.NumeroChasis, V.NumeroMotor, V.EstadoVehiculo, " +
+            "V.Kilometraje, V.Combustible, V.TieneGNC, V.Transmision, V.Puertas, V.CantidadDuenos, V.VTVVigente, " +
+            "V.ServiceOficial, V.AireAcondicionado, V.DireccionAsistida, V.EstadoChapaPintura";
 
         private string SelectOneStatement
         {
@@ -70,6 +72,18 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             get => @"DELETE C FROM Compra C
                      INNER JOIN Vehiculo V ON V.IdVehiculo = C.IdVehiculo
                      WHERE C.IdVehiculo = @IdVehiculo AND V.EstadoVehiculo = @Comprado";
+        }
+
+        /// <summary>Ficha del auto para venderlo (la carga la publicación).</summary>
+        private string ActualizarFichaStatement
+        {
+            get => @"UPDATE Vehiculo
+                     SET Kilometraje = @Kilometraje, Combustible = @Combustible, TieneGNC = @TieneGNC,
+                         Transmision = @Transmision, Puertas = @Puertas, CantidadDuenos = @CantidadDuenos,
+                         VTVVigente = @VTVVigente, ServiceOficial = @ServiceOficial,
+                         AireAcondicionado = @AireAcondicionado, DireccionAsistida = @DireccionAsistida,
+                         EstadoChapaPintura = @EstadoChapaPintura
+                     WHERE IdVehiculo = @IdVehiculo";
         }
 
         private string DeleteStatement
@@ -230,6 +244,24 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                 SqlHelper.Param("@EstadoVehiculo", (int)vehiculo.EstadoVehiculo));
 
             return (int)id;
+        }
+
+        /// <summary>Graba la ficha del auto (km, combustible, etc.) dentro de la transacción de la publicación.</summary>
+        internal void ActualizarFicha(Vehiculo vehiculo, SqlConnection cn, SqlTransaction tx)
+        {
+            SqlHelper.ExecuteNonQuery(cn, tx, ActualizarFichaStatement,
+                SqlHelper.Param("@Kilometraje", vehiculo.Kilometraje),
+                SqlHelper.Param("@Combustible", vehiculo.Combustible),
+                SqlHelper.Param("@TieneGNC", vehiculo.TieneGNC),
+                SqlHelper.Param("@Transmision", vehiculo.Transmision),
+                SqlHelper.Param("@Puertas", vehiculo.Puertas),
+                SqlHelper.Param("@CantidadDuenos", vehiculo.CantidadDuenos),
+                SqlHelper.Param("@VTVVigente", vehiculo.VTVVigente),
+                SqlHelper.Param("@ServiceOficial", vehiculo.ServiceOficial),
+                SqlHelper.Param("@AireAcondicionado", vehiculo.AireAcondicionado),
+                SqlHelper.Param("@DireccionAsistida", vehiculo.DireccionAsistida),
+                SqlHelper.Param("@EstadoChapaPintura", vehiculo.EstadoChapaPintura),
+                SqlHelper.Param("@IdVehiculo", vehiculo.IdVehiculo));
         }
 
         /// <summary>

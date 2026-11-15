@@ -7,6 +7,9 @@ namespace PRAS.DAL.Interfaces
     {
         List<TareaOrdenTrabajo> ListarPorOrden(int idOrdenTrabajo);
 
+        /// <summary>Descripción de las tareas FINALIZADAS de todas las órdenes del auto (para el aviso de venta).</summary>
+        List<string> ListarRealizadasPorVehiculo(int idVehiculo);
+
         /// <summary>Tareas de órdenes abiertas. idMecanico = null trae las de todos.</summary>
         List<TareaOrdenTrabajo> ListarDeMecanico(int? idMecanico, bool incluirFinalizadas);
 

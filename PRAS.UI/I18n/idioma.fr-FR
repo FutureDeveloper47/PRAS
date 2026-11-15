@@ -838,3 +838,38 @@ Se restableció la contraseña de {0}.:Le mot de passe de {0} a été réinitial
 Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:Votre propre mot de passe se change dans Mon profil, en saisissant le mot de passe actuel.
 Habilitó al usuario "{0}".:A activé l'utilisateur « {0} ».
 Restableció la contraseña del usuario "{0}".:A réinitialisé le mot de passe de l'utilisateur « {0} ».
+Ficha del auto:Fiche de la voiture
+Kilometraje:Kilométrage
+Combustible:Carburant
+Tiene GNC:Équipée GNV
+GNC:GNV
+Transmisión:Transmission
+Puertas:Portes
+Cantidad de dueños:Nombre de propriétaires
+VTV vigente:VTV valide
+Service oficial:Entretien en concession
+Aire acondicionado:Climatisation
+Dirección asistida:Direction assistée
+Reparaciones hechas en el taller:Réparations faites à l'atelier
+Armar descripción:Rédiger la description
+Sin reparaciones registradas.:Aucune réparation enregistrée.
+Seleccione el vehículo a publicar.:Sélectionnez le véhicule à publier.
+¿Reemplazar la descripción actual por la que se arma con la ficha del auto?:Remplacer la description actuelle par celle rédigée à partir de la fiche de la voiture ?
+Reparado en nuestro taller:Réparé dans notre atelier
+Papeles al día, listo para transferir.:Papiers en règle, prêt à transférer.
+Nafta:Essence
+Diésel:Diesel
+Híbrido:Hybride
+Eléctrico:Électrique
+Manual:Manuelle
+Automática:Automatique
+Excelente:Excellent
+Muy bueno:Très bon
+Bueno:Bon
+Regular:Moyen
+Sí:Oui
+No:Non
+El campo {0} debe estar entre {1} y {2}.:Le champ {0} doit être compris entre {1} et {2}.
+el combustible:le carburant
+la transmisión:la transmission
+el estado de chapa y pintura:l'état de la carrosserie et de la peinture

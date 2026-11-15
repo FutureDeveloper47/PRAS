@@ -838,3 +838,38 @@ Se restableció la contraseña de {0}.:Se restableció la contraseña de {0}.
 Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.:Su propia contraseña se cambia desde Mi perfil, escribiendo la contraseña actual.
 Habilitó al usuario "{0}".:Habilitó al usuario "{0}".
 Restableció la contraseña del usuario "{0}".:Restableció la contraseña del usuario "{0}".
+Ficha del auto:Ficha del auto
+Kilometraje:Kilometraje
+Combustible:Combustible
+Tiene GNC:Tiene GNC
+GNC:GNC
+Transmisión:Transmisión
+Puertas:Puertas
+Cantidad de dueños:Cantidad de dueños
+VTV vigente:VTV vigente
+Service oficial:Service oficial
+Aire acondicionado:Aire acondicionado
+Dirección asistida:Dirección asistida
+Reparaciones hechas en el taller:Reparaciones hechas en el taller
+Armar descripción:Armar descripción
+Sin reparaciones registradas.:Sin reparaciones registradas.
+Seleccione el vehículo a publicar.:Seleccione el vehículo a publicar.
+¿Reemplazar la descripción actual por la que se arma con la ficha del auto?:¿Reemplazar la descripción actual por la que se arma con la ficha del auto?
+Reparado en nuestro taller:Reparado en nuestro taller
+Papeles al día, listo para transferir.:Papeles al día, listo para transferir.
+Nafta:Nafta
+Diésel:Diésel
+Híbrido:Híbrido
+Eléctrico:Eléctrico
+Manual:Manual
+Automática:Automática
+Excelente:Excelente
+Muy bueno:Muy bueno
+Bueno:Bueno
+Regular:Regular
+Sí:Sí
+No:No
+El campo {0} debe estar entre {1} y {2}.:El campo {0} debe estar entre {1} y {2}.
+el combustible:el combustible
+la transmisión:la transmisión
+el estado de chapa y pintura:el estado de chapa y pintura

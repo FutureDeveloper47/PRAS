@@ -14,6 +14,9 @@ namespace PRAS.Entidades
         public string Descripcion { get; set; }
         public string EstadoPublicacion { get; set; }
 
+        /// <summary>Observaciones libres del aviso (son de la publicación, no del auto).</summary>
+        public string Observaciones { get; set; }
+
         /// <summary>Auto publicado (para mostrar en pantalla).</summary>
         public Vehiculo Vehiculo { get; set; }
     }

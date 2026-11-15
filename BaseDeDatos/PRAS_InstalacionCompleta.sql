@@ -118,7 +118,19 @@ CREATE TABLE Vehiculo (
     NumeroChasis    VARCHAR(30)  NULL,
     NumeroMotor     VARCHAR(30)  NULL,
     EstadoVehiculo  TINYINT      NOT NULL CONSTRAINT DF_Vehiculo_Estado DEFAULT 1
-                                 CONSTRAINT CK_Vehiculo_Estado CHECK (EstadoVehiculo BETWEEN 1 AND 7)
+                                 CONSTRAINT CK_Vehiculo_Estado CHECK (EstadoVehiculo BETWEEN 1 AND 7),
+    -- Ficha del auto para venderlo (se carga al publicarlo; NULL = todavía no se cargó)
+    Kilometraje        INT          NULL CONSTRAINT CK_Vehiculo_Kilometraje CHECK (Kilometraje >= 0),
+    Combustible        NVARCHAR(20) NULL,   -- Nafta, Diésel, GNC, Híbrido, Eléctrico
+    TieneGNC           BIT          NULL,
+    Transmision        NVARCHAR(20) NULL,   -- Manual, Automática
+    Puertas            TINYINT      NULL CONSTRAINT CK_Vehiculo_Puertas CHECK (Puertas BETWEEN 2 AND 5),
+    CantidadDuenos     TINYINT      NULL CONSTRAINT CK_Vehiculo_Duenos CHECK (CantidadDuenos BETWEEN 1 AND 20),
+    VTVVigente         BIT          NULL,
+    ServiceOficial     BIT          NULL,
+    AireAcondicionado  BIT          NULL,
+    DireccionAsistida  BIT          NULL,
+    EstadoChapaPintura NVARCHAR(20) NULL    -- Excelente, Muy bueno, Bueno, Regular
 );
 
 /* -------------------------------- COMPRA --------------------------------- */
@@ -251,7 +263,8 @@ CREATE TABLE Publicacion (
     PrecioPublicado    DECIMAL(18,2)  NOT NULL CONSTRAINT CK_Publicacion_Precio CHECK (PrecioPublicado > 0),
     Plataforma         NVARCHAR(50)   NOT NULL,
     Descripcion        NVARCHAR(1000) NULL,
-    EstadoPublicacion  VARCHAR(20)    NOT NULL CONSTRAINT DF_Publicacion_Estado DEFAULT 'Activa'
+    EstadoPublicacion  VARCHAR(20)    NOT NULL CONSTRAINT DF_Publicacion_Estado DEFAULT 'Activa',
+    Observaciones      NVARCHAR(500)  NULL    -- observaciones libres del aviso
 );
 
 CREATE TABLE Venta (

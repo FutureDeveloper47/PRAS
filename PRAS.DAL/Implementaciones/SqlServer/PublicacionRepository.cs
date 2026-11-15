@@ -29,7 +29,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         #region Statements
         private const string SelectBase =
             @"SELECT P.IdPublicacion, P.IdVehiculo, P.FechaPublicacion, P.FechaFinalizacion, P.PrecioPublicado,
-                     P.Plataforma, P.Descripcion, P.EstadoPublicacion, " +
+                     P.Plataforma, P.Descripcion, P.EstadoPublicacion, P.Observaciones, " +
                      VehiculoRepository.ColumnasConAlias + @"
               FROM Publicacion P
               INNER JOIN Vehiculo V ON V.IdVehiculo = P.IdVehiculo";
@@ -54,15 +54,16 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         private string InsertStatement
         {
             get => @"INSERT INTO Publicacion (IdVehiculo, FechaPublicacion, PrecioPublicado, Plataforma,
-                                              Descripcion, EstadoPublicacion)
-                     VALUES (@IdVehiculo, @Fecha, @Precio, @Plataforma, @Descripcion, @Estado);
+                                              Descripcion, EstadoPublicacion, Observaciones)
+                     VALUES (@IdVehiculo, @Fecha, @Precio, @Plataforma, @Descripcion, @Estado, @Observaciones);
                      SELECT CAST(SCOPE_IDENTITY() AS INT);";
         }
 
         private string UpdateStatement
         {
             // Solo se modifica si sigue Activa: si otro usuario la finalizó o se vendió el auto, no toca nada.
-            get => @"UPDATE Publicacion SET PrecioPublicado = @Precio, Plataforma = @Plataforma, Descripcion = @Descripcion
+            get => @"UPDATE Publicacion SET PrecioPublicado = @Precio, Plataforma = @Plataforma, Descripcion = @Descripcion,
+                                            Observaciones = @Observaciones
                      WHERE IdPublicacion = @Id AND EstadoPublicacion = @Activa";
         }
 
@@ -113,7 +114,12 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                     SqlHelper.Param("@Precio", entity.PrecioPublicado),
                     SqlHelper.Param("@Plataforma", entity.Plataforma),
                     SqlHelper.Param("@Descripcion", entity.Descripcion),
-                    SqlHelper.Param("@Estado", Estados.PublicacionActiva));
+                    SqlHelper.Param("@Estado", Estados.PublicacionActiva),
+                    SqlHelper.Param("@Observaciones", entity.Observaciones));
+
+                // La ficha del auto (km, combustible...) se graba en la misma transacción.
+                if (entity.Vehiculo != null)
+                    VehiculoRepository.Current.ActualizarFicha(entity.Vehiculo, cn, tx);
 
                 VehiculoRepository.Current.CambiarEstado(entity.IdVehiculo,
                     new[] { EstadoVehiculo.EnAgencia }, EstadoVehiculo.Publicado, cn, tx);
@@ -124,20 +130,28 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         }
 
         /// <summary>
-        /// Modifica plataforma, precio y descripción de una publicación activa.
+        /// Modifica plataforma, precio, descripción y observaciones de una publicación activa,
+        /// y la ficha del auto, todo en una transacción.
         /// Si no se actualizó ninguna fila es porque ya no está activa: otro usuario la cambió.
         /// </summary>
         public void Modificar(Publicacion entity)
         {
-            int filas = SqlHelper.ExecuteNonQuery(UpdateStatement,
-                SqlHelper.Param("@Precio", entity.PrecioPublicado),
-                SqlHelper.Param("@Plataforma", entity.Plataforma),
-                SqlHelper.Param("@Descripcion", entity.Descripcion),
-                SqlHelper.Param("@Id", entity.IdPublicacion),
-                SqlHelper.Param("@Activa", Estados.PublicacionActiva));
+            SqlHelper.ExecuteInTransaction((cn, tx) =>
+            {
+                int filas = SqlHelper.ExecuteNonQuery(cn, tx, UpdateStatement,
+                    SqlHelper.Param("@Precio", entity.PrecioPublicado),
+                    SqlHelper.Param("@Plataforma", entity.Plataforma),
+                    SqlHelper.Param("@Descripcion", entity.Descripcion),
+                    SqlHelper.Param("@Observaciones", entity.Observaciones),
+                    SqlHelper.Param("@Id", entity.IdPublicacion),
+                    SqlHelper.Param("@Activa", Estados.PublicacionActiva));
 
-            if (filas == 0)
-                throw new ConcurrencyException("La publicación ya no está activa (otro usuario la modificó).");
+                if (filas == 0)
+                    throw new ConcurrencyException("La publicación ya no está activa (otro usuario la modificó).");
+
+                if (entity.Vehiculo != null)
+                    VehiculoRepository.Current.ActualizarFicha(entity.Vehiculo, cn, tx);
+            });
         }
 
         /// <summary>Da de baja el aviso (sin vender): la publicación se finaliza y el auto vuelve a En agencia.</summary>
