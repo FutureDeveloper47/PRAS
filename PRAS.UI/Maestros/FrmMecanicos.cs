@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -15,6 +16,21 @@ namespace PRAS.UI
         {
             InitializeComponent();
             dgvMecanicos.AutoGenerateColumns = false;   // usamos solo las columnas del diseñador
+            dgvMecanicos.CellFormatting += dgvMecanicos_CellFormatting;
+        }
+
+        /// <summary>
+        /// La especialidad se guarda en español (es un dato). Si es una de las especialidades
+        /// conocidas (Mecánica general, Chapa y pintura...), la mostramos en el idioma elegido.
+        /// Si el usuario escribió otra, se muestra tal cual.
+        /// </summary>
+        private void dgvMecanicos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvMecanicos.Columns[e.ColumnIndex] == colEspecialidad && e.Value is string especialidad)
+            {
+                e.Value = especialidad.TraducirMensaje();
+                e.FormattingApplied = true;
+            }
         }
 
         private void FrmMecanicos_Load(object sender, EventArgs e)
@@ -45,7 +61,7 @@ namespace PRAS.UI
         private void ActualizarBotonDeshabilitar()
         {
             Mecanico mecanico = MecanicoSeleccionado();
-            btnDeshabilitar.Text = (mecanico != null && !mecanico.Activo) ? "Habilitar" : "Deshabilitar";
+            btnDeshabilitar.Text = ((mecanico != null && !mecanico.Activo) ? "Habilitar" : "Deshabilitar").Traducir();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

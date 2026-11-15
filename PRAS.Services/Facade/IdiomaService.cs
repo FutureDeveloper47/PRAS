@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using PRAS.Services.Logic;
 
 namespace PRAS.Services.Facade
@@ -25,6 +25,15 @@ namespace PRAS.Services.Facade
         public static string Traducir(string texto)
         {
             return IdiomaLogic.Traducir(texto);
+        }
+
+        /// <summary>
+        /// Traduce un mensaje con datos (avisos, errores, bitácora). Si no lo encuentra,
+        /// lo devuelve igual y no lo anota en el archivo de idioma.
+        /// </summary>
+        public static string TraducirMensaje(string mensaje)
+        {
+            return IdiomaLogic.TraducirMensaje(mensaje);
         }
     }
 }

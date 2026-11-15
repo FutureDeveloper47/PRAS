@@ -1,4 +1,4 @@
-using PRAS.Services.Facade.Extensions;
+﻿using PRAS.Services.Facade.Extensions;
 using PRAS.Services.Facade.ExtensionsMethods;
 
 namespace PRAS.UI
@@ -6,6 +6,8 @@ namespace PRAS.UI
     /// <summary>
     /// Cuadros de mensaje comunes a todos los formularios, para que todos
     /// muestren los avisos y errores de la misma forma.
+    /// Todos los textos pasan por TraducirMensaje(): así cualquier aviso sale en el idioma
+    /// elegido, aunque traiga datos (ej: "¿Deshabilitar al mecánico Juan Perez?").
     /// </summary>
     public static class Mensajes
     {
@@ -13,18 +15,18 @@ namespace PRAS.UI
 
         public static void Info(string texto)
         {
-            MessageBox.Show(texto, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void Advertencia(string texto)
         {
-            MessageBox.Show(texto, Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         /// <summary>Pregunta Sí/No. Devuelve true si el usuario eligió "Sí".</summary>
         public static bool Confirmar(string texto)
         {
-            return MessageBox.Show(texto, Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            return MessageBox.Show(texto.TraducirMensaje(), Titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                    == DialogResult.Yes;
         }
 
@@ -39,11 +41,9 @@ namespace PRAS.UI
         {
             ex.Handle();
 
-            // Los mensajes de nuestros errores se muestran tal cual (tienen datos como una patente o un monto).
-            // Solo traducimos el mensaje genérico de error inesperado.
-            string mensaje = ExceptionManager.MensajeParaUsuario(ex);
-            if (mensaje != ex.Message)
-                mensaje = mensaje.Traducir();
+            // Traducimos el mensaje con TraducirMensaje(): si trae datos (una patente, un monto)
+            // se usan las claves con huecos {0} del archivo de idioma.
+            string mensaje = ExceptionManager.MensajeParaUsuario(ex).TraducirMensaje();
 
             if (ExceptionManager.EsReglaDeNegocio(ex))
                 Advertencia(mensaje);

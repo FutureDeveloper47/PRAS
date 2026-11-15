@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -37,8 +38,8 @@ namespace PRAS.UI
             if (EsAlta)
             {
                 Text = "Alta de usuario";
-                lblContrasena.Text = "Contraseña: *";
-                lblConfirmacion.Text = "Repetir contraseña: *";
+                lblContrasena.Text = "Contraseña".Traducir() + ": *";
+                lblConfirmacion.Text = "Repetir contraseña".Traducir() + ": *";
                 cboRol.SelectedValue = Rol.Mecanico;
                 cboMecanico.SelectedIndex = -1;   // que el administrador elija el mecánico a propósito
             }
@@ -51,7 +52,7 @@ namespace PRAS.UI
                     cboMecanico.SelectedValue = _usuario.IdMecanico.Value;
                 else
                     cboMecanico.SelectedIndex = -1;
-                lblAyudaContrasena.Text = "Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.";
+                lblAyudaContrasena.Text = "Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.".Traducir();
             }
 
             ActualizarComboMecanico();
@@ -92,7 +93,7 @@ namespace PRAS.UI
         {
             bool esMecanico = cboRol.SelectedValue is Rol rol && rol == Rol.Mecanico;
             cboMecanico.Enabled = esMecanico;
-            lblMecanico.Text = esMecanico ? "Mecánico: *" : "Mecánico:";
+            lblMecanico.Text = "Mecánico".Traducir() + (esMecanico ? ": *" : ":");
             if (!esMecanico)
                 cboMecanico.SelectedIndex = -1;
         }

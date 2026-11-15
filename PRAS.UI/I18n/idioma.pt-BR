@@ -1,0 +1,728 @@
+﻿Domicilio:Endereço
+Localidad:Cidade
+Teléfono:Telefone
+Email:E-mail
+(*) Campo obligatorio:(*) Campo obrigatório
+Guardar:Salvar
+Cancelar:Cancelar
+Agencia:Agência
+Buscar:Pesquisar
+Mostrar deshabilitadas:Mostrar desativadas
+Razón social:Razão social
+CUIT:CNPJ (CUIT)
+Activa:Ativa
+Nueva:Nova
+Modificar:Editar
+Deshabilitar:Desativar
+Cerrar:Fechar
+Agencias:Agências
+VEHÍCULO *:VEÍCULO *
+Seleccionar mecánico *:Selecionar mecânico *
+Diagnóstico inicial *:Diagnóstico inicial *
+Prioridad:Prioridade
+Baja:Baixa
+Alta:Alta
+Media:Média
+GUARDAR Y ENVIAR:SALVAR E ENVIAR
+Asignación de Presupuesto:Atribuição de Orçamento
+Realizar backup:Fazer backup
+Archivo de destino:Arquivo de destino
+Examinar...:Procurar...
+Restaurar backup:Restaurar backup
+Archivo de backup:Arquivo de backup
+¡Atención! Se reemplazan todos los datos actuales por los del backup.:Atenção! Todos os dados atuais serão substituídos pelos do backup.
+Restaurar:Restaurar
+Backup y restore:Backup e restauração
+Desde:De
+Hasta:Até
+Nivel:Nível
+Usuario:Usuário
+Limpiar:Limpar
+Fecha:Data
+Mensaje:Mensagem
+Detalle del error:Detalhe do erro
+Bitácora:Registro de auditoria
+ESTADO:ESTADO
+Buscar Patente:Pesquisar placa
+Patente:Placa
+Marca:Marca
+Modelo:Modelo
+Año:Ano
+Color:Cor
+0 vehículo(s):0 veículo(s)
+Ver Detalle:Ver detalhe
+Eliminar:Excluir
+BUSCADOR DE AUTOS:BUSCADOR DE CARROS
+SELECCIONAR AUTO:SELECIONAR CARRO
+Tipo de Gasto:Tipo de despesa
+Descripción:Descrição
+Cantidad:Quantidade
+Precio unitario $:Preço unitário $
+Agregar gasto:Adicionar despesa
+Cant.:Qtd.
+Precio unit.:Preço unit.
+Subtotal:Subtotal
+Quitar gasto nuevo:Remover despesa nova
+TOTAL ACUMULADO = $ 0,00:TOTAL ACUMULADO = $ 0,00
+Finalizar reparación:Finalizar reparo
+Carga de Costos:Lançamento de Custos
+Cliente:Cliente
+Compras (autos que le compró la empresa):Compras (carros que a empresa comprou dele)
+Vehículo:Veículo
+Precio:Preço
+Forma de pago:Forma de pagamento
+Ventas (autos que compró):Vendas (carros que comprou)
+Historial del cliente:Histórico do cliente
+Mostrar deshabilitados:Mostrar desativados
+Apellido:Sobrenome
+Nombre:Nome
+DNI:Documento (DNI)
+Activo:Ativo
+Nuevo:Novo
+Historial:Histórico
+Clientes:Clientes
+Dominio:Placa
+Vendedor:Vendedor
+Nueva compra:Nova compra
+Consultar compras:Consultar compras
+DETALLE:DETALHE
+Persona:Pessoa
+Monto:Valor
+Total:Total
+Si los cambios son correctos, recalcule los dígitos verificadores. Si no, restaure un backup anterior al problema.:Se as alterações estiverem corretas, recalcule os dígitos verificadores. Caso contrário, restaure um backup anterior ao problema.
+Verificar nuevamente:Verificar novamente
+Recalcular dígitos:Recalcular dígitos
+Restaurar backup...:Restaurar backup...
+Integridad de datos:Integridade dos dados
+PRAS - Ingreso:PRAS - Entrada
+Contraseña:Senha
+Ingresar:Entrar
+PRAS - Iniciar sesión:PRAS - Iniciar sessão
+Especialidad:Especialidade
+Mecánico:Mecânico
+Mecánicos:Mecânicos
+&Sistema:&Sistema
+Idioma:Idioma
+Cerrar sesión:Encerrar sessão
+Salir:Sair
+S&eguridad:S&egurança
+Usuarios:Usuários
+Verificar integridad:Verificar integridade
+&Maestros:&Cadastros
+Proveedores:Fornecedores
+&Compras:&Compras
+Registrar compra de vehículo:Registrar compra de veículo
+&Taller:&Oficina
+Asignación de presupuesto (ingreso a taller):Atribuição de orçamento (entrada na oficina)
+Registrar diagnóstico:Registrar diagnóstico
+Consultar diagnóstico:Consultar diagnóstico
+Órdenes de trabajo:Ordens de serviço
+Consultar órdenes de trabajo:Consultar ordens de serviço
+Registrar tareas realizadas:Registrar tarefas realizadas
+&Repuestos:&Peças
+Registrar pedido:Registrar pedido
+Registrar entrega de pedido:Registrar entrega de pedido
+Consultar pedidos:Consultar pedidos
+C&omercial:C&omercial
+Consignaciones:Consignações
+Publicaciones:Anúncios
+Ventas:Vendas
+Re&portes:Re&latórios
+Vehículos:Veículos
+Reparaciones:Reparos
+Presupuestos:Orçamentos
+TALLER:OFICINA
+Ver detalle ›:Ver detalhe ›
+INGRESOS:ENTRADAS
+(en el mes actual):(no mês atual)
+ACTIVIDAD RECIENTE:ATIVIDADE RECENTE
+SISTEMA - INICIO:SISTEMA - INÍCIO
+Proveedor:Fornecedor
+DATOS DEL VEHÍCULO:DADOS DO VEÍCULO
+AÑO *:ANO *
+PATENTE *:PLACA *
+MODELO *:MODELO *
+MARCA *:MARCA *
+Nº CHASIS:Nº CHASSI
+Nº MOTOR:Nº MOTOR
+DATOS DE LA COMPRA:DADOS DA COMPRA
+DNI VENDEDOR *:DOCUMENTO VENDEDOR *
+Sin seleccionar:Não selecionado
+Nuevo cliente:Novo cliente
+FECHA *:DATA *
+PRECIO *:PREÇO *
+OBSERVACIONES:OBSERVAÇÕES
+FALTAN COMPLETAR DATOS PARA SU REGISTRO:FALTAM DADOS PARA O REGISTRO
+AUTO REGISTRADO EXITOSAMENTE!:CARRO REGISTRADO COM SUCESSO!
+SISTEMA DE GESTIÓN AUTOMOTOR - Registrar vehículo:SISTEMA DE GESTÃO AUTOMOTIVA - Registrar veículo
+Repetir contraseña:Repetir senha
+Mínimo 6 caracteres.:Mínimo 6 caracteres.
+Rol:Perfil
+El backup se realizó correctamente.:O backup foi realizado com sucesso.
+Seleccione el archivo de backup que quiere restaurar.:Selecione o arquivo de backup que deseja restaurar.
+Se van a reemplazar TODOS los datos actuales por los del backup.:TODOS os dados atuais serão substituídos pelos do backup.
+Lo que se cargó después de ese backup se pierde.:O que foi cadastrado depois desse backup será perdido.
+¿Desea continuar?:Deseja continuar?
+(Todos):(Todos)
+registros:registros
+Tablas protegidas:Tabelas protegidas
+La base de datos está íntegra. No se detectaron cambios externos.:O banco de dados está íntegro. Não foram detectadas alterações externas.
+Se detectaron cambios realizados por fuera del sistema:Foram detectadas alterações feitas fora do sistema
+Se van a aceptar los datos actuales como correctos y se recalcularán todos los dígitos verificadores.:Os dados atuais serão aceitos como corretos e todos os dígitos verificadores serão recalculados.
+Los dígitos verificadores se recalcularon correctamente.:Os dígitos verificadores foram recalculados com sucesso.
+Se detectaron cambios en la base de datos realizados por fuera del sistema.:Foram detectadas alterações no banco de dados feitas fora do sistema.
+Solo un Administrador puede ingresar para revisarlo.:Somente um Administrador pode entrar para revisar.
+La base fue restaurada. Vuelva a iniciar sesión.:O banco foi restaurado. Inicie a sessão novamente.
+Vehículos en taller:Veículos na oficina
+Chocados ingresados:Batidos recebidos
+Ventas del mes:Vendas do mês
+Todavía no hay movimientos.:Ainda não há movimentações.
+Hoy:Hoje
+Ayer:Ontem
+¿Desea cerrar la sesión?:Deseja encerrar a sessão?
+se implementa en una próxima etapa.:será implementado em uma próxima etapa.
+Ocurrió un error inesperado:Ocorreu um erro inesperado
+Dueño:Proprietário
+Administrador:Administrador
+(ninguna):(nenhuma)
+(sin cliente):(sem cliente)
+AGENCIA:AGÊNCIA
+Abierta:Aberta
+Abrir evidencia:Abrir evidência
+Actualizar:Atualizar
+Agencia *:Agência *
+Agregar:Adicionar
+Agregar a la familia:Adicionar à família
+Agregar evidencia...:Adicionar evidência...
+Agregar tarea:Adicionar tarefa
+Archivo:Arquivo
+Asignar familia:Atribuir família
+Asignar patente:Atribuir permissão
+Buscador de autos:Buscador de carros
+Cambiar prioridad:Alterar prioridade
+Carga de costos:Lançamento de custos
+Cheque:Cheque
+Comisiones:Comissões
+Comisión:Comissão
+Comisión %:Comissão %
+Comisión de la agencia:Comissão da agência
+Comisión de la agencia (%) *:Comissão da agência (%) *
+Comprado (chocado):Comprado (batido)
+Comprador:Comprador
+Consignaciones (autos en agencias):Consignações (carros nas agências)
+Consignación registrada. El auto quedó En agencia.:Consignação registrada. O carro ficou Na agência.
+Consultar pedidos de repuestos:Consultar pedidos de peças
+Consultar ventas:Consultar vendas
+Costo:Custo
+Costo de reparación:Custo do reparo
+Costo estimado:Custo estimado
+Crear familia:Criar família
+DESHABILITADO:DESATIVADO
+DNI del comprador *:Documento do comprador *
+Dar de baja:Dar baixa
+Descripción de daños *:Descrição dos danos *
+Diagnóstico:Diagnóstico
+Diagnóstico finalizado.:Diagnóstico finalizado.
+Diagnóstico guardado.:Diagnóstico salvo.
+Días en taller:Dias na oficina
+Efectivo:Dinheiro
+El auto quedó Vendido.:O carro ficou Vendido.
+Eliminar familia seleccionada:Excluir família selecionada
+En agencia:Na agência
+En curso:Em andamento
+En diagnóstico:Em diagnóstico
+En reparación:Em reparo
+Entrega:Entrega
+Entrega registrada. El costo se sumó al presupuesto de la reparación.:Entrega registrada. O custo foi somado ao orçamento do reparo.
+Entregado:Entregue
+Entregados:Entregues
+Entregar auto a una agencia:Entregar carro a uma agência
+Estado:Estado
+Estado del auto:Estado do carro
+Evidencias (fotos, videos o documentos):Evidências (fotos, vídeos ou documentos)
+Exportar a CSV...:Exportar para CSV...
+Familia:Família
+Familia seleccionada:Família selecionada
+Familias:Famílias
+Familias y sus permisos:Famílias e suas permissões
+Fecha de compra:Data da compra
+Fecha de entrega *:Data de entrega *
+Fecha de venta *:Data da venda *
+Fin:Fim
+Finalización:Finalização
+Finalizada:Finalizada
+Finalizado:Finalizado
+Finalizar:Finalizar
+Finalizar diagnóstico:Finalizar diagnóstico
+Finalizar orden (auto reparado):Finalizar ordem (carro reparado)
+Financiado:Financiado
+Forma de pago *:Forma de pagamento *
+Ganancia:Lucro
+Generar:Gerar
+Gestión de la orden seleccionada:Gestão da ordem selecionada
+Guardar cambios:Salvar alterações
+Iniciar tarea:Iniciar tarefa
+Inicio:Início
+Inversión total:Investimento total
+Mano de obra y otros:Mão de obra e outros
+Mostrar solo las publicaciones activas:Mostrar só os anúncios ativos
+Mostrar solo los autos que están en las agencias:Mostrar só os carros que estão nas agências
+Mostrar también las tareas finalizadas:Mostrar também as tarefas finalizadas
+Mostrar también los autos que ya salieron del taller:Mostrar também os carros que já saíram da oficina
+No hay autos en agencias para vender.:Não há carros nas agências para vender.
+No hay autos en agencias sin publicar.:Não há carros nas agências sem anúncio.
+No hay autos en estado Reparado para entregar a una agencia.:Não há carros Reparados para entregar a uma agência.
+No hay datos para exportar.:Não há dados para exportar.
+No hay ningún cliente con ese DNI. ¿Desea darlo de alta?:Não há nenhum cliente com esse documento. Deseja cadastrá-lo?
+No se encontró el archivo de la evidencia:O arquivo da evidência não foi encontrado
+Nueva consignación:Nova consignação
+Nueva familia:Nova família
+Nueva publicación:Novo anúncio
+Nueva venta:Nova venda
+Nuevo cliente...:Novo cliente...
+Nuevo pedido:Novo pedido
+N°:Nº
+OT:OS
+Observaciones:Observações
+Ocurrió un error inesperado. El detalle quedó registrado en la bitácora.:Ocorreu um erro inesperado. O detalhe foi registrado no registro de auditoria.
+Orden de trabajo *:Ordem de serviço *
+Orden de trabajo finalizada. El auto quedó Reparado.:Ordem de serviço finalizada. O carro ficou Reparado.
+Patrón Composite. Una familia puede contener patentes (permisos concretos) y otras familias. Seleccione una familia en el árbol para agregarle o quitarle elementos. La familia Administrador está protegida.:Padrão Composite. Uma família pode conter permissões e outras famílias. Selecione uma família na árvore para adicionar ou remover itens. A família Administrador está protegida.
+Pedido registrado con el número:Pedido registrado com o número
+Pedidos de repuestos:Pedidos de peças
+Pendiente:Pendente
+Pendientes:Pendentes
+Permisos (familias y patentes):Permissões (famílias e permissões)
+Permisos asignados:Permissões atribuídas
+Permisos de usuarios (familias y patentes):Permissões de usuários (famílias e permissões)
+Permisos efectivos (todas sus patentes):Permissões efetivas (todas)
+Plataforma:Plataforma
+Plataforma *:Plataforma *
+Precio de compra:Preço de compra
+Precio de venta:Preço de venda
+Precio de venta *:Preço de venda *
+Precio mínimo:Preço mínimo
+Precio mínimo de venta:Preço mínimo de venda
+Precio mínimo de venta *:Preço mínimo de venda *
+Precio publicado:Preço anunciado
+Precio publicado *:Preço anunciado *
+Precio unitario:Preço unitário
+Presupuesto:Orçamento
+Proveedor *:Fornecedor *
+Publicación registrada. El auto quedó Publicado.:Anúncio registrado. O carro ficou Anunciado.
+Publicado:Anunciado
+Publicar:Anunciar
+Publicar auto:Anunciar carro
+Quitar elemento seleccionado:Remover item selecionado
+Quitar permiso seleccionado:Remover permissão selecionada
+Quitar repuesto:Remover peça
+Registrar como finalizada:Registrar como finalizada
+Registrar consignación:Registrar consignação
+Registrar entrega:Registrar entrega
+Registrar pedido de repuestos:Registrar pedido de peças
+Registrar retiro:Registrar retirada
+Registrar venta:Registrar venda
+Reparado:Reparado
+Reporte:Relatório
+Reporte de presupuestos:Relatório de orçamentos
+Reporte de reparaciones:Relatório de reparos
+Reporte de vehículos:Relatório de veículos
+Reporte de ventas:Relatório de vendas
+Reporte exportado.:Relatório exportado.
+Repuesto:Peça
+Repuestos:Peças
+Repuestos del pedido seleccionado:Peças do pedido selecionado
+Requiere reparación:Requer reparo
+Retirada:Retirada
+Retiro / venta:Retirada / venda
+Seleccionar evidencia:Selecionar evidência
+Seleccione en el árbol el elemento (patente o familia) que quiere quitar de su familia.:Selecione na árvore o item (permissão ou família) que deseja remover da sua família.
+Seleccione un pedido de la lista.:Selecione um pedido da lista.
+Seleccione un permiso del primer nivel del árbol (lo que está asignado directamente al usuario).:Selecione uma permissão do primeiro nível da árvore (atribuída diretamente ao usuário).
+Seleccione un vehículo de la lista.:Selecione um veículo da lista.
+Seleccione una consignación de la lista.:Selecione uma consignação da lista.
+Seleccione una evidencia de la lista.:Selecione uma evidência da lista.
+Seleccione una familia del primer nivel del árbol.:Selecione uma família do primeiro nível da árvore.
+Seleccione una orden de trabajo de la lista.:Selecione uma ordem de serviço da lista.
+Seleccione una publicación de la lista.:Selecione um anúncio da lista.
+Tarea:Tarefa
+Tareas:Tarefas
+Tareas de la orden seleccionada:Tarefas da ordem selecionada
+Tipo:Tipo
+Todos:Todos
+Total vendido:Total vendido
+Transferencia:Transferência
+Vehículo en agencia *:Veículo na agência *
+Vehículo reparado *:Veículo reparado *
+Vendida:Vendida
+Vendido:Vendido
+Venta registrada con el número:Venda registrada com o número
+Vigente:Vigente
+registro(s):registro(s)
+venta(s):venda(s)
+Ítems:Itens
+Abiertas:Abertas
+Finalizadas:Finalizadas
+Todas:Todas
+Modificar publicación:Editar anúncio
+Publicación modificada.:Anúncio alterado.
+Solo se pueden modificar las publicaciones activas.:Só é possível editar anúncios ativos.
+Exportar...:Exportar...
+Período:Período
+Stock al:Estoque em
+AÑO:ANO
+PATENTE:PLACA
+MODELO:MODELO
+MARCA:MARCA
+COLOR:COR
+DNI VENDEDOR:DOCUMENTO VENDEDOR
+FECHA:DATA
+PRECIO:PREÇO
+FORMA DE PAGO:FORMA DE PAGAMENTO
+CANCELAR:CANCELAR
+GUARDAR:SALVAR
+VEHÍCULO:VEÍCULO
+Seleccionar mecánico:Selecionar mecânico
+Diagnóstico inicial:Diagnóstico inicial
+Detalle:Detalhe
+Sistema:Sistema
+Mi perfil:Meu perfil
+Pedir ayuda:Pedir ajuda
+Ayuda:Ajuda
+Seguridad:Segurança
+Maestros:Cadastros
+Compras:Compras
+Taller:Oficina
+Comercial:Comercial
+Reportes:Relatórios
+¿Olvidó su contraseña?:Esqueceu sua senha?
+Tema del problema:Tema do problema
+Detalle del problema:Detalhe do problema
+Enviar pedido:Enviar pedido
+Enviar también por email:Enviar também por e-mail
+Si es urgente, comuníquese con el administrador:Se for urgente, fale com o administrador
+Mis datos:Meus dados
+Aplicar idioma:Aplicar idioma
+Cambiar contraseña:Alterar senha
+Contraseña actual:Senha atual
+Nueva contraseña:Nova senha
+Guardar contraseña:Salvar senha
+Pregunta de seguridad (para recuperar la contraseña):Pergunta de segurança (para recuperar a senha)
+Pregunta:Pergunta
+Respuesta:Resposta
+Guardar pregunta:Salvar pergunta
+Recuperar contraseña:Recuperar senha
+Ver pregunta de seguridad:Ver pergunta de segurança
+Pregunta de seguridad:Pergunta de segurança
+Mostrar contraseña:Mostrar senha
+Si no puede recuperarla, comuníquese con el administrador:Se não conseguir recuperá-la, fale com o administrador
+CERRAR:FECHAR
+Sin datos de compra.:Sem dados de compra.
+compra(s):compra(s)
+Total invertido:Total investido
+TOTAL ACUMULADO:TOTAL ACUMULADO
+Detalle - Taller:Detalhe - Oficina
+vehículos en el taller:veículos na oficina
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.:Carros que estão agora em diagnóstico ou reparo, com seu mecânico e prioridade.
+Ingreso al taller:Entrada na oficina
+No hay vehículos en el taller.:Não há veículos na oficina.
+Detalle - Ingresos:Detalhe - Entradas
+chocados comprados:batidos comprados
+No hay compras en el mes.:Não há compras no mês.
+Detalle - Agencia:Detalhe - Agência
+ventas y autos en agencia:vendas e carros na agência
+Pedido de ayuda:Pedido de ajuda
+Todavía no cargó una pregunta de seguridad.:Você ainda não cadastrou uma pergunta de segurança.
+Ya tiene una pregunta de seguridad cargada. Puede cambiarla.:Você já tem uma pergunta de segurança. Pode alterá-la.
+Cómo probarlo:Como testar
+En SQL Server Management Studio cambie un dato de una tabla protegida, por ejemplo:No SQL Server Management Studio altere um dado de uma tabela protegida, por exemplo
+Vuelva a presionar Verificar nuevamente:Clique novamente em Verificar novamente
+el sistema detecta el registro modificado (DVH):o sistema detecta o registro alterado (DVH)
+Si borra o agrega una fila con SQL, lo detecta el DVV de la tabla:Se excluir ou adicionar uma linha com SQL, o DVV da tabela detecta
+DVV correcto:DVV correto
+no se agregaron ni borraron filas:nenhuma linha foi adicionada ou excluída
+DVV distinto:DVV diferente
+Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.:Deixe vazio para não alterar a senha. Mínimo 6 caracteres.
+Agregar Cliente:Adicionar Cliente
+La publicación ya no está activa (otro usuario la modificó).:O anúncio não está mais ativo (outro usuário o alterou).
+El diagnóstico ya estaba finalizado (otro usuario lo modificó).:O diagnóstico já estava finalizado (outro usuário o alterou).
+El vehículo ya no está en estado Comprado y no se puede eliminar.:O veículo não está mais Comprado e não pode ser excluído.
+El vehículo cambió de estado mientras se hacía la operación. Vuelva a intentarlo.:O veículo mudou de estado durante a operação. Tente novamente.
+No hay ningún taller cargado en la tabla Taller.:Não há nenhuma oficina cadastrada na tabela Taller.
+La consignación ya no está vigente (otro usuario la modificó).:A consignação não está mais vigente (outro usuário a alterou).
+La consignación del vehículo ya no está vigente (otro usuario la modificó).:A consignação do veículo não está mais vigente (outro usuário a alterou).
+No se encontró la cadena de conexión '{0}' en App.config.:A string de conexão '{0}' não foi encontrada no App.config.
+Registró la compra {0} del vehículo {1} por $ {2}.:Registrou a compra {0} do veículo {1} por $ {2}.
+Modificación del vehículo {0}.:Alteração do veículo {0}.
+eliminarlo (solo se pueden eliminar autos Comprados que todavía no entraron al taller):excluí-lo (só podem ser excluídos carros Comprados que ainda não entraram na oficina)
+Eliminó el vehículo {0} y su compra.:Excluiu o veículo {0} e sua compra.
+Alta de la agencia {0}.:Cadastro da agência {0}.
+Modificación de la agencia {0}.:Alteração da agência {0}.
+Deshabilitó a la agencia {0}.:Desativou a agência {0}.
+Habilitó a la agencia con Id {0}.:Ativou a agência com Id {0}.
+Alta del proveedor {0}.:Cadastro do fornecedor {0}.
+Modificación del proveedor {0}.:Alteração do fornecedor {0}.
+Deshabilitó al proveedor {0}.:Desativou o fornecedor {0}.
+Habilitó al proveedor con Id {0}.:Ativou o fornecedor com Id {0}.
+Se encriptaron con AES el teléfono y el email de {0} cliente(s).:O telefone e o e-mail de {0} cliente(s) foram criptografados com AES.
+Alta del cliente {0} (DNI {1}).:Cadastro do cliente {0} (documento {1}).
+Modificación del cliente {0} (DNI {1}).:Alteração do cliente {0} (documento {1}).
+Deshabilitó al cliente {0} (DNI {1}).:Desativou o cliente {0} (documento {1}).
+Habilitó al cliente con Id {0}.:Ativou o cliente com Id {0}.
+Alta del mecánico {0}.:Cadastro do mecânico {0}.
+Modificación del mecánico {0}.:Alteração do mecânico {0}.
+Deshabilitó al mecánico {0}.:Desativou o mecânico {0}.
+Habilitó al mecánico con Id {0}.:Ativou o mecânico com Id {0}.
+Registró el pedido de repuestos {0} a {1} para la OT {2} ({3}).:Registrou o pedido de peças {0} para {1} na OS {2} ({3}).
+El pedido {0} ya está {1}.:O pedido {0} já está {1}.
+El pedido cambió de estado. Actualice la lista.:O pedido mudou de estado. Atualize a lista.
+entregarlo a una agencia (tiene que estar Reparado):entregá-lo a uma agência (precisa estar Reparado)
+(mínimo {0}, comisión {1}%).:(mínimo {0}, comissão {1}%).
+La consignación ya está {0}.:A consignação já está {0}.
+Retiró el vehículo {0} de la agencia {1}.:Retirou o veículo {0} da agência {1}.
+El vehículo ya no está en la agencia (la consignación no está vigente).:O veículo não está mais na agência (a consignação não está vigente).
+venderlo:vendê-lo
+la forma de pago:a forma de pagamento
+(agencia {0}, comisión {1}).:(agência {0}, comissão {1}).
+publicarlo:anunciá-lo
+Publicó el vehículo {0} en {1} a {2}.:Anunciou o veículo {0} em {1} por {2}.
+precio {0} -> {1}.:preço {0} -> {1}.
+Finalizó la publicación del vehículo {0} en {1}.:Finalizou o anúncio do veículo {0} em {1}.
+Modificó el diagnóstico {0} del vehículo {1}.:Alterou o diagnóstico {0} do veículo {1}.
+finalizar su diagnóstico:finalizar seu diagnóstico
+Seleccione un archivo que exista.:Selecione um arquivo existente.
+El nombre del archivo es demasiado largo.:O nome do arquivo é muito longo.
+Agregó una evidencia ({0}) al diagnóstico del vehículo {1}.:Adicionou uma evidência ({0}) ao diagnóstico do veículo {1}.
+No se pudo copiar el archivo de una evidencia.:Não foi possível copiar o arquivo de uma evidência.
+un diagnóstico de la lista:um diagnóstico da lista
+ingresarlo al taller (tiene que estar Comprado):colocá-lo na oficina (precisa estar Comprado)
+Ingreso a taller del vehículo {0} (mecánico {1}, prioridad {2}).:Entrada na oficina do veículo {0} (mecânico {1}, prioridade {2}).
+Carga de {0} gasto(s) en el presupuesto {1}.:Lançamento de {0} despesa(s) no orçamento {1}.
+finalizar su reparación (no está en reparación):finalizar seu reparo (não está em reparo)
+Finalizó la reparación del vehículo {0}.:Finalizou o reparo do veículo {0}.
+Cambió la prioridad de la OT {0} de {1} a {2}.:Alterou a prioridade da OS {0} de {1} para {2}.
+Agregó la tarea "{0}" a la OT {1} (mecánico {2}).:Adicionou a tarefa "{0}" à OS {1} (mecânico {2}).
+finalizar su reparación:finalizar seu reparo
+Solo se puede iniciar una tarea Pendiente (esta está "{0}").:Só é possível iniciar uma tarefa Pendente (esta está "{0}").
+La tarea cambió de estado. Actualice la lista.:A tarefa mudou de estado. Atualize a lista.
+Inició la tarea {0} (OT {1}, vehículo {2}).:Iniciou a tarefa {0} (OS {1}, veículo {2}).
+La tarea ya está finalizada.:A tarefa já está finalizada.
+Finalizó la tarea {0} (OT {1}, vehículo {2}).:Finalizou a tarefa {0} (OS {1}, veículo {2}).
+La orden de trabajo de esta tarea ya está cerrada.:A ordem de serviço desta tarefa já está fechada.
+Generó el {0} del {1} al {2}.:Gerou o {0} de {1} a {2}.
+Generó el {0}.:Gerou o {0}.
+dónde guardar el archivo:onde salvar o arquivo
+No se pudo exportar el reporte.:Não foi possível exportar o relatório.
+Exportó un reporte a {0} ({1} filas).:Exportou um relatório para {0} ({1} linhas).
+No se pudo exportar el reporte a PDF.:Não foi possível exportar o relatório para PDF.
+Recalculó los dígitos verificadores de todas las tablas protegidas.:Recalculou os dígitos verificadores de todas as tabelas protegidas.
+la familia y la patente:a família e a permissão
+La familia "{0}" ya tiene la patente "{1}".:A família "{0}" já tem a permissão "{1}".
+las dos familias:as duas famílias
+La familia "{0}" ya contiene a "{1}".:A família "{0}" já contém "{1}".
+el elemento que quiere quitar:o item que deseja remover
+el usuario y el permiso a asignar:o usuário e a permissão a atribuir
+El usuario "{0}" ya tiene asignado "{1}".:O usuário "{0}" já tem "{1}" atribuído.
+El usuario "{0}" ya tiene "{1}" dentro de la familia "{2}".:O usuário "{0}" já tem "{1}" dentro da família "{2}".
+el permiso que quiere quitar:a permissão que deseja remover
+Inició sesión.:Iniciou sessão.
+Cerró sesión.:Encerrou sessão.
+Cambió el idioma a {0}.:Alterou o idioma para {0}.
+Cambió su contraseña desde Mi perfil.:Alterou sua senha em Meu perfil.
+Actualizó su pregunta de seguridad desde Mi perfil.:Atualizou sua pergunta de segurança em Meu perfil.
+El usuario "{0}" recuperó su contraseña con la pregunta de seguridad.:O usuário "{0}" recuperou sua senha com a pergunta de segurança.
+Alta del usuario "{0}" (rol {1}).:Cadastro do usuário "{0}" (perfil {1}).
+Modificación del usuario "{0}".:Alteração do usuário "{0}".
+Deshabilitó al usuario "{0}".:Desativou o usuário "{0}".
+Habilitó al usuario con Id {0}.:Ativou o usuário com Id {0}.
+el mecánico al que corresponde este usuario:o mecânico ao qual este usuário corresponde
+El mecánico {0} ya tiene el usuario "{1}".:O mecânico {0} já tem o usuário "{1}".
+Debe quedar al menos un Administrador activo en el sistema.:Deve haver pelo menos um Administrador ativo no sistema.
+el tema del problema:o tema do problema
+dónde guardar el backup:onde salvar o backup
+Realizó un backup de las bases PRAS y PRAS_Seguridad en "{0}".:Fez backup dos bancos PRAS e PRAS_Seguridad em "{0}".
+Falló el backup de la base.:O backup do banco falhou.
+Seleccione un archivo de backup (.bak) existente.:Selecione um arquivo de backup (.bak) existente.
+Inició la restauración de las bases desde "{0}".:Iniciou a restauração dos bancos a partir de "{0}".
+Las bases PRAS y PRAS_Seguridad fueron restauradas correctamente. Se cierra la sesión.:Os bancos PRAS e PRAS_Seguridad foram restaurados. A sessão será encerrada.
+Falló la restauración de la base.:A restauração do banco falhou.
+La tabla {0} no tiene dígitos verificadores.:A tabela {0} não tem dígitos verificadores.
+Indique dónde guardar el backup.:Indique onde salvar o backup.
+No se encontró el archivo de backup.:O arquivo de backup não foi encontrado.
+Falta la clave "ClaveAES" en el archivo de configuración.:Falta a chave "ClaveAES" no arquivo de configuração.
+La clave "ClaveAES" tiene que tener 32 bytes (AES-256).:A chave "ClaveAES" precisa ter 32 bytes (AES-256).
+Se guardó el cliente {0}.:O cliente {0} foi salvo.
+No se pueden agregar elementos en un hijo tipo hoja:Não é possível adicionar itens a um filho do tipo folha
+No se pueden eliminar elementos en un hijo tipo hoja:Não é possível remover itens de um filho do tipo folha
+El archivo no contiene un backup de las bases del sistema PRAS.:O arquivo não contém um backup dos bancos do sistema PRAS.
+Las patentes del sistema no se pueden eliminar.:As permissões do sistema não podem ser excluídas.
+Los datos del vehículo se guardaron correctamente.:Os dados do veículo foram salvos com sucesso.
+No existe un cliente con ese DNI.:Não existe um cliente com esse documento.
+¿Desea darlo de alta ahora?:Deseja cadastrá-lo agora?
+¿Confirma la compra del vehículo {0} ({1} {2}):Confirma a compra do veículo {0} ({1} {2})
+a {0} por {1}?:de {0} por {1}?
+Seleccione un auto de la lista.:Selecione um carro da lista.
+¿Eliminar el vehículo {0}?:Excluir o veículo {0}?
+También se borra su compra. Use esta opción solo para corregir una carga equivocada.:A compra também será excluída. Use esta opção só para corrigir um cadastro errado.
+El vehículo {0} fue eliminado.:O veículo {0} foi excluído.
+Proveedor dado de alta correctamente.:Fornecedor cadastrado com sucesso.
+Proveedor modificado correctamente.:Fornecedor alterado com sucesso.
+Agencia dada de alta correctamente.:Agência cadastrada com sucesso.
+Agencia modificada correctamente.:Agência alterada com sucesso.
+Cliente dado de alta correctamente.:Cliente cadastrado com sucesso.
+Cliente modificado correctamente.:Cliente alterado com sucesso.
+Seleccione un cliente de la lista.:Selecione um cliente da lista.
+¿Deshabilitar al cliente {0}?:Desativar o cliente {0}?
+¿Volver a habilitar al cliente {0}?:Reativar o cliente {0}?
+Mecánico dado de alta correctamente.:Mecânico cadastrado com sucesso.
+Mecánico modificado correctamente.:Mecânico alterado com sucesso.
+Seleccione una agencia de la lista.:Selecione uma agência da lista.
+¿Deshabilitar la agencia {0}?:Desativar a agência {0}?
+¿Volver a habilitar la agencia {0}?:Reativar a agência {0}?
+Seleccione un proveedor de la lista.:Selecione um fornecedor da lista.
+¿Deshabilitar al proveedor {0}?:Desativar o fornecedor {0}?
+¿Volver a habilitar al proveedor {0}?:Reativar o fornecedor {0}?
+Seleccione un mecánico de la lista.:Selecione um mecânico da lista.
+¿Deshabilitar al mecánico {0}?:Desativar o mecânico {0}?
+¿Volver a habilitar al mecánico {0}?:Reativar o mecânico {0}?
+¿Registrar que {0} entregó el pedido {1}?:Registrar que {0} entregou o pedido {1}?
+Su total ({0}) se suma al presupuesto de la OT {1}.:Seu total ({0}) é somado ao orçamento da OS {1}.
+¿Retirar el vehículo {0} de {1}?:Retirar o veículo {0} de {1}?
+Si está publicado, la publicación se da de baja y el auto vuelve a "Reparado".:Se estiver anunciado, o anúncio é retirado e o carro volta a "Reparado".
+¿Dar de baja la publicación de {0} en {1}?:Retirar o anúncio de {0} em {1}?
+El auto sigue en la agencia.:O carro continua na agência.
+¿Registrar la venta de {0} a {1} por {2}?:Registrar a venda de {0} para {1} por {2}?
+No hay autos "En reparación".:Não há carros "Em reparo".
+Primero ingrese uno al taller desde Taller > Asignación de presupuesto.:Primeiro coloque um na oficina em Oficina > Atribuição de orçamento.
+Hay gastos sin guardar para el auto anterior. ¿Descartarlos?:Há despesas não salvas do carro anterior. Descartá-las?
+Seleccione en la lista un gasto "Nuevo (sin guardar)".:Selecione na lista uma despesa "Nova (não salva)".
+Los gastos se guardaron correctamente.:As despesas foram salvas com sucesso.
+Hay gastos sin guardar. Guárdelos o quítelos antes de finalizar.:Há despesas não salvas. Salve-as ou remova-as antes de finalizar.
+¿Finalizar la reparación de {0}?:Finalizar o reparo de {0}?
+El auto pasa a "Reparado" y ya no se le pueden cargar costos.:O carro passa a "Reparado" e não é mais possível lançar custos.
+¿Marcar como finalizada la tarea "{0}" ({1})?:Marcar a tarefa "{0}" ({1}) como finalizada?
+¿Finalizar la OT {0} ({1})? El auto queda "Reparado".:Finalizar a OS {0} ({1})? O carro fica "Reparado".
+No hay autos en estado "Comprado" para ingresar al taller.:Não há carros "Comprados" para colocar na oficina.
+Primero registre una compra.:Primeiro registre uma compra.
+No hay mecánicos habilitados. Cargue uno desde Maestros > Mecánicos.:Não há mecânicos ativos. Cadastre um em Cadastros > Mecânicos.
+El vehículo {0} ingresó al taller.:O veículo {0} entrou na oficina.
+Superó los {0} intentos permitidos. El sistema se cerrará.:Você excedeu as {0} tentativas permitidas. O sistema será fechado.
+Su pedido de ayuda quedó registrado. El administrador lo va a ver en la bitácora.:Seu pedido de ajuda foi registrado. O administrador vai vê-lo no registro de auditoria.
+No hay un programa de correo configurado en esta PC. Su pedido quedó registrado en la bitácora.:Não há um programa de e-mail configurado neste PC. Seu pedido foi registrado no registro de auditoria.
+La contraseña se cambió correctamente.:A senha foi alterada com sucesso.
+La pregunta de seguridad se guardó correctamente.:A pergunta de segurança foi salva com sucesso.
+¿Quitar "{0}" de la familia "{1}"?:Remover "{0}" da família "{1}"?
+¿Eliminar la familia "{0}"? Los usuarios que la tengan asignada perderán esos permisos.:Excluir a família "{0}"? Os usuários que a tiverem atribuída perderão essas permissões.
+La contraseña se cambió correctamente. Ya puede ingresar con la contraseña nueva.:A senha foi alterada com sucesso. Já pode entrar com a nova senha.
+Superó los intentos permitidos. Comuníquese con el administrador.:Você excedeu as tentativas permitidas. Fale com o administrador.
+Usuario dado de alta correctamente.:Usuário cadastrado com sucesso.
+Usuario modificado correctamente.:Usuário alterado com sucesso.
+Seleccione un usuario de la lista.:Selecione um usuário da lista.
+¿Deshabilitar al usuario "{0}"?:Desativar o usuário "{0}"?
+No podrá ingresar al sistema.:Ele não poderá entrar no sistema.
+¿Volver a habilitar al usuario "{0}"?:Reativar o usuário "{0}"?
+No se encontró el archivo de ayuda (Ayuda\PRAS.chm). Reinstale el sistema o consulte al administrador.:O arquivo de ajuda (Ayuda\PRAS.chm) não foi encontrado. Reinstale o sistema ou fale com o administrador.
+El proveedor ya no existe.:O fornecedor não existe mais.
+El proveedor tiene pedidos de repuestos pendientes de entrega. No se puede deshabilitar.:O fornecedor tem pedidos de peças pendentes de entrega. Não pode ser desativado.
+El proveedor ya está deshabilitado.:O fornecedor já está desativado.
+El proveedor {0} está deshabilitado.:O fornecedor {0} está desativado.
+El mecánico ya está deshabilitado.:O mecânico já está desativado.
+El mecánico {0} tiene tareas asignadas sin terminar. No se puede deshabilitar.:O mecânico {0} tem tarefas atribuídas não terminadas. Não pode ser desativado.
+El mecánico ya no existe.:O mecânico não existe mais.
+El mecánico {0} está deshabilitado.:O mecânico {0} está desativado.
+Faltan los datos del vehículo.:Faltam os dados do veículo.
+El vehículo con dominio {0} ya está registrado ({1}).:O veículo com placa {0} já está registrado ({1}).
+El año debe estar entre {0} y {1}.:O ano deve estar entre {0} e {1}.
+El vehículo ya no existe.:O veículo não existe mais.
+El cliente {0} está deshabilitado.:O cliente {0} está desativado.
+El cliente ya está deshabilitado.:O cliente já está desativado.
+El cliente ya no existe.:O cliente não existe mais.
+El pedido ya no existe.:O pedido não existe mais.
+Agregue al menos un repuesto al pedido.:Adicione pelo menos uma peça ao pedido.
+El porcentaje de comisión debe ser mayor a 0 y como máximo 100.:O percentual de comissão deve ser maior que 0 e no máximo 100.
+La fecha de venta no puede ser anterior a la entrega del auto a la agencia.:A data da venda não pode ser anterior à entrega do carro à agência.
+La publicación ya no existe.:O anúncio não existe mais.
+La consignación ya no existe.:A consignação não existe mais.
+El precio ({0}) no puede ser menor al precio mínimo de la consignación ({1}).:O preço ({0}) não pode ser menor que o preço mínimo da consignação ({1}).
+La publicación ya está finalizada.:O anúncio já está finalizado.
+El diagnóstico ya no existe.:O diagnóstico não existe mais.
+La tarea ya no existe.:A tarefa não existe mais.
+El costo estimado no puede ser negativo.:O custo estimado não pode ser negativo.
+El diagnóstico ya está finalizado.:O diagnóstico já está finalizado.
+Solo puede registrar sus propias tareas.:Só pode registrar suas próprias tarefas.
+La orden de trabajo ya no existe.:A ordem de serviço não existe mais.
+No hay gastos nuevos para guardar.:Não há despesas novas para salvar.
+El usuario ya no existe.:O usuário não existe mais.
+Usuario o contraseña incorrectos.:Usuário ou senha incorretos.
+No puede deshabilitar su propio usuario.:Você não pode desativar seu próprio usuário.
+El usuario está deshabilitado. Consulte con el Administrador.:O usuário está desativado. Fale com o Administrador.
+La contraseña debe tener al menos {0} caracteres.:A senha deve ter pelo menos {0} caracteres.
+Ya existe una familia llamada "{0}".:Já existe uma família chamada "{0}".
+La contraseña y su confirmación no coinciden.:A senha e sua confirmação não coincidem.
+El usuario no tiene permisos asignados. Consulte con el Administrador.:O usuário não tem permissões atribuídas. Fale com o Administrador.
+No tiene permisos para realizar esta operación.:Você não tem permissão para realizar esta operação.
+El usuario ya está deshabilitado.:O usuário já está desativado.
+No puede modificar sus propios permisos. Pídaselo a otro administrador.:Você não pode alterar suas próprias permissões. Peça a outro administrador.
+La contraseña actual no es correcta.:A senha atual não está correta.
+No se puede recuperar la contraseña de ese usuario. Comuníquese con el administrador.:Não é possível recuperar a senha desse usuário. Fale com o administrador.
+El nombre de usuario no puede contener espacios.:O nome de usuário não pode conter espaços.
+La respuesta a la pregunta de seguridad no es correcta.:A resposta à pergunta de segurança não está correta.
+Ya existe un usuario llamado "{0}".:Já existe um usuário chamado "{0}".
+Seleccione un rol válido.:Selecione um perfil válido.
+La agencia {0} está deshabilitada.:A agência {0} está desativada.
+La agencia ya está deshabilitada.:A agência já está desativada.
+La agencia tiene autos en consignación. Primero hay que retirarlos para poder deshabilitarla.:A agência tem carros em consignação. Primeiro é preciso retirá-los para desativá-la.
+La agencia ya no existe.:A agência não existe mais.
+El campo {0} admite como máximo {1} caracteres.:O campo {0} permite no máximo {1} caracteres.
+El DNI debe tener 7 u 8 números (sin letras).:O documento (DNI) deve ter 7 ou 8 números (sem letras).
+La fecha de {0} no puede ser posterior a hoy.:A data de {0} não pode ser posterior a hoje.
+La fecha "desde" no puede ser posterior a la fecha "hasta".:A data "de" não pode ser posterior à data "até".
+{0} debe ser mayor a 0.:{0} deve ser maior que 0.
+El campo {0} es obligatorio.:O campo {0} é obrigatório.
+Seleccione {0}.:Selecione {0}.
+Ocurrió un error inesperado en la pantalla.:Ocorreu um erro inesperado na tela.
+El registro de {0} con ID '{1}' no fue encontrado.:O registro de {0} com ID '{1}' não foi encontrado.
+Mecánica general:Mecânica geral
+Mecanica general:Mecânica geral
+Chapa y pintura:Funilaria e pintura
+Electricidad:Elétrica
+Sacabollos:Martelinho de ouro
+Ingresó {0}:Entrou {0}
+Venta {0}:Venda {0}
+Ya existe un proveedor con el CUIT {0}:Já existe um fornecedor com o CNPJ {0}
+Ya existe un cliente con el DNI {0}:Já existe um cliente com o documento {0}
+Ya existe una agencia con el CUIT {0}:Já existe uma agência com o CNPJ {0}
+El vehículo {0} está "{1}":O veículo {0} está "{1}"
+no se puede {0}.:não é possível {0}.
+No puedo iniciar sesión:Não consigo entrar
+Error al guardar datos:Erro ao salvar dados
+No veo una opción del menú (permisos):Não vejo uma opção do menu (permissões)
+Problema con un reporte:Problema com um relatório
+Problema con el backup o la restauración:Problema com o backup ou a restauração
+El sistema está lento o no responde:O sistema está lento ou não responde
+Otro problema:Outro problema
+¿Cuál es el nombre de tu primera mascota?:Qual é o nome do seu primeiro animal de estimação?
+¿En qué ciudad naciste?:Em que cidade você nasceu?
+¿Cuál fue tu primer auto?:Qual foi o seu primeiro carro?
+¿Cómo se llama tu mejor amigo de la infancia?:Como se chama seu melhor amigo de infância?
+¿Cuál es tu comida favorita?:Qual é sua comida favorita?
+¿Cuál es el nombre del sistema?:Qual é o nome do sistema?
+Verificación realizada el {0}:Verificação realizada em {0}
+Tabla {0} (base {1}):Tabela {0} (banco {1})
+{0} registro(s) revisados uno por uno con el DVH, {1} alterado(s):{0} registro(s) verificados um a um com o DVH, {1} alterado(s)
+{0} vehículo(s) en el taller:{0} veículo(s) na oficina
+{0} venta(s) en el mes por {1}:{0} venda(s) no mês por {1}
+{0} auto(s) en agencia:{0} carro(s) na agência
+Compras de autos chocados registradas en {0}.:Compras de carros batidos registradas em {0}.
+Arriba (en verde) las ventas de {0}; abajo los autos que la agencia tiene para vender.:Em cima (em verde) as vendas de {0}; embaixo os carros que a agência tem para vender.
+{0} vehículo(s):{0} veículo(s)
+Base {0}, tabla {1}, registro {2} = {3}:Banco {0}, tabela {1}, registro {2} = {3}
+sus datos fueron modificados por fuera del sistema (DVH).:seus dados foram alterados fora do sistema (DVH).
+Base {0}, tabla {1}:Banco {0}, tabela {1}
+se agregaron o borraron filas por fuera del sistema (DVV).:linhas foram adicionadas ou excluídas fora do sistema (DVV).
+Pedido de ayuda [{0}]:Pedido de ajuda [{0}]
+Verificó la integridad de los datos:Verificou a integridade dos dados
+sin cambios externos.:sem alterações externas.
+{0} problema(s) encontrado(s).:{0} problema(s) encontrado(s).
+Exportó un reporte a PDF:Exportou um relatório para PDF
+Permisos:Permissões

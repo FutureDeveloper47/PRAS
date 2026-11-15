@@ -13,7 +13,8 @@ namespace PRAS.BLL
 {
     /// <summary>
     /// Casos de uso de Seguridad: .001 Iniciar Sesión, .002 Alta Usuario, .003 Modificar Usuario,
-    /// .004 Deshabilitar Usuario. Los permisos de cada usuario (Composite) los maneja PermisoService.
+    /// .004 Deshabilitar Usuario, Mi perfil (cambiar mi contraseña y mi pregunta de seguridad)
+    /// y Recuperar contraseña. Los permisos de cada usuario (Composite) los maneja PermisoService.
     /// </summary>
     public class UsuarioService
     {
@@ -98,6 +99,194 @@ namespace PRAS.BLL
             LoggerService.Info($"Cambió el idioma a {cultura}.");
         }
 
+        // Mi perfil (CU Seguridad - Mi perfil)
+
+        /// <summary>
+        /// El usuario logueado cambia SU contraseña. Tiene que escribir la actual (por si dejó
+        /// la PC abierta y otra persona quiere cambiársela).
+        /// </summary>
+        public void CambiarMiContrasena(string actual, string nueva, string confirmacion)
+        {
+            try
+            {
+                if (!Sesion.HayUsuarioLogueado)
+                    throw new UsuarioSinPermisosException("");
+
+                Usuario usuario = _repositorio.GetById(Sesion.UsuarioActual.IdUsuario)
+                    ?? throw new UsuarioNoEncontradoException(Sesion.UsuarioActual.IdUsuario);
+
+                if (string.IsNullOrEmpty(actual))
+                    throw new DatoObligatorioException("Contraseña actual");
+                if (!ContrasenaCoincide(actual, usuario.ContrasenaHash))
+                    throw new ContrasenaActualIncorrectaException();
+
+                ValidarContrasena(nueva, confirmacion);
+
+                string hash = CalcularHash(nueva);
+                _repositorio.CambiarContrasena(usuario.IdUsuario, hash);
+                Sesion.UsuarioActual.ContrasenaHash = hash;
+
+                // La contraseña está en la tabla Usuario, que tiene dígito verificador.
+                DigitoVerificadorService.RecalcularRegistro("Usuario", usuario.IdUsuario);
+                LoggerService.Info("Cambió su contraseña desde Mi perfil.");
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// El usuario logueado elige su pregunta de seguridad y su respuesta.
+        /// La respuesta se guarda como hash (en minúsculas y sin espacios de más, así
+        /// "Pras" y "pras " valen lo mismo al recuperar la contraseña).
+        /// </summary>
+        public void GuardarMiPreguntaSeguridad(string pregunta, string respuesta)
+        {
+            try
+            {
+                if (!Sesion.HayUsuarioLogueado)
+                    throw new UsuarioSinPermisosException("");
+
+                pregunta = Validar.Requerido(pregunta, "Pregunta de seguridad", 200);
+                respuesta = Validar.Requerido(respuesta, "Respuesta", 100);
+
+                string hash = CalcularHash(NormalizarRespuesta(respuesta));
+                _repositorio.GuardarPreguntaSeguridad(Sesion.UsuarioActual.IdUsuario, pregunta, hash);
+
+                Sesion.UsuarioActual.PreguntaSeguridad = pregunta;
+                Sesion.UsuarioActual.RespuestaSeguridadHash = hash;
+                LoggerService.Info("Actualizó su pregunta de seguridad desde Mi perfil.");
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        // Recuperar contraseña (CU Seguridad - Recuperar contraseña). Se usa SIN haber iniciado sesión.
+
+        /// <summary>
+        /// Paso 1: el usuario escribe su nombre y le mostramos su pregunta de seguridad.
+        /// Si no existe, está deshabilitado o no tiene pregunta, damos el mismo aviso
+        /// (UsuarioSinPreguntaSeguridadException) para no confirmar qué usuarios existen.
+        /// </summary>
+        public string ObtenerPreguntaSeguridad(string nombreUsuario)
+        {
+            try
+            {
+                nombreUsuario = (nombreUsuario ?? "").Trim();
+                if (nombreUsuario == "")
+                    throw new DatoObligatorioException("Usuario");
+
+                Usuario usuario = _repositorio.ObtenerPorNombreUsuario(nombreUsuario);
+                if (usuario == null || !usuario.Activo || string.IsNullOrEmpty(usuario.PreguntaSeguridad))
+                    throw new UsuarioSinPreguntaSeguridadException();
+
+                return usuario.PreguntaSeguridad;
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex, new object[] { nombreUsuario });
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Paso 2: si la respuesta es correcta, se guarda la contraseña nueva.
+        /// Queda en la bitácora como advertencia (Warn), porque es un cambio de contraseña sin iniciar sesión.
+        /// </summary>
+        public void RecuperarContrasena(string nombreUsuario, string respuesta, string nueva, string confirmacion)
+        {
+            try
+            {
+                nombreUsuario = (nombreUsuario ?? "").Trim();
+                if (nombreUsuario == "")
+                    throw new DatoObligatorioException("Usuario");
+
+                Usuario usuario = _repositorio.ObtenerPorNombreUsuario(nombreUsuario);
+                if (usuario == null || !usuario.Activo || string.IsNullOrEmpty(usuario.RespuestaSeguridadHash))
+                    throw new UsuarioSinPreguntaSeguridadException();
+
+                if (string.IsNullOrWhiteSpace(respuesta))
+                    throw new DatoObligatorioException("Respuesta");
+
+                string hashRespuesta = CalcularHash(NormalizarRespuesta(respuesta));
+                if (!string.Equals(hashRespuesta, usuario.RespuestaSeguridadHash, StringComparison.OrdinalIgnoreCase))
+                    throw new RespuestaSeguridadIncorrectaException();
+
+                ValidarContrasena(nueva, confirmacion);
+
+                _repositorio.CambiarContrasena(usuario.IdUsuario, CalcularHash(nueva));
+                DigitoVerificadorService.RecalcularRegistro("Usuario", usuario.IdUsuario);
+                LoggerService.Warn($"El usuario \"{usuario.NombreUsuario}\" recuperó su contraseña con la pregunta de seguridad.");
+            }
+            catch (ReglaNegocioException ex)
+            {
+                // Intento fallido: queda en la bitácora con el usuario que se intentó (nunca la respuesta).
+                ExceptionManager.HandleException(ex, new object[] { nombreUsuario });
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        /// <summary>Preguntas que se ofrecen en Mi perfil (en español: la pantalla las traduce).</summary>
+        public List<string> PreguntasDeSeguridad()
+        {
+            return new List<string>
+            {
+                "¿Cuál es el nombre de tu primera mascota?",
+                "¿En qué ciudad naciste?",
+                "¿Cuál fue tu primer auto?",
+                "¿Cómo se llama tu mejor amigo de la infancia?",
+                "¿Cuál es tu comida favorita?",
+                "¿Cuál es el nombre del sistema?"
+            };
+        }
+
+        /// <summary>"  Pras " y "pras" tienen que dar el mismo hash.</summary>
+        private static string NormalizarRespuesta(string respuesta)
+        {
+            return (respuesta ?? "").Trim().ToLowerInvariant();
+        }
+
         // Listar (lo usa la pantalla de usuarios)
 
         public List<Usuario> Listar(bool incluirDeshabilitados)
@@ -177,6 +366,8 @@ namespace PRAS.BLL
 
                 usuario.Activo = actual.Activo;
                 usuario.Idioma = actual.Idioma;
+                usuario.PreguntaSeguridad = actual.PreguntaSeguridad;   // la pregunta solo se cambia desde Mi perfil
+                usuario.RespuestaSeguridadHash = actual.RespuestaSeguridadHash;
                 _repositorio.Update(usuario);
 
                 DigitoVerificadorService.RecalcularRegistro("Usuario", usuario.IdUsuario);

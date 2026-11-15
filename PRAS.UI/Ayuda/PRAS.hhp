@@ -1,0 +1,45 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=PRAS.chm
+Contents file=Contenido.hhc
+Index file=Indice.hhk
+Default topic=index.htm
+Default Window=Principal
+Display compile progress=No
+Full-text search=Yes
+Language=0x2c0a Español (Argentina)
+Title=Ayuda de PRAS
+
+[WINDOWS]
+Principal="Ayuda de PRAS","Contenido.hhc","Indice.hhk","index.htm","index.htm",,,,,0x23520,,0x70387e,[80,60,1000,700],,,,,,,0
+
+[FILES]
+estilos.css
+index.htm
+FrmLogin.htm
+FrmRecuperarContrasena.htm
+FrmPrincipal.htm
+FrmMiPerfil.htm
+FrmPedirAyuda.htm
+FrmUsuarios.htm
+FrmPermisos.htm
+FrmBitacora.htm
+FrmBackup.htm
+FrmIntegridad.htm
+FrmClientes.htm
+FrmMecanicos.htm
+FrmProveedores.htm
+FrmAgencias.htm
+FrmRegistrarCompra.htm
+FrmCompras.htm
+FrmBuscadorAutos.htm
+FrmAsignacionPresupuesto.htm
+FrmDiagnosticos.htm
+FrmCargaCostos.htm
+FrmOrdenesTrabajo.htm
+FrmTareasRealizadas.htm
+FrmPedidos.htm
+FrmConsignaciones.htm
+FrmPublicaciones.htm
+FrmVentas.htm
+FrmReporte.htm

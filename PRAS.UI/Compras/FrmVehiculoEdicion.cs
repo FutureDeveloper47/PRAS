@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -47,7 +48,7 @@ namespace PRAS.UI
                 txtChasis.ReadOnly = true;
                 txtMotor.ReadOnly = true;
                 btnGuardar.Visible = false;
-                btnCancelar.Text = "CERRAR";
+                btnCancelar.Text = "CERRAR".Traducir();
             }
         }
 
@@ -59,7 +60,7 @@ namespace PRAS.UI
                 Compra compra = _vehiculoService.ObtenerCompra(_vehiculo.IdVehiculo);
                 if (compra == null)
                 {
-                    lblCompra.Text = "Sin datos de compra.";
+                    lblCompra.Text = "Sin datos de compra.".Traducir();
                     return;
                 }
 

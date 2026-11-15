@@ -1,4 +1,4 @@
-using System.Configuration;
+﻿using System.Configuration;
 using System.Globalization;
 using PRAS.Services.Logic.CustomExceptions;
 
@@ -30,11 +30,50 @@ namespace PRAS.Services.DataAccess
 
         /// <summary>
         /// Busca la traducción del texto en el archivo del idioma actual (Thread.CurrentThread.CurrentCulture).
+        /// Primero busca la clave escrita EXACTAMENTE igual (respetando mayúsculas) y, si no está,
+        /// sin importar mayúsculas. Así "Buscador de autos" no toma la traducción de "BUSCADOR DE AUTOS".
         /// Si no la encuentra, lanza PalabraNoEncontradaException.
         /// </summary>
         public static string Traducir(string texto)
         {
-            using (StreamReader sr = new StreamReader(ArchivoIdiomaActual))
+            Dictionary<string, string> diccionario = ObtenerDiccionario();
+            string clave = texto.Trim();
+
+            if (diccionario.TryGetValue(clave, out string exacta))
+            {
+                return exacta;
+            }
+
+            foreach (KeyValuePair<string, string> par in diccionario)
+            {
+                if (string.Equals(par.Key, clave, StringComparison.OrdinalIgnoreCase))
+                {
+                    return par.Value;
+                }
+            }
+
+            throw new PalabraNoEncontradaException(texto);
+        }
+
+        /// <summary>
+        /// Lee el archivo del idioma actual y devuelve todas sus líneas como clave -> traducción.
+        /// Si una clave aparece dos veces, vale la primera (igual que antes).
+        /// </summary>
+        public static Dictionary<string, string> ObtenerDiccionario()
+        {
+            string archivo = ArchivoIdiomaActual;
+            DateTime modificado = File.GetLastWriteTimeUtc(archivo);
+
+            // Si ya leímos este archivo y no cambió desde entonces, usamos lo que tenemos en memoria
+            // (así la bitácora, que traduce muchas filas, no lee el archivo una vez por fila).
+            if (_cacheArchivo == archivo && _cacheFecha == modificado && _cache != null)
+            {
+                return _cache;
+            }
+
+            Dictionary<string, string> diccionario = new Dictionary<string, string>();
+
+            using (StreamReader sr = new StreamReader(archivo))
             {
                 string line;
 
@@ -42,15 +81,23 @@ namespace PRAS.Services.DataAccess
                 {
                     string[] parts = line.Split(':');
 
-                    if (parts.Length == 2 && parts[0].Trim().ToLower() == texto.Trim().ToLower())
+                    if (parts.Length == 2 && parts[0].Trim() != "" && !diccionario.ContainsKey(parts[0].Trim()))
                     {
-                        // Si llegamos acá es porque encontramos la clave.
-                        return parts[1].Trim();
+                        diccionario.Add(parts[0].Trim(), parts[1].Trim());
                     }
                 }
             }
-            throw new PalabraNoEncontradaException(texto);
+
+            _cacheArchivo = archivo;
+            _cacheFecha = modificado;
+            _cache = diccionario;
+            return diccionario;
         }
+
+        // Último archivo leído (para no leerlo de nuevo si no cambió).
+        private static string _cacheArchivo;
+        private static DateTime _cacheFecha;
+        private static Dictionary<string, string> _cache;
 
         /// <summary>Un idioma por cada archivo de la carpeta I18n (la extensión es el nombre de la cultura).</summary>
         public static List<CultureInfo> ObtenerIdiomas()

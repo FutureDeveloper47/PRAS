@@ -30,9 +30,9 @@ namespace PRAS.UI
         }
 
         /// <summary>
-        /// Traduce un texto suelto. Si termina en ":" (ej: "Usuario:") traduce la palabra
-        /// y le vuelve a poner los dos puntos, porque en el archivo de idioma el ":" separa
-        /// la clave de la traducción.
+        /// Traduce un texto suelto. Si termina en ":" o en ": *" (ej: "Usuario:", "Nombre: *")
+        /// traduce la palabra y le vuelve a poner el final, porque en el archivo de idioma
+        /// el ":" separa la clave de la traducción.
         /// </summary>
         public static string TraducirTexto(string texto)
         {
@@ -42,10 +42,16 @@ namespace PRAS.UI
             string limpio = texto.Trim();
             string sufijo = "";
 
-            if (limpio.EndsWith(":"))
+            // Sacamos el final que no se traduce y se lo volvemos a poner después:
+            // "Nombre: *" (campo obligatorio), "Nombre:" o "Nombre *".
+            foreach (string final in new[] { ": *", ":*", ":", " *" })
             {
-                sufijo = ":";
-                limpio = limpio.Substring(0, limpio.Length - 1).TrimEnd();
+                if (limpio.EndsWith(final))
+                {
+                    sufijo = final;
+                    limpio = limpio.Substring(0, limpio.Length - final.Length).TrimEnd();
+                    break;
+                }
             }
 
             // No traducimos textos con ":" en el medio, ni números o símbolos sueltos.

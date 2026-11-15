@@ -99,7 +99,9 @@ namespace PRAS.BLL
                 throw new SeleccionObligatoriaException("la familia y la patente");
             ValidarNoProtegida(familia);
 
-            if (familia.GetHijos().Exists(h => h.Id == patente.Id))
+            // Contiene() recorre el árbol completo (Composite): si la patente ya está en la familia
+            // o en alguna familia de adentro, no se agrega de nuevo.
+            if (familia.Contiene(patente.Id))
                 throw new PermisoYaAsignadoException($"La familia \"{familia.Nombre}\" ya tiene la patente \"{patente.Descripcion}\".");
 
             FamiliaService.AgregarPatente(patente, familia);
@@ -121,7 +123,8 @@ namespace PRAS.BLL
             if (hija.Id == padre.Id || hija.Contiene(padre.Id))
                 throw new FamiliaCiclicaException(hija.Nombre, padre.Nombre);
 
-            if (padre.GetHijos().Exists(h => h.Id == hija.Id))
+            // Igual que con las patentes: si ya está adentro (directa o indirectamente) no se repite.
+            if (padre.Contiene(hija.Id))
                 throw new PermisoYaAsignadoException($"La familia \"{padre.Nombre}\" ya contiene a \"{hija.Nombre}\".");
 
             FamiliaService.AgregarFamilia(hija, padre);
@@ -152,6 +155,13 @@ namespace PRAS.BLL
             List<Component> actuales = UsuarioPermisoService.GetPrivilegios(usuario.IdUsuario);
             if (actuales.Exists(c => c.Id == componente.Id))
                 throw new PermisoYaAsignadoException($"El usuario \"{usuario.NombreUsuario}\" ya tiene asignado \"{componente.Descripcion}\".");
+
+            // Composite: si el permiso ya le llega por una de sus familias, tampoco se asigna
+            // (ej: la patente "Registrar venta" ya está dentro de su familia "Comercial").
+            Familia contenedora = actuales.OfType<Familia>().FirstOrDefault(f => f.Contiene(componente.Id));
+            if (contenedora != null)
+                throw new PermisoYaAsignadoException(
+                    $"El usuario \"{usuario.NombreUsuario}\" ya tiene \"{componente.Descripcion}\" dentro de la familia \"{contenedora.Nombre}\".");
 
             if (componente is Familia familia)
                 UsuarioPermisoService.AgregarFamilia(familia, usuario.IdUsuario);

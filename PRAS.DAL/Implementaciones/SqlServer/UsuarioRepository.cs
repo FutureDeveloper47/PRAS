@@ -25,9 +25,12 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         #endregion
 
         #region Statements
+        // LEFT JOIN: la pregunta de seguridad está en otra tabla y puede no existir (queda NULL).
         private const string SelectBase =
-            @"SELECT U.IdUsuario, U.NombreUsuario, U.ContrasenaHash, U.Rol, U.IdMecanico, U.Activo, U.Idioma
-              FROM Usuario U";
+            @"SELECT U.IdUsuario, U.NombreUsuario, U.ContrasenaHash, U.Rol, U.IdMecanico, U.Activo, U.Idioma,
+                     R.PreguntaSeguridad, R.RespuestaHash
+              FROM Usuario U
+              LEFT JOIN UsuarioRecuperacion R ON R.IdUsuario = U.IdUsuario";
 
         private string SelectOneStatement
         {
@@ -74,6 +77,23 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         private string CambiarIdiomaStatement
         {
             get => "UPDATE Usuario SET Idioma = @Idioma WHERE IdUsuario = @IdUsuario";
+        }
+
+        private string CambiarContrasenaStatement
+        {
+            get => "UPDATE Usuario SET ContrasenaHash = @ContrasenaHash WHERE IdUsuario = @IdUsuario";
+        }
+
+        /// <summary>Si el usuario ya tenía pregunta la reemplaza; si no, la agrega.</summary>
+        private string GuardarPreguntaStatement
+        {
+            get => @"IF EXISTS (SELECT 1 FROM UsuarioRecuperacion WHERE IdUsuario = @IdUsuario)
+                         UPDATE UsuarioRecuperacion
+                         SET PreguntaSeguridad = @Pregunta, RespuestaHash = @RespuestaHash
+                         WHERE IdUsuario = @IdUsuario
+                     ELSE
+                         INSERT INTO UsuarioRecuperacion (IdUsuario, PreguntaSeguridad, RespuestaHash)
+                         VALUES (@IdUsuario, @Pregunta, @RespuestaHash)";
         }
 
         private string ContarAdministradoresStatement
@@ -155,6 +175,23 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             SqlHelper.ExecuteNonQuerySeguridad(CambiarIdiomaStatement,
                 SqlHelper.Param("@Idioma", idioma),
                 SqlHelper.Param("@IdUsuario", idUsuario));
+        }
+
+        /// <summary>Cambia solo la contraseña (Mi perfil y Recuperar contraseña).</summary>
+        public void CambiarContrasena(int idUsuario, string contrasenaHash)
+        {
+            SqlHelper.ExecuteNonQuerySeguridad(CambiarContrasenaStatement,
+                SqlHelper.Param("@ContrasenaHash", contrasenaHash),
+                SqlHelper.Param("@IdUsuario", idUsuario));
+        }
+
+        /// <summary>Guarda la pregunta de seguridad y el hash de la respuesta (tabla UsuarioRecuperacion).</summary>
+        public void GuardarPreguntaSeguridad(int idUsuario, string pregunta, string respuestaHash)
+        {
+            SqlHelper.ExecuteNonQuerySeguridad(GuardarPreguntaStatement,
+                SqlHelper.Param("@IdUsuario", idUsuario),
+                SqlHelper.Param("@Pregunta", pregunta),
+                SqlHelper.Param("@RespuestaHash", respuestaHash));
         }
 
         public int ContarAdministradoresActivos(int idUsuarioExcluido)

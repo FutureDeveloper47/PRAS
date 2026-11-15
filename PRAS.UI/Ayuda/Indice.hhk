@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML><HEAD></HEAD><BODY>
+<UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Agencias"><param name="Local" value="FrmAgencias.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Backup y restore"><param name="Local" value="FrmBackup.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Bienvenido a PRAS"><param name="Local" value="index.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Bitácora"><param name="Local" value="FrmBitacora.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Buscador de autos"><param name="Local" value="FrmBuscadorAutos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Carga de costos"><param name="Local" value="FrmCargaCostos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Clientes"><param name="Local" value="FrmClientes.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Consignaciones"><param name="Local" value="FrmConsignaciones.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Consultar compras"><param name="Local" value="FrmCompras.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Diagnósticos"><param name="Local" value="FrmDiagnosticos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Ingreso al taller"><param name="Local" value="FrmAsignacionPresupuesto.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Iniciar sesión"><param name="Local" value="FrmLogin.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Integridad de datos"><param name="Local" value="FrmIntegridad.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Mecánicos"><param name="Local" value="FrmMecanicos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Mi perfil"><param name="Local" value="FrmMiPerfil.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Pantalla de inicio"><param name="Local" value="FrmPrincipal.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Pedidos de repuestos"><param name="Local" value="FrmPedidos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Pedir ayuda"><param name="Local" value="FrmPedirAyuda.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Permisos (familias y patentes)"><param name="Local" value="FrmPermisos.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Proveedores"><param name="Local" value="FrmProveedores.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Publicaciones"><param name="Local" value="FrmPublicaciones.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Recuperar contraseña"><param name="Local" value="FrmRecuperarContrasena.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Registrar compra"><param name="Local" value="FrmRegistrarCompra.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Reportes"><param name="Local" value="FrmReporte.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Tareas realizadas"><param name="Local" value="FrmTareasRealizadas.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Usuarios"><param name="Local" value="FrmUsuarios.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Ventas"><param name="Local" value="FrmVentas.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Órdenes de trabajo"><param name="Local" value="FrmOrdenesTrabajo.htm"></OBJECT>
+</UL>
+</BODY></HTML>

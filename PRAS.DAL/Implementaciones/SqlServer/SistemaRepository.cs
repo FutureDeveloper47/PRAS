@@ -35,6 +35,32 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             return SqlHelper.ProbarConexionSeguridad(out error);
         }
 
+        /// <summary>
+        /// Tabla nueva de la 4ta entrega (pregunta de seguridad para recuperar la contraseña).
+        /// Va en una tabla aparte y no en Usuario para no cambiar las columnas que protege el DVH.
+        /// Al admin le dejamos una pregunta de prueba (respuesta: pras) para poder mostrar la recuperación.
+        /// </summary>
+        private const string ActualizarEstructuraStatement = @"
+            IF OBJECT_ID('UsuarioRecuperacion', 'U') IS NULL
+            BEGIN
+                CREATE TABLE UsuarioRecuperacion (
+                    IdUsuario          INT            NOT NULL PRIMARY KEY
+                                       CONSTRAINT FK_UsuarioRecuperacion_Usuario REFERENCES Usuario(IdUsuario),
+                    PreguntaSeguridad  NVARCHAR(200)  NOT NULL,
+                    RespuestaHash      VARCHAR(64)    NOT NULL
+                );
+
+                INSERT INTO UsuarioRecuperacion (IdUsuario, PreguntaSeguridad, RespuestaHash)
+                SELECT IdUsuario, N'¿Cuál es el nombre del sistema?', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'pras'), 2)
+                FROM Usuario
+                WHERE NombreUsuario = N'admin';
+            END";
+
+        public void ActualizarEstructura()
+        {
+            SqlHelper.ExecuteNonQuerySeguridad(ActualizarEstructuraStatement);
+        }
+
         /// <summary>Pregunta a SQL Server (base master) si existen PRAS y PRAS_Seguridad.</summary>
         public bool ExistenLasBases()
         {

@@ -370,3 +370,359 @@ Solo se pueden modificar las publicaciones activas.:Only active listings can be 
 Exportar...:Export...
 Período:Period
 Stock al:Stock as of
+AÑO:YEAR
+PATENTE:PLATE
+MODELO:MODEL
+MARCA:MAKE
+COLOR:COLOR
+DNI VENDEDOR:SELLER ID
+FECHA:DATE
+PRECIO:PRICE
+FORMA DE PAGO:PAYMENT METHOD
+CANCELAR:CANCEL
+GUARDAR:SAVE
+VEHÍCULO:VEHICLE
+Seleccionar mecánico:Select mechanic
+Diagnóstico inicial:Initial diagnosis
+Detalle:Detail
+Sistema:System
+Mi perfil:My profile
+Pedir ayuda:Request help
+Ayuda:Help
+Seguridad:Security
+Maestros:Master data
+Compras:Purchases
+Taller:Workshop
+Comercial:Commercial
+Reportes:Reports
+¿Olvidó su contraseña?:Forgot your password?
+Tema del problema:Problem topic
+Detalle del problema:Problem detail
+Enviar pedido:Send request
+Enviar también por email:Also send by email
+Si es urgente, comuníquese con el administrador:If it is urgent, contact the administrator
+Mis datos:My data
+Aplicar idioma:Apply language
+Cambiar contraseña:Change password
+Contraseña actual:Current password
+Nueva contraseña:New password
+Guardar contraseña:Save password
+Pregunta de seguridad (para recuperar la contraseña):Security question (to recover the password)
+Pregunta:Question
+Respuesta:Answer
+Guardar pregunta:Save question
+Recuperar contraseña:Recover password
+Ver pregunta de seguridad:View security question
+Pregunta de seguridad:Security question
+Mostrar contraseña:Show password
+Si no puede recuperarla, comuníquese con el administrador:If you cannot recover it, contact the administrator
+CERRAR:CLOSE
+Sin datos de compra.:No purchase data.
+compra(s):purchase(s)
+Total invertido:Total invested
+TOTAL ACUMULADO:ACCUMULATED TOTAL
+Detalle - Taller:Detail - Workshop
+vehículos en el taller:vehicles in the workshop
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.:Cars currently in diagnosis or repair, with their mechanic and priority.
+Ingreso al taller:Workshop entry
+No hay vehículos en el taller.:There are no vehicles in the workshop.
+Detalle - Ingresos:Detail - Incoming
+chocados comprados:damaged cars purchased
+No hay compras en el mes.:There are no purchases this month.
+Detalle - Agencia:Detail - Agency
+ventas y autos en agencia:sales and cars at agency
+Pedido de ayuda:Help request
+Todavía no cargó una pregunta de seguridad.:You have not set a security question yet.
+Ya tiene una pregunta de seguridad cargada. Puede cambiarla.:You already have a security question. You can change it.
+Cómo probarlo:How to test it
+En SQL Server Management Studio cambie un dato de una tabla protegida, por ejemplo:In SQL Server Management Studio change a value in a protected table, for example
+Vuelva a presionar Verificar nuevamente:Press Check again
+el sistema detecta el registro modificado (DVH):the system detects the modified record (DVH)
+Si borra o agrega una fila con SQL, lo detecta el DVV de la tabla:If you delete or add a row with SQL, the table DVV detects it
+DVV correcto:DVV correct
+no se agregaron ni borraron filas:no rows were added or deleted
+DVV distinto:DVV different
+Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.:Leave empty to keep the password. At least 6 characters.
+Agregar Cliente:Add Customer
+La publicación ya no está activa (otro usuario la modificó).:The listing is no longer active (another user changed it).
+El diagnóstico ya estaba finalizado (otro usuario lo modificó).:The diagnosis was already finished (another user changed it).
+El vehículo ya no está en estado Comprado y no se puede eliminar.:The vehicle is no longer Purchased and cannot be deleted.
+El vehículo cambió de estado mientras se hacía la operación. Vuelva a intentarlo.:The vehicle changed status during the operation. Please try again.
+No hay ningún taller cargado en la tabla Taller.:There is no workshop in the Taller table.
+La consignación ya no está vigente (otro usuario la modificó).:The consignment is no longer active (another user changed it).
+La consignación del vehículo ya no está vigente (otro usuario la modificó).:The vehicle consignment is no longer active (another user changed it).
+No se encontró la cadena de conexión '{0}' en App.config.:Connection string '{0}' was not found in App.config.
+Registró la compra {0} del vehículo {1} por $ {2}.:Registered purchase {0} of vehicle {1} for $ {2}.
+Modificación del vehículo {0}.:Vehicle {0} updated.
+eliminarlo (solo se pueden eliminar autos Comprados que todavía no entraron al taller):delete it (only Purchased cars not yet in the workshop can be deleted)
+Eliminó el vehículo {0} y su compra.:Deleted vehicle {0} and its purchase.
+Alta de la agencia {0}.:Agency {0} added.
+Modificación de la agencia {0}.:Agency {0} updated.
+Deshabilitó a la agencia {0}.:Disabled agency {0}.
+Habilitó a la agencia con Id {0}.:Enabled agency with Id {0}.
+Alta del proveedor {0}.:Supplier {0} added.
+Modificación del proveedor {0}.:Supplier {0} updated.
+Deshabilitó al proveedor {0}.:Disabled supplier {0}.
+Habilitó al proveedor con Id {0}.:Enabled supplier with Id {0}.
+Se encriptaron con AES el teléfono y el email de {0} cliente(s).:Phone and email of {0} customer(s) were encrypted with AES.
+Alta del cliente {0} (DNI {1}).:Customer {0} added (ID {1}).
+Modificación del cliente {0} (DNI {1}).:Customer {0} updated (ID {1}).
+Deshabilitó al cliente {0} (DNI {1}).:Disabled customer {0} (ID {1}).
+Habilitó al cliente con Id {0}.:Enabled customer with Id {0}.
+Alta del mecánico {0}.:Mechanic {0} added.
+Modificación del mecánico {0}.:Mechanic {0} updated.
+Deshabilitó al mecánico {0}.:Disabled mechanic {0}.
+Habilitó al mecánico con Id {0}.:Enabled mechanic with Id {0}.
+Registró el pedido de repuestos {0} a {1} para la OT {2} ({3}).:Registered parts order {0} to {1} for WO {2} ({3}).
+El pedido {0} ya está {1}.:Order {0} is already {1}.
+El pedido cambió de estado. Actualice la lista.:The order changed status. Refresh the list.
+entregarlo a una agencia (tiene que estar Reparado):deliver it to an agency (it must be Repaired)
+(mínimo {0}, comisión {1}%).:(minimum {0}, commission {1}%).
+La consignación ya está {0}.:The consignment is already {0}.
+Retiró el vehículo {0} de la agencia {1}.:Withdrew vehicle {0} from agency {1}.
+El vehículo ya no está en la agencia (la consignación no está vigente).:The vehicle is no longer at the agency (the consignment is not active).
+venderlo:sell it
+la forma de pago:the payment method
+(agencia {0}, comisión {1}).:(agency {0}, commission {1}).
+publicarlo:list it
+Publicó el vehículo {0} en {1} a {2}.:Listed vehicle {0} on {1} at {2}.
+precio {0} -> {1}.:price {0} -> {1}.
+Finalizó la publicación del vehículo {0} en {1}.:Ended the listing of vehicle {0} on {1}.
+Modificó el diagnóstico {0} del vehículo {1}.:Updated diagnosis {0} of vehicle {1}.
+finalizar su diagnóstico:finish its diagnosis
+Seleccione un archivo que exista.:Select a file that exists.
+El nombre del archivo es demasiado largo.:The file name is too long.
+Agregó una evidencia ({0}) al diagnóstico del vehículo {1}.:Added evidence ({0}) to the diagnosis of vehicle {1}.
+No se pudo copiar el archivo de una evidencia.:The evidence file could not be copied.
+un diagnóstico de la lista:a diagnosis from the list
+ingresarlo al taller (tiene que estar Comprado):enter it into the workshop (it must be Purchased)
+Ingreso a taller del vehículo {0} (mecánico {1}, prioridad {2}).:Vehicle {0} entered the workshop (mechanic {1}, priority {2}).
+Carga de {0} gasto(s) en el presupuesto {1}.:Entered {0} expense(s) in budget {1}.
+finalizar su reparación (no está en reparación):finish its repair (it is not in repair)
+Finalizó la reparación del vehículo {0}.:Finished the repair of vehicle {0}.
+Cambió la prioridad de la OT {0} de {1} a {2}.:Changed WO {0} priority from {1} to {2}.
+Agregó la tarea "{0}" a la OT {1} (mecánico {2}).:Added task "{0}" to WO {1} (mechanic {2}).
+finalizar su reparación:finish its repair
+Solo se puede iniciar una tarea Pendiente (esta está "{0}").:Only a Pending task can be started (this one is "{0}").
+La tarea cambió de estado. Actualice la lista.:The task changed status. Refresh the list.
+Inició la tarea {0} (OT {1}, vehículo {2}).:Started task {0} (WO {1}, vehicle {2}).
+La tarea ya está finalizada.:The task is already finished.
+Finalizó la tarea {0} (OT {1}, vehículo {2}).:Finished task {0} (WO {1}, vehicle {2}).
+La orden de trabajo de esta tarea ya está cerrada.:The work order of this task is already closed.
+Generó el {0} del {1} al {2}.:Generated the {0} from {1} to {2}.
+Generó el {0}.:Generated the {0}.
+dónde guardar el archivo:where to save the file
+No se pudo exportar el reporte.:The report could not be exported.
+Exportó un reporte a {0} ({1} filas).:Exported a report to {0} ({1} rows).
+No se pudo exportar el reporte a PDF.:The report could not be exported to PDF.
+Recalculó los dígitos verificadores de todas las tablas protegidas.:Recalculated the check digits of all protected tables.
+la familia y la patente:the family and the permission
+La familia "{0}" ya tiene la patente "{1}".:Family "{0}" already has permission "{1}".
+las dos familias:both families
+La familia "{0}" ya contiene a "{1}".:Family "{0}" already contains "{1}".
+el elemento que quiere quitar:the item you want to remove
+el usuario y el permiso a asignar:the user and the permission to assign
+El usuario "{0}" ya tiene asignado "{1}".:User "{0}" already has "{1}" assigned.
+El usuario "{0}" ya tiene "{1}" dentro de la familia "{2}".:User "{0}" already has "{1}" inside family "{2}".
+el permiso que quiere quitar:the permission you want to remove
+Inició sesión.:Logged in.
+Cerró sesión.:Logged out.
+Cambió el idioma a {0}.:Changed the language to {0}.
+Cambió su contraseña desde Mi perfil.:Changed their password from My profile.
+Actualizó su pregunta de seguridad desde Mi perfil.:Updated their security question from My profile.
+El usuario "{0}" recuperó su contraseña con la pregunta de seguridad.:User "{0}" recovered their password with the security question.
+Alta del usuario "{0}" (rol {1}).:User "{0}" added (role {1}).
+Modificación del usuario "{0}".:User "{0}" updated.
+Deshabilitó al usuario "{0}".:Disabled user "{0}".
+Habilitó al usuario con Id {0}.:Enabled user with Id {0}.
+el mecánico al que corresponde este usuario:the mechanic this user belongs to
+El mecánico {0} ya tiene el usuario "{1}".:Mechanic {0} already has user "{1}".
+Debe quedar al menos un Administrador activo en el sistema.:There must be at least one active Administrator in the system.
+el tema del problema:the problem topic
+dónde guardar el backup:where to save the backup
+Realizó un backup de las bases PRAS y PRAS_Seguridad en "{0}".:Backed up the PRAS and PRAS_Seguridad databases to "{0}".
+Falló el backup de la base.:The database backup failed.
+Seleccione un archivo de backup (.bak) existente.:Select an existing backup file (.bak).
+Inició la restauración de las bases desde "{0}".:Started restoring the databases from "{0}".
+Las bases PRAS y PRAS_Seguridad fueron restauradas correctamente. Se cierra la sesión.:The PRAS and PRAS_Seguridad databases were restored. The session will close.
+Falló la restauración de la base.:The database restore failed.
+La tabla {0} no tiene dígitos verificadores.:Table {0} has no check digits.
+Indique dónde guardar el backup.:Choose where to save the backup.
+No se encontró el archivo de backup.:The backup file was not found.
+Falta la clave "ClaveAES" en el archivo de configuración.:The "ClaveAES" key is missing from the configuration file.
+La clave "ClaveAES" tiene que tener 32 bytes (AES-256).:The "ClaveAES" key must be 32 bytes long (AES-256).
+Se guardó el cliente {0}.:Customer {0} was saved.
+No se pueden agregar elementos en un hijo tipo hoja:Items cannot be added to a leaf child
+No se pueden eliminar elementos en un hijo tipo hoja:Items cannot be removed from a leaf child
+El archivo no contiene un backup de las bases del sistema PRAS.:The file does not contain a backup of the PRAS databases.
+Las patentes del sistema no se pueden eliminar.:System permissions cannot be deleted.
+Los datos del vehículo se guardaron correctamente.:The vehicle data was saved successfully.
+No existe un cliente con ese DNI.:There is no customer with that ID.
+¿Desea darlo de alta ahora?:Do you want to add them now?
+¿Confirma la compra del vehículo {0} ({1} {2}):Confirm the purchase of vehicle {0} ({1} {2})
+a {0} por {1}?:from {0} for {1}?
+Seleccione un auto de la lista.:Select a car from the list.
+¿Eliminar el vehículo {0}?:Delete vehicle {0}?
+También se borra su compra. Use esta opción solo para corregir una carga equivocada.:Its purchase is also deleted. Use this option only to fix a wrong entry.
+El vehículo {0} fue eliminado.:Vehicle {0} was deleted.
+Proveedor dado de alta correctamente.:Supplier added successfully.
+Proveedor modificado correctamente.:Supplier updated successfully.
+Agencia dada de alta correctamente.:Agency added successfully.
+Agencia modificada correctamente.:Agency updated successfully.
+Cliente dado de alta correctamente.:Customer added successfully.
+Cliente modificado correctamente.:Customer updated successfully.
+Seleccione un cliente de la lista.:Select a customer from the list.
+¿Deshabilitar al cliente {0}?:Disable customer {0}?
+¿Volver a habilitar al cliente {0}?:Enable customer {0} again?
+Mecánico dado de alta correctamente.:Mechanic added successfully.
+Mecánico modificado correctamente.:Mechanic updated successfully.
+Seleccione una agencia de la lista.:Select an agency from the list.
+¿Deshabilitar la agencia {0}?:Disable agency {0}?
+¿Volver a habilitar la agencia {0}?:Enable agency {0} again?
+Seleccione un proveedor de la lista.:Select a supplier from the list.
+¿Deshabilitar al proveedor {0}?:Disable supplier {0}?
+¿Volver a habilitar al proveedor {0}?:Enable supplier {0} again?
+Seleccione un mecánico de la lista.:Select a mechanic from the list.
+¿Deshabilitar al mecánico {0}?:Disable mechanic {0}?
+¿Volver a habilitar al mecánico {0}?:Enable mechanic {0} again?
+¿Registrar que {0} entregó el pedido {1}?:Register that {0} delivered order {1}?
+Su total ({0}) se suma al presupuesto de la OT {1}.:Its total ({0}) is added to the budget of WO {1}.
+¿Retirar el vehículo {0} de {1}?:Withdraw vehicle {0} from {1}?
+Si está publicado, la publicación se da de baja y el auto vuelve a "Reparado".:If it is listed, the listing is taken down and the car goes back to "Repaired".
+¿Dar de baja la publicación de {0} en {1}?:Take down the listing of {0} on {1}?
+El auto sigue en la agencia.:The car stays at the agency.
+¿Registrar la venta de {0} a {1} por {2}?:Register the sale of {0} to {1} for {2}?
+No hay autos "En reparación".:There are no cars "In repair".
+Primero ingrese uno al taller desde Taller > Asignación de presupuesto.:First enter one into the workshop from Workshop > Budget assignment.
+Hay gastos sin guardar para el auto anterior. ¿Descartarlos?:There are unsaved expenses for the previous car. Discard them?
+Seleccione en la lista un gasto "Nuevo (sin guardar)".:Select a "New (unsaved)" expense in the list.
+Los gastos se guardaron correctamente.:The expenses were saved successfully.
+Hay gastos sin guardar. Guárdelos o quítelos antes de finalizar.:There are unsaved expenses. Save or remove them before finishing.
+¿Finalizar la reparación de {0}?:Finish the repair of {0}?
+El auto pasa a "Reparado" y ya no se le pueden cargar costos.:The car becomes "Repaired" and no more costs can be entered.
+¿Marcar como finalizada la tarea "{0}" ({1})?:Mark task "{0}" ({1}) as finished?
+¿Finalizar la OT {0} ({1})? El auto queda "Reparado".:Finish WO {0} ({1})? The car becomes "Repaired".
+No hay autos en estado "Comprado" para ingresar al taller.:There are no "Purchased" cars to enter into the workshop.
+Primero registre una compra.:Register a purchase first.
+No hay mecánicos habilitados. Cargue uno desde Maestros > Mecánicos.:There are no active mechanics. Add one from Master data > Mechanics.
+El vehículo {0} ingresó al taller.:Vehicle {0} entered the workshop.
+Superó los {0} intentos permitidos. El sistema se cerrará.:You exceeded the {0} allowed attempts. The system will close.
+Su pedido de ayuda quedó registrado. El administrador lo va a ver en la bitácora.:Your help request was registered. The administrator will see it in the audit log.
+No hay un programa de correo configurado en esta PC. Su pedido quedó registrado en la bitácora.:There is no email program set up on this PC. Your request was saved in the audit log.
+La contraseña se cambió correctamente.:The password was changed successfully.
+La pregunta de seguridad se guardó correctamente.:The security question was saved successfully.
+¿Quitar "{0}" de la familia "{1}"?:Remove "{0}" from family "{1}"?
+¿Eliminar la familia "{0}"? Los usuarios que la tengan asignada perderán esos permisos.:Delete family "{0}"? Users who have it assigned will lose those permissions.
+La contraseña se cambió correctamente. Ya puede ingresar con la contraseña nueva.:The password was changed successfully. You can now log in with the new password.
+Superó los intentos permitidos. Comuníquese con el administrador.:You exceeded the allowed attempts. Contact the administrator.
+Usuario dado de alta correctamente.:User added successfully.
+Usuario modificado correctamente.:User updated successfully.
+Seleccione un usuario de la lista.:Select a user from the list.
+¿Deshabilitar al usuario "{0}"?:Disable user "{0}"?
+No podrá ingresar al sistema.:They will not be able to log in.
+¿Volver a habilitar al usuario "{0}"?:Enable user "{0}" again?
+No se encontró el archivo de ayuda (Ayuda\PRAS.chm). Reinstale el sistema o consulte al administrador.:The help file (Ayuda\PRAS.chm) was not found. Reinstall the system or contact the administrator.
+El proveedor ya no existe.:The supplier no longer exists.
+El proveedor tiene pedidos de repuestos pendientes de entrega. No se puede deshabilitar.:The supplier has parts orders pending delivery. It cannot be disabled.
+El proveedor ya está deshabilitado.:The supplier is already disabled.
+El proveedor {0} está deshabilitado.:Supplier {0} is disabled.
+El mecánico ya está deshabilitado.:The mechanic is already disabled.
+El mecánico {0} tiene tareas asignadas sin terminar. No se puede deshabilitar.:Mechanic {0} has unfinished tasks. They cannot be disabled.
+El mecánico ya no existe.:The mechanic no longer exists.
+El mecánico {0} está deshabilitado.:Mechanic {0} is disabled.
+Faltan los datos del vehículo.:The vehicle data is missing.
+El vehículo con dominio {0} ya está registrado ({1}).:The vehicle with plate {0} is already registered ({1}).
+El año debe estar entre {0} y {1}.:The year must be between {0} and {1}.
+El vehículo ya no existe.:The vehicle no longer exists.
+El cliente {0} está deshabilitado.:Customer {0} is disabled.
+El cliente ya está deshabilitado.:The customer is already disabled.
+El cliente ya no existe.:The customer no longer exists.
+El pedido ya no existe.:The order no longer exists.
+Agregue al menos un repuesto al pedido.:Add at least one part to the order.
+El porcentaje de comisión debe ser mayor a 0 y como máximo 100.:The commission percentage must be greater than 0 and at most 100.
+La fecha de venta no puede ser anterior a la entrega del auto a la agencia.:The sale date cannot be earlier than the car delivery to the agency.
+La publicación ya no existe.:The listing no longer exists.
+La consignación ya no existe.:The consignment no longer exists.
+El precio ({0}) no puede ser menor al precio mínimo de la consignación ({1}).:The price ({0}) cannot be lower than the consignment minimum price ({1}).
+La publicación ya está finalizada.:The listing is already finished.
+El diagnóstico ya no existe.:The diagnosis no longer exists.
+La tarea ya no existe.:The task no longer exists.
+El costo estimado no puede ser negativo.:The estimated cost cannot be negative.
+El diagnóstico ya está finalizado.:The diagnosis is already finished.
+Solo puede registrar sus propias tareas.:You can only register your own tasks.
+La orden de trabajo ya no existe.:The work order no longer exists.
+No hay gastos nuevos para guardar.:There are no new expenses to save.
+El usuario ya no existe.:The user no longer exists.
+Usuario o contraseña incorrectos.:Wrong user or password.
+No puede deshabilitar su propio usuario.:You cannot disable your own user.
+El usuario está deshabilitado. Consulte con el Administrador.:The user is disabled. Contact the Administrator.
+La contraseña debe tener al menos {0} caracteres.:The password must have at least {0} characters.
+Ya existe una familia llamada "{0}".:A family named "{0}" already exists.
+La contraseña y su confirmación no coinciden.:The password and its confirmation do not match.
+El usuario no tiene permisos asignados. Consulte con el Administrador.:The user has no permissions assigned. Contact the Administrator.
+No tiene permisos para realizar esta operación.:You do not have permission to perform this operation.
+El usuario ya está deshabilitado.:The user is already disabled.
+No puede modificar sus propios permisos. Pídaselo a otro administrador.:You cannot change your own permissions. Ask another administrator.
+La contraseña actual no es correcta.:The current password is not correct.
+No se puede recuperar la contraseña de ese usuario. Comuníquese con el administrador.:The password for that user cannot be recovered. Contact the administrator.
+El nombre de usuario no puede contener espacios.:The user name cannot contain spaces.
+La respuesta a la pregunta de seguridad no es correcta.:The answer to the security question is not correct.
+Ya existe un usuario llamado "{0}".:A user named "{0}" already exists.
+Seleccione un rol válido.:Select a valid role.
+La agencia {0} está deshabilitada.:Agency {0} is disabled.
+La agencia ya está deshabilitada.:The agency is already disabled.
+La agencia tiene autos en consignación. Primero hay que retirarlos para poder deshabilitarla.:The agency has cars on consignment. Withdraw them first to disable it.
+La agencia ya no existe.:The agency no longer exists.
+El campo {0} admite como máximo {1} caracteres.:The field {0} allows at most {1} characters.
+El DNI debe tener 7 u 8 números (sin letras).:The ID (DNI) must have 7 or 8 digits (no letters).
+La fecha de {0} no puede ser posterior a hoy.:The {0} date cannot be later than today.
+La fecha "desde" no puede ser posterior a la fecha "hasta".:The "from" date cannot be later than the "to" date.
+{0} debe ser mayor a 0.:{0} must be greater than 0.
+El campo {0} es obligatorio.:The field {0} is required.
+Seleccione {0}.:Select {0}.
+Ocurrió un error inesperado en la pantalla.:An unexpected error occurred on the screen.
+El registro de {0} con ID '{1}' no fue encontrado.:The {0} record with ID '{1}' was not found.
+Mecánica general:General mechanics
+Mecanica general:General mechanics
+Chapa y pintura:Body and paint
+Electricidad:Electrical
+Sacabollos:Dent repair
+Ingresó {0}:Received {0}
+Venta {0}:Sale {0}
+Ya existe un proveedor con el CUIT {0}:A supplier with tax ID {0} already exists
+Ya existe un cliente con el DNI {0}:A customer with ID {0} already exists
+Ya existe una agencia con el CUIT {0}:An agency with tax ID {0} already exists
+El vehículo {0} está "{1}":Vehicle {0} is "{1}"
+no se puede {0}.:cannot {0}.
+No puedo iniciar sesión:I cannot log in
+Error al guardar datos:Error saving data
+No veo una opción del menú (permisos):I cannot see a menu option (permissions)
+Problema con un reporte:Problem with a report
+Problema con el backup o la restauración:Problem with backup or restore
+El sistema está lento o no responde:The system is slow or not responding
+Otro problema:Other problem
+¿Cuál es el nombre de tu primera mascota?:What is the name of your first pet?
+¿En qué ciudad naciste?:In which city were you born?
+¿Cuál fue tu primer auto?:What was your first car?
+¿Cómo se llama tu mejor amigo de la infancia?:What is the name of your childhood best friend?
+¿Cuál es tu comida favorita?:What is your favorite food?
+¿Cuál es el nombre del sistema?:What is the name of the system?
+Verificación realizada el {0}:Check performed on {0}
+Tabla {0} (base {1}):Table {0} (database {1})
+{0} registro(s) revisados uno por uno con el DVH, {1} alterado(s):{0} record(s) checked one by one with the DVH, {1} altered
+{0} vehículo(s) en el taller:{0} vehicle(s) in the workshop
+{0} venta(s) en el mes por {1}:{0} sale(s) this month for {1}
+{0} auto(s) en agencia:{0} car(s) at agency
+Compras de autos chocados registradas en {0}.:Damaged car purchases registered in {0}.
+Arriba (en verde) las ventas de {0}; abajo los autos que la agencia tiene para vender.:At the top (in green) the sales of {0}; below, the cars the agency has for sale.
+{0} vehículo(s):{0} vehicle(s)
+Base {0}, tabla {1}, registro {2} = {3}:Database {0}, table {1}, record {2} = {3}
+sus datos fueron modificados por fuera del sistema (DVH).:its data was changed outside the system (DVH).
+Base {0}, tabla {1}:Database {0}, table {1}
+se agregaron o borraron filas por fuera del sistema (DVV).:rows were added or deleted outside the system (DVV).
+Pedido de ayuda [{0}]:Help request [{0}]
+Verificó la integridad de los datos:Checked data integrity
+sin cambios externos.:no external changes.
+{0} problema(s) encontrado(s).:{0} problem(s) found.
+Exportó un reporte a PDF:Exported a report to PDF
+Permisos:Permissions

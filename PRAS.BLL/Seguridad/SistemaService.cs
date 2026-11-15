@@ -34,6 +34,15 @@ namespace PRAS.BLL
         }
 
         /// <summary>
+        /// Si la base se instaló con una versión anterior del sistema, le agrega las tablas nuevas
+        /// (UsuarioRecuperacion, para la pregunta de seguridad). Si ya están, no hace nada.
+        /// </summary>
+        public void ActualizarEstructura()
+        {
+            FactoryDataAccess.SistemaRepository.ActualizarEstructura();
+        }
+
+        /// <summary>
         /// true si las dos bases ya existen. Si SQL Server LocalDB no está instalado,
         /// tira la excepción de conexión (la pantalla avisa que hay que instalarlo).
         /// </summary>

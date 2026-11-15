@@ -1,3 +1,4 @@
+using PRAS.Services.DomainModel;
 using PRAS.Services.Logic;
 
 namespace PRAS.Services.Facade
@@ -23,6 +24,12 @@ namespace PRAS.Services.Facade
         public static List<string> VerificarIntegridad()
         {
             return DigitoVerificadorLogic.VerificarIntegridad();
+        }
+
+        /// <summary>Igual que la anterior, pero también devuelve el resultado de cada tabla.</summary>
+        public static List<string> VerificarIntegridad(List<ResultadoIntegridadTabla> detalle)
+        {
+            return DigitoVerificadorLogic.VerificarIntegridad(detalle);
         }
 
         public static List<string> TablasProtegidas()

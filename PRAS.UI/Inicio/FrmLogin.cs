@@ -72,6 +72,21 @@ namespace PRAS.UI
         }
 
         /// <summary>
+        /// "¿Olvidó su contraseña?": abre Recuperar contraseña con el usuario que ya escribió.
+        /// </summary>
+        private void lnkOlvideContrasena_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (var frm = new FrmRecuperarContrasena(txtUsuario.Text))
+            {
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    txtContrasena.Clear();
+                    txtContrasena.Focus();
+                }
+            }
+        }
+
+        /// <summary>
         /// Verifica los dígitos verificadores (DVH y DVV). Devuelve true si se puede entrar.
         /// - Si la base está bien: entra.
         /// - Si hay problemas y es Administrador: se le muestra la pantalla de Integridad

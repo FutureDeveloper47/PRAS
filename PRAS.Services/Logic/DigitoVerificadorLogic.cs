@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Data.SqlClient;
 using PRAS.Services.DataAccess;
 using PRAS.Services.DataAccess.Tools;
+using PRAS.Services.DomainModel;
 using PRAS.Services.Logic.Infraestructure;
 
 namespace PRAS.Services.Logic
@@ -140,6 +141,15 @@ namespace PRAS.Services.Logic
         /// </summary>
         public static List<string> VerificarIntegridad()
         {
+            return VerificarIntegridad(new List<ResultadoIntegridadTabla>());
+        }
+
+        /// <summary>
+        /// Igual que VerificarIntegridad(), pero además completa "detalle" con el resultado de
+        /// cada tabla (cuántos registros se revisaron y cuántos están alterados).
+        /// </summary>
+        public static List<string> VerificarIntegridad(List<ResultadoIntegridadTabla> detalle)
+        {
             List<string> errores = new List<string>();
 
             foreach (TablaProtegida tabla in tablasProtegidas)
@@ -150,10 +160,16 @@ namespace PRAS.Services.Logic
                 {
                     // Primera vez: todavía no calculamos los dígitos de esta tabla.
                     RecalcularTabla(tabla);
-                    continue;
+                    dvvGuardado = DigitoVerificadorDal.ObtenerDVV(tabla.Nombre);
                 }
 
                 DataTable registros = DigitoVerificadorDal.ObtenerRegistros(tabla.CadenaConexion, tabla.Nombre, tabla.ColumnaId);
+                var resultado = new ResultadoIntegridadTabla
+                {
+                    Tabla = tabla.Nombre,
+                    Base = tabla.NombreBase,
+                    Registros = registros.Rows.Count
+                };
 
                 // 1) DVH: fila por fila
                 foreach (DataRow fila in registros.Rows)
@@ -161,16 +177,20 @@ namespace PRAS.Services.Logic
                     string dvhGuardado = fila["DVH"] as string;
                     if (dvhGuardado != CalcularDVH(fila))
                     {
+                        resultado.RegistrosAlterados++;
                         errores.Add($"Base {tabla.NombreBase}, tabla {tabla.Nombre}, registro {tabla.ColumnaId} = {fila[tabla.ColumnaId]}: " +
                                     "sus datos fueron modificados por fuera del sistema (DVH).");
                     }
                 }
 
                 // 2) DVV: la tabla entera (así detectamos filas borradas o agregadas)
-                if (dvvGuardado != CalcularDVV(registros))
+                resultado.DvvCorrecto = dvvGuardado == CalcularDVV(registros);
+                if (!resultado.DvvCorrecto)
                 {
                     errores.Add($"Base {tabla.NombreBase}, tabla {tabla.Nombre}: se agregaron o borraron filas por fuera del sistema (DVV).");
                 }
+
+                detalle.Add(resultado);
             }
 
             return errores;

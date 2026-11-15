@@ -298,7 +298,9 @@ namespace PRAS.UI
                 e.Graphics.DrawRectangle(lapiz, 0, 0, panel.Width - 1, panel.Height - 1);
 
             // Las tarjetas (no los carteles) llevan una franja azul arriba.
-            if (panel.BackColor == Superficie)
+            // Se decide por el nombre y no por el color, porque una tarjeta cambia de color al pasar el mouse.
+            bool esCartel = panel.Name == "pnlFaltanDatos" || panel.Name == "pnlExito";
+            if (!esCartel)
             {
                 using var pincel = new SolidBrush(Primario);
                 e.Graphics.FillRectangle(pincel, 0, 0, panel.Width, AltoFranjaTarjeta);

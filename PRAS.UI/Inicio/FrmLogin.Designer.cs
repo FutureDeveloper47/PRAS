@@ -24,6 +24,7 @@ namespace PRAS.UI
             txtContrasena = new TextBox();
             btnIngresar = new Button();
             btnCancelar = new Button();
+            lnkOlvideContrasena = new LinkLabel();
             SuspendLayout();
             //
             // lblTitulo
@@ -90,13 +91,24 @@ namespace PRAS.UI
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             //
+            // lnkOlvideContrasena
+            //
+            lnkOlvideContrasena.AutoSize = true;
+            lnkOlvideContrasena.Location = new Point(120, 185);
+            lnkOlvideContrasena.Name = "lnkOlvideContrasena";
+            lnkOlvideContrasena.Size = new Size(140, 15);
+            lnkOlvideContrasena.TabIndex = 7;
+            lnkOlvideContrasena.TabStop = true;
+            lnkOlvideContrasena.Text = "¿Olvidó su contraseña?";
+            lnkOlvideContrasena.LinkClicked += lnkOlvideContrasena_LinkClicked;
+            //
             // FrmLogin
             //
             AcceptButton = btnIngresar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(330, 195);
+            ClientSize = new Size(330, 215);
             Controls.Add(lblTitulo);
             Controls.Add(lblUsuario);
             Controls.Add(txtUsuario);
@@ -104,6 +116,7 @@ namespace PRAS.UI
             Controls.Add(txtContrasena);
             Controls.Add(btnIngresar);
             Controls.Add(btnCancelar);
+            Controls.Add(lnkOlvideContrasena);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -123,5 +136,6 @@ namespace PRAS.UI
         private TextBox txtContrasena;
         private Button btnIngresar;
         private Button btnCancelar;
+        private LinkLabel lnkOlvideContrasena;
     }
 }

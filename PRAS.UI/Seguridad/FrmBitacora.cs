@@ -76,7 +76,7 @@ namespace PRAS.UI
 
             string texto = $"{registro.TimeStamp:dd/MM/yyyy HH:mm:ss}  [{registro.LogLevel}]\n" +
                            $"{"Usuario".Traducir()}: {registro.Usuario}\n\n" +
-                           registro.Message;
+                           registro.Message.TraducirMensaje();
 
             if (registro.Detalle != "")
                 texto += "\n\n" + registro.Detalle;
@@ -84,11 +84,21 @@ namespace PRAS.UI
             Mensajes.Info(texto);
         }
 
-        /// <summary>Pinta cada fila según la gravedad del registro.</summary>
+        /// <summary>
+        /// Pinta cada fila según la gravedad del registro y muestra el mensaje en el idioma elegido.
+        /// En la base el mensaje queda grabado en español (la bitácora tiene el idioma de la aplicación,
+        /// como explicó el profesor); acá solo cambiamos cómo se MUESTRA, no lo que está guardado.
+        /// </summary>
         private void dgvBitacora_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvBitacora.Rows[e.RowIndex].DataBoundItem is not LogEntry registro)
                 return;
+
+            if (dgvBitacora.Columns[e.ColumnIndex] == colMensaje && e.Value is string mensaje)
+            {
+                e.Value = mensaje.TraducirMensaje();
+                e.FormattingApplied = true;
+            }
 
             switch (registro.LogLevel)
             {

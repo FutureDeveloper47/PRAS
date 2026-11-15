@@ -16,5 +16,9 @@ namespace PRAS.DAL.Interfaces
         void CambiarIdioma(int idUsuario, string idioma);
 
         int ContarAdministradoresActivos(int idUsuarioExcluido);
+
+        void CambiarContrasena(int idUsuario, string contrasenaHash);
+
+        void GuardarPreguntaSeguridad(int idUsuario, string pregunta, string respuestaHash);
     }
 }

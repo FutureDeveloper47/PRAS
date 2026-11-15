@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -118,7 +119,7 @@ namespace PRAS.UI
                 total += gasto.Subtotal;
             }
 
-            lblTotal.Text = $"TOTAL ACUMULADO = {total:C2}";
+            lblTotal.Text = $"{"TOTAL ACUMULADO".Traducir()} = {total:C2}";
 
             bool hayAuto = _presupuesto != null;
             btnAgregar.Enabled = hayAuto;

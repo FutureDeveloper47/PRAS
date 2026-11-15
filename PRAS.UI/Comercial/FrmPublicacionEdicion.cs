@@ -32,7 +32,7 @@ namespace PRAS.UI
             if (!EsAlta)
             {
                 Text = "Modificar publicación";
-                btnGuardar.Text = "Guardar";
+                btnGuardar.Text = "Guardar".Traducir();
             }
         }
 

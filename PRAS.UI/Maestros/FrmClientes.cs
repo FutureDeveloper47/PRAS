@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -46,7 +47,7 @@ namespace PRAS.UI
         private void ActualizarBotonDeshabilitar()
         {
             Cliente cliente = ClienteSeleccionado();
-            btnDeshabilitar.Text = (cliente != null && !cliente.Activo) ? "Habilitar" : "Deshabilitar";
+            btnDeshabilitar.Text = ((cliente != null && !cliente.Activo) ? "Habilitar" : "Deshabilitar").Traducir();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

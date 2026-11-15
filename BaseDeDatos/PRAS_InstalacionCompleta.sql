@@ -613,6 +613,30 @@ FROM PRAS.dbo.Mecanico M
 WHERE M.Nombre = N'Carlos' AND M.Apellido = N'Ferreyra';
 GO
 
+/* ------------------------ USUARIO RECUPERACION ------------------------- */
+-- Pregunta de seguridad de cada usuario, para recuperar la contraseña desde la pantalla de ingreso.
+-- Va en una tabla aparte (y no en Usuario) para no cambiar las columnas que protege el DVH.
+-- La respuesta se guarda como hash SHA-256 (en minúsculas y sin espacios de más), nunca en texto plano.
+IF OBJECT_ID('UsuarioRecuperacion', 'U') IS NULL
+BEGIN
+    CREATE TABLE UsuarioRecuperacion (
+        IdUsuario          INT            NOT NULL PRIMARY KEY
+                           CONSTRAINT FK_UsuarioRecuperacion_Usuario REFERENCES Usuario(IdUsuario),
+        PreguntaSeguridad  NVARCHAR(200)  NOT NULL,
+        RespuestaHash      VARCHAR(64)    NOT NULL
+    );
+    PRINT 'Tabla UsuarioRecuperacion creada.';
+END
+GO
+
+-- Pregunta de prueba para el admin (respuesta: pras), así se puede mostrar "Recuperar contraseña".
+INSERT INTO UsuarioRecuperacion (IdUsuario, PreguntaSeguridad, RespuestaHash)
+SELECT U.IdUsuario, N'¿Cuál es el nombre del sistema?', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'pras'), 2)
+FROM Usuario U
+WHERE U.NombreUsuario = N'admin'
+  AND NOT EXISTS (SELECT 1 FROM UsuarioRecuperacion R WHERE R.IdUsuario = U.IdUsuario);
+GO
+
 /* ---------------------- PERMISOS: patrón COMPOSITE ---------------------- */
 -- Permisos con patrón Composite (tablas Familia, Patente y sus relaciones):
 --   Patente        = un permiso concreto (DataKey = nombre de la función en C#, enum Funcion)

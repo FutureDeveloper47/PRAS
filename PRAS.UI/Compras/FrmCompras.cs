@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -46,7 +47,7 @@ namespace PRAS.UI
                     total += compra.PrecioCompra;
                 }
 
-                lblResumen.Text = $"{compras.Count} compra(s)  -  Total invertido: {total:C2}";
+                lblResumen.Text = $"{compras.Count} {"compra(s)".Traducir()}  -  {"Total invertido".Traducir()}: {total:C2}";
             }
             catch (Exception ex)
             {

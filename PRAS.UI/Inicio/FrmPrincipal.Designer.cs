@@ -20,6 +20,11 @@ namespace PRAS.UI
             menuPrincipal = new MenuStrip();
             mnuSistema = new ToolStripMenuItem();
             mnuIdioma = new ToolStripMenuItem();
+            mnuMiPerfil = new ToolStripMenuItem();
+            mnuSeparadorAyuda = new ToolStripSeparator();
+            mnuPedirAyuda = new ToolStripMenuItem();
+            mnuAyuda = new ToolStripMenuItem();
+            mnuSeparadorSesion = new ToolStripSeparator();
             mnuCerrarSesion = new ToolStripMenuItem();
             mnuSalir = new ToolStripMenuItem();
             mnuSeguridad = new ToolStripMenuItem();
@@ -95,7 +100,7 @@ namespace PRAS.UI
             //
             // mnuSistema
             //
-            mnuSistema.DropDownItems.AddRange(new ToolStripItem[] { mnuIdioma, mnuCerrarSesion, mnuSalir });
+            mnuSistema.DropDownItems.AddRange(new ToolStripItem[] { mnuIdioma, mnuMiPerfil, mnuSeparadorAyuda, mnuPedirAyuda, mnuAyuda, mnuSeparadorSesion, mnuCerrarSesion, mnuSalir });
             mnuSistema.Name = "mnuSistema";
             mnuSistema.Text = "&Sistema";
             //
@@ -104,6 +109,33 @@ namespace PRAS.UI
             mnuIdioma.Name = "mnuIdioma";
             mnuIdioma.Text = "Idioma";
             // 
+            // mnuMiPerfil
+            //
+            mnuMiPerfil.Name = "mnuMiPerfil";
+            mnuMiPerfil.Text = "Mi perfil";
+            mnuMiPerfil.Click += mnuMiPerfil_Click;
+            //
+            // mnuSeparadorAyuda
+            //
+            mnuSeparadorAyuda.Name = "mnuSeparadorAyuda";
+            //
+            // mnuPedirAyuda
+            //
+            mnuPedirAyuda.Name = "mnuPedirAyuda";
+            mnuPedirAyuda.Text = "Pedir ayuda";
+            mnuPedirAyuda.Click += mnuPedirAyuda_Click;
+            //
+            // mnuAyuda
+            //
+            mnuAyuda.Name = "mnuAyuda";
+            mnuAyuda.ShortcutKeyDisplayString = "F1";
+            mnuAyuda.Text = "Ayuda";
+            mnuAyuda.Click += mnuAyuda_Click;
+            //
+            // mnuSeparadorSesion
+            //
+            mnuSeparadorSesion.Name = "mnuSeparadorSesion";
+            //
             // mnuCerrarSesion
             //
             mnuCerrarSesion.Name = "mnuCerrarSesion";
@@ -560,6 +592,11 @@ namespace PRAS.UI
         private MenuStrip menuPrincipal;
         private ToolStripMenuItem mnuSistema;
         private ToolStripMenuItem mnuIdioma;
+        private ToolStripMenuItem mnuMiPerfil;
+        private ToolStripSeparator mnuSeparadorAyuda;
+        private ToolStripMenuItem mnuPedirAyuda;
+        private ToolStripMenuItem mnuAyuda;
+        private ToolStripSeparator mnuSeparadorSesion;
         private ToolStripMenuItem mnuCerrarSesion;
         private ToolStripMenuItem mnuSalir;
         private ToolStripMenuItem mnuSeguridad;

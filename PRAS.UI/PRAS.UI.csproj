@@ -43,6 +43,14 @@
     </None>
   </ItemGroup>
 
+  <!-- Ayuda del sistema (F1 y Sistema > Ayuda): el archivo PRAS.chm se arma con HTML Help Workshop
+       a partir de Ayuda\PRAS.hhp y se copia junto al .exe (carpeta Ayuda). -->
+  <ItemGroup>
+    <None Update="Ayuda\PRAS.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <!-- Instalador: la DAL no es referencia directa de la UI (DisableTransitiveProjectReferences),
        por eso al publicar no se incluía PRAS.DAL.dll y el programa instalado no arrancaba.
        Este paso la agrega a la lista de archivos que se publican y que toma el instalador.

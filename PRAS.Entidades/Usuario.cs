@@ -18,6 +18,16 @@ namespace PRAS.Entidades
 
         /// <summary>Idioma elegido por el usuario (ej: "es-AR", "en-US"). null = idioma por defecto.</summary>
         public string Idioma { get; set; }
+
+        /// <summary>
+        /// Pregunta de seguridad que eligió el usuario en "Mi perfil" (null = nunca la cargó).
+        /// Se usa para recuperar la contraseña desde la pantalla de ingreso.
+        /// Se guarda en la tabla UsuarioRecuperacion de PRAS_Seguridad.
+        /// </summary>
+        public string PreguntaSeguridad { get; set; }
+
+        /// <summary>Hash SHA-256 de la respuesta (igual que la contraseña, la respuesta nunca se guarda en texto plano).</summary>
+        public string RespuestaSeguridadHash { get; set; }
         public Mecanico Mecanico { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using PRAS.Services.DataAccess;
 using PRAS.Services.Logic.CustomExceptions;
 
@@ -50,6 +50,112 @@ namespace PRAS.Services.Logic
             {
                 return texto;
             }
+        }
+
+        /// <summary>
+        /// Traduce un MENSAJE armado por el sistema (avisos, errores, bitácora, actividad reciente).
+        /// A diferencia de Traducir, NO anota en el archivo las frases que no encuentra,
+        /// porque un mensaje trae datos (una patente, un nombre) y llenaría el archivo de basura.
+        ///
+        /// Cómo traduce:
+        /// 1) Si el mensaje completo es una clave del archivo, devuelve su traducción.
+        /// 2) Si no, prueba con las claves que tienen "huecos" {0}, {1}...
+        ///    Ej: la clave  "El mecánico {0} ya está deshabilitado."  coincide con
+        ///    "El mecánico Juan Perez ya está deshabilitado." y {0} = "Juan Perez".
+        ///    Después pone ese dato en el mismo hueco de la traducción.
+        /// 3) Si es un mensaje de varias líneas, traduce cada línea por separado.
+        /// Si no encuentra nada, devuelve el mensaje tal cual (en español).
+        /// </summary>
+        public static string TraducirMensaje(string mensaje)
+        {
+            if (string.IsNullOrWhiteSpace(mensaje))
+            {
+                return mensaje;
+            }
+
+            Dictionary<string, string> diccionario;
+            try
+            {
+                diccionario = IdiomaDal.ObtenerDiccionario();
+            }
+            catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
+            {
+                return mensaje;
+            }
+
+            string[] lineas = mensaje.Replace("\r\n", "\n").Split('\n');
+            for (int i = 0; i < lineas.Length; i++)
+            {
+                lineas[i] = TraducirLinea(lineas[i], diccionario);
+            }
+
+            return string.Join("\n", lineas);
+        }
+
+        private static string TraducirLinea(string linea, Dictionary<string, string> diccionario)
+        {
+            string limpia = linea.Trim();
+            if (limpia == "")
+            {
+                return linea;
+            }
+
+            // 1) La frase completa es una clave.
+            if (diccionario.TryGetValue(limpia, out string exacta) && exacta != "")
+            {
+                return exacta;
+            }
+
+            // 2) Las claves no pueden tener ":" (el ":" separa clave y traducción en el archivo).
+            //    Si la frase tiene ": " la partimos en dos y traducimos cada parte.
+            //    Ej: "El vehículo AB123CD está "Vendido": no se puede venderlo."
+            //    Va ANTES de las plantillas: si no, una plantilla como "Ya existe un cliente con el DNI {0}"
+            //    se "comería" todo el resto de la frase dentro del {0}.
+            int dosPuntos = limpia.IndexOf(": ", StringComparison.Ordinal);
+            if (dosPuntos > 0)
+            {
+                string antes = TraducirLinea(limpia.Substring(0, dosPuntos), diccionario);
+                string despues = TraducirLinea(limpia.Substring(dosPuntos + 2), diccionario);
+                return antes + ": " + despues;
+            }
+
+            // 3) Claves con huecos {0}, {1}... Probamos primero las más largas (las más específicas),
+            //    así "Base {0}, tabla {1}, registro {2} = {3}" gana sobre "Base {0}, tabla {1}".
+            IEnumerable<KeyValuePair<string, string>> plantillas = diccionario
+                .Where(par => par.Value != "" && par.Key.Contains("{0}"))
+                .OrderByDescending(par => par.Key.Length);
+
+            foreach (KeyValuePair<string, string> par in plantillas)
+            {
+                // Convertimos la clave en un patrón: el texto fijo tiene que coincidir y cada {n} es "cualquier dato".
+                string patron = "^" + System.Text.RegularExpressions.Regex.Escape(par.Key) + "$";
+                patron = System.Text.RegularExpressions.Regex.Replace(patron, @"\\\{(\d+)}", "(?<p$1>.+?)");
+
+                System.Text.RegularExpressions.Match coincidencia =
+                    System.Text.RegularExpressions.Regex.Match(limpia, patron);
+                if (!coincidencia.Success)
+                {
+                    continue;
+                }
+
+                string traduccion = par.Value;
+                foreach (System.Text.RegularExpressions.Group grupo in coincidencia.Groups)
+                {
+                    if (grupo.Name.StartsWith("p"))
+                    {
+                        // El dato también se traduce si es una palabra del archivo
+                        // (ej: el campo "Usuario" -> "User"); si es un nombre o un número queda igual.
+                        string dato = diccionario.TryGetValue(grupo.Value.Trim(), out string datoTraducido) && datoTraducido != ""
+                            ? datoTraducido
+                            : grupo.Value;
+                        traduccion = traduccion.Replace("{" + grupo.Name.Substring(1) + "}", dato);
+                    }
+                }
+
+                return traduccion;
+            }
+
+            return linea;
         }
 
         public static List<CultureInfo> ObtenerIdiomas()

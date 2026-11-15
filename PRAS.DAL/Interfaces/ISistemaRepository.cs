@@ -14,5 +14,11 @@ namespace PRAS.DAL.Interfaces
 
         /// <summary>Crea las dos bases ejecutando el script de instalación completo.</summary>
         void InstalarBases(string rutaScript);
+
+        /// <summary>
+        /// Agrega a una base ya instalada las tablas nuevas (por ejemplo UsuarioRecuperacion).
+        /// No toca nada si ya existen.
+        /// </summary>
+        void ActualizarEstructura();
     }
 }

@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -65,7 +66,7 @@ namespace PRAS.UI
                     dgvAutos.Rows[fila].Tag = vehiculo;
                 }
 
-                lblCantidad.Text = $"{vehiculos.Count} vehículo(s)";
+                lblCantidad.Text = $"{vehiculos.Count} vehículo(s)".TraducirMensaje();
             }
             catch (Exception ex)
             {

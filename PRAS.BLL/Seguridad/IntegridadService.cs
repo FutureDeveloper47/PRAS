@@ -1,3 +1,4 @@
+using PRAS.Services.DomainModel;
 using PRAS.Services.Facade;
 
 namespace PRAS.BLL
@@ -18,6 +19,25 @@ namespace PRAS.BLL
 
             foreach (string error in errores)
                 LoggerService.Fatal("Integridad de datos: " + error);
+
+            return errores;
+        }
+
+        /// <summary>
+        /// Igual que Verificar(), pero también devuelve el resultado de cada tabla protegida
+        /// (registros revisados, registros alterados y si el DVV coincide). Lo usa la pantalla
+        /// "Integridad de datos" para mostrar qué se controló, no solo "está todo bien".
+        /// </summary>
+        public List<string> Verificar(List<ResultadoIntegridadTabla> detalle)
+        {
+            List<string> errores = DigitoVerificadorService.VerificarIntegridad(detalle);
+
+            foreach (string error in errores)
+                LoggerService.Fatal("Integridad de datos: " + error);
+
+            LoggerService.Info(errores.Count == 0
+                ? "Verificó la integridad de los datos: sin cambios externos."
+                : $"Verificó la integridad de los datos: {errores.Count} problema(s) encontrado(s).");
 
             return errores;
         }

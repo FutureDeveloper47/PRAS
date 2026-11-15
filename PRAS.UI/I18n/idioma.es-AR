@@ -370,3 +370,359 @@ Solo se pueden modificar las publicaciones activas.:Solo se pueden modificar las
 Exportar...:Exportar...
 Período:Período
 Stock al:Stock al
+AÑO:AÑO
+PATENTE:PATENTE
+MODELO:MODELO
+MARCA:MARCA
+COLOR:COLOR
+DNI VENDEDOR:DNI VENDEDOR
+FECHA:FECHA
+PRECIO:PRECIO
+FORMA DE PAGO:FORMA DE PAGO
+CANCELAR:CANCELAR
+GUARDAR:GUARDAR
+VEHÍCULO:VEHÍCULO
+Seleccionar mecánico:Seleccionar mecánico
+Diagnóstico inicial:Diagnóstico inicial
+Detalle:Detalle
+Sistema:Sistema
+Mi perfil:Mi perfil
+Pedir ayuda:Pedir ayuda
+Ayuda:Ayuda
+Seguridad:Seguridad
+Maestros:Maestros
+Compras:Compras
+Taller:Taller
+Comercial:Comercial
+Reportes:Reportes
+¿Olvidó su contraseña?:¿Olvidó su contraseña?
+Tema del problema:Tema del problema
+Detalle del problema:Detalle del problema
+Enviar pedido:Enviar pedido
+Enviar también por email:Enviar también por email
+Si es urgente, comuníquese con el administrador:Si es urgente, comuníquese con el administrador
+Mis datos:Mis datos
+Aplicar idioma:Aplicar idioma
+Cambiar contraseña:Cambiar contraseña
+Contraseña actual:Contraseña actual
+Nueva contraseña:Nueva contraseña
+Guardar contraseña:Guardar contraseña
+Pregunta de seguridad (para recuperar la contraseña):Pregunta de seguridad (para recuperar la contraseña)
+Pregunta:Pregunta
+Respuesta:Respuesta
+Guardar pregunta:Guardar pregunta
+Recuperar contraseña:Recuperar contraseña
+Ver pregunta de seguridad:Ver pregunta de seguridad
+Pregunta de seguridad:Pregunta de seguridad
+Mostrar contraseña:Mostrar contraseña
+Si no puede recuperarla, comuníquese con el administrador:Si no puede recuperarla, comuníquese con el administrador
+CERRAR:CERRAR
+Sin datos de compra.:Sin datos de compra.
+compra(s):compra(s)
+Total invertido:Total invertido
+TOTAL ACUMULADO:TOTAL ACUMULADO
+Detalle - Taller:Detalle - Taller
+vehículos en el taller:vehículos en el taller
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.:Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.
+Ingreso al taller:Ingreso al taller
+No hay vehículos en el taller.:No hay vehículos en el taller.
+Detalle - Ingresos:Detalle - Ingresos
+chocados comprados:chocados comprados
+No hay compras en el mes.:No hay compras en el mes.
+Detalle - Agencia:Detalle - Agencia
+ventas y autos en agencia:ventas y autos en agencia
+Pedido de ayuda:Pedido de ayuda
+Todavía no cargó una pregunta de seguridad.:Todavía no cargó una pregunta de seguridad.
+Ya tiene una pregunta de seguridad cargada. Puede cambiarla.:Ya tiene una pregunta de seguridad cargada. Puede cambiarla.
+Cómo probarlo:Cómo probarlo
+En SQL Server Management Studio cambie un dato de una tabla protegida, por ejemplo:En SQL Server Management Studio cambie un dato de una tabla protegida, por ejemplo
+Vuelva a presionar Verificar nuevamente:Vuelva a presionar Verificar nuevamente
+el sistema detecta el registro modificado (DVH):el sistema detecta el registro modificado (DVH)
+Si borra o agrega una fila con SQL, lo detecta el DVV de la tabla:Si borra o agrega una fila con SQL, lo detecta el DVV de la tabla
+DVV correcto:DVV correcto
+no se agregaron ni borraron filas:no se agregaron ni borraron filas
+DVV distinto:DVV distinto
+Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.:Dejar vacío para no cambiar la contraseña. Mínimo 6 caracteres.
+Agregar Cliente:Agregar Cliente
+La publicación ya no está activa (otro usuario la modificó).:La publicación ya no está activa (otro usuario la modificó).
+El diagnóstico ya estaba finalizado (otro usuario lo modificó).:El diagnóstico ya estaba finalizado (otro usuario lo modificó).
+El vehículo ya no está en estado Comprado y no se puede eliminar.:El vehículo ya no está en estado Comprado y no se puede eliminar.
+El vehículo cambió de estado mientras se hacía la operación. Vuelva a intentarlo.:El vehículo cambió de estado mientras se hacía la operación. Vuelva a intentarlo.
+No hay ningún taller cargado en la tabla Taller.:No hay ningún taller cargado en la tabla Taller.
+La consignación ya no está vigente (otro usuario la modificó).:La consignación ya no está vigente (otro usuario la modificó).
+La consignación del vehículo ya no está vigente (otro usuario la modificó).:La consignación del vehículo ya no está vigente (otro usuario la modificó).
+No se encontró la cadena de conexión '{0}' en App.config.:No se encontró la cadena de conexión '{0}' en App.config.
+Registró la compra {0} del vehículo {1} por $ {2}.:Registró la compra {0} del vehículo {1} por $ {2}.
+Modificación del vehículo {0}.:Modificación del vehículo {0}.
+eliminarlo (solo se pueden eliminar autos Comprados que todavía no entraron al taller):eliminarlo (solo se pueden eliminar autos Comprados que todavía no entraron al taller)
+Eliminó el vehículo {0} y su compra.:Eliminó el vehículo {0} y su compra.
+Alta de la agencia {0}.:Alta de la agencia {0}.
+Modificación de la agencia {0}.:Modificación de la agencia {0}.
+Deshabilitó a la agencia {0}.:Deshabilitó a la agencia {0}.
+Habilitó a la agencia con Id {0}.:Habilitó a la agencia con Id {0}.
+Alta del proveedor {0}.:Alta del proveedor {0}.
+Modificación del proveedor {0}.:Modificación del proveedor {0}.
+Deshabilitó al proveedor {0}.:Deshabilitó al proveedor {0}.
+Habilitó al proveedor con Id {0}.:Habilitó al proveedor con Id {0}.
+Se encriptaron con AES el teléfono y el email de {0} cliente(s).:Se encriptaron con AES el teléfono y el email de {0} cliente(s).
+Alta del cliente {0} (DNI {1}).:Alta del cliente {0} (DNI {1}).
+Modificación del cliente {0} (DNI {1}).:Modificación del cliente {0} (DNI {1}).
+Deshabilitó al cliente {0} (DNI {1}).:Deshabilitó al cliente {0} (DNI {1}).
+Habilitó al cliente con Id {0}.:Habilitó al cliente con Id {0}.
+Alta del mecánico {0}.:Alta del mecánico {0}.
+Modificación del mecánico {0}.:Modificación del mecánico {0}.
+Deshabilitó al mecánico {0}.:Deshabilitó al mecánico {0}.
+Habilitó al mecánico con Id {0}.:Habilitó al mecánico con Id {0}.
+Registró el pedido de repuestos {0} a {1} para la OT {2} ({3}).:Registró el pedido de repuestos {0} a {1} para la OT {2} ({3}).
+El pedido {0} ya está {1}.:El pedido {0} ya está {1}.
+El pedido cambió de estado. Actualice la lista.:El pedido cambió de estado. Actualice la lista.
+entregarlo a una agencia (tiene que estar Reparado):entregarlo a una agencia (tiene que estar Reparado)
+(mínimo {0}, comisión {1}%).:(mínimo {0}, comisión {1}%).
+La consignación ya está {0}.:La consignación ya está {0}.
+Retiró el vehículo {0} de la agencia {1}.:Retiró el vehículo {0} de la agencia {1}.
+El vehículo ya no está en la agencia (la consignación no está vigente).:El vehículo ya no está en la agencia (la consignación no está vigente).
+venderlo:venderlo
+la forma de pago:la forma de pago
+(agencia {0}, comisión {1}).:(agencia {0}, comisión {1}).
+publicarlo:publicarlo
+Publicó el vehículo {0} en {1} a {2}.:Publicó el vehículo {0} en {1} a {2}.
+precio {0} -> {1}.:precio {0} -> {1}.
+Finalizó la publicación del vehículo {0} en {1}.:Finalizó la publicación del vehículo {0} en {1}.
+Modificó el diagnóstico {0} del vehículo {1}.:Modificó el diagnóstico {0} del vehículo {1}.
+finalizar su diagnóstico:finalizar su diagnóstico
+Seleccione un archivo que exista.:Seleccione un archivo que exista.
+El nombre del archivo es demasiado largo.:El nombre del archivo es demasiado largo.
+Agregó una evidencia ({0}) al diagnóstico del vehículo {1}.:Agregó una evidencia ({0}) al diagnóstico del vehículo {1}.
+No se pudo copiar el archivo de una evidencia.:No se pudo copiar el archivo de una evidencia.
+un diagnóstico de la lista:un diagnóstico de la lista
+ingresarlo al taller (tiene que estar Comprado):ingresarlo al taller (tiene que estar Comprado)
+Ingreso a taller del vehículo {0} (mecánico {1}, prioridad {2}).:Ingreso a taller del vehículo {0} (mecánico {1}, prioridad {2}).
+Carga de {0} gasto(s) en el presupuesto {1}.:Carga de {0} gasto(s) en el presupuesto {1}.
+finalizar su reparación (no está en reparación):finalizar su reparación (no está en reparación)
+Finalizó la reparación del vehículo {0}.:Finalizó la reparación del vehículo {0}.
+Cambió la prioridad de la OT {0} de {1} a {2}.:Cambió la prioridad de la OT {0} de {1} a {2}.
+Agregó la tarea "{0}" a la OT {1} (mecánico {2}).:Agregó la tarea "{0}" a la OT {1} (mecánico {2}).
+finalizar su reparación:finalizar su reparación
+Solo se puede iniciar una tarea Pendiente (esta está "{0}").:Solo se puede iniciar una tarea Pendiente (esta está "{0}").
+La tarea cambió de estado. Actualice la lista.:La tarea cambió de estado. Actualice la lista.
+Inició la tarea {0} (OT {1}, vehículo {2}).:Inició la tarea {0} (OT {1}, vehículo {2}).
+La tarea ya está finalizada.:La tarea ya está finalizada.
+Finalizó la tarea {0} (OT {1}, vehículo {2}).:Finalizó la tarea {0} (OT {1}, vehículo {2}).
+La orden de trabajo de esta tarea ya está cerrada.:La orden de trabajo de esta tarea ya está cerrada.
+Generó el {0} del {1} al {2}.:Generó el {0} del {1} al {2}.
+Generó el {0}.:Generó el {0}.
+dónde guardar el archivo:dónde guardar el archivo
+No se pudo exportar el reporte.:No se pudo exportar el reporte.
+Exportó un reporte a {0} ({1} filas).:Exportó un reporte a {0} ({1} filas).
+No se pudo exportar el reporte a PDF.:No se pudo exportar el reporte a PDF.
+Recalculó los dígitos verificadores de todas las tablas protegidas.:Recalculó los dígitos verificadores de todas las tablas protegidas.
+la familia y la patente:la familia y la patente
+La familia "{0}" ya tiene la patente "{1}".:La familia "{0}" ya tiene la patente "{1}".
+las dos familias:las dos familias
+La familia "{0}" ya contiene a "{1}".:La familia "{0}" ya contiene a "{1}".
+el elemento que quiere quitar:el elemento que quiere quitar
+el usuario y el permiso a asignar:el usuario y el permiso a asignar
+El usuario "{0}" ya tiene asignado "{1}".:El usuario "{0}" ya tiene asignado "{1}".
+El usuario "{0}" ya tiene "{1}" dentro de la familia "{2}".:El usuario "{0}" ya tiene "{1}" dentro de la familia "{2}".
+el permiso que quiere quitar:el permiso que quiere quitar
+Inició sesión.:Inició sesión.
+Cerró sesión.:Cerró sesión.
+Cambió el idioma a {0}.:Cambió el idioma a {0}.
+Cambió su contraseña desde Mi perfil.:Cambió su contraseña desde Mi perfil.
+Actualizó su pregunta de seguridad desde Mi perfil.:Actualizó su pregunta de seguridad desde Mi perfil.
+El usuario "{0}" recuperó su contraseña con la pregunta de seguridad.:El usuario "{0}" recuperó su contraseña con la pregunta de seguridad.
+Alta del usuario "{0}" (rol {1}).:Alta del usuario "{0}" (rol {1}).
+Modificación del usuario "{0}".:Modificación del usuario "{0}".
+Deshabilitó al usuario "{0}".:Deshabilitó al usuario "{0}".
+Habilitó al usuario con Id {0}.:Habilitó al usuario con Id {0}.
+el mecánico al que corresponde este usuario:el mecánico al que corresponde este usuario
+El mecánico {0} ya tiene el usuario "{1}".:El mecánico {0} ya tiene el usuario "{1}".
+Debe quedar al menos un Administrador activo en el sistema.:Debe quedar al menos un Administrador activo en el sistema.
+el tema del problema:el tema del problema
+dónde guardar el backup:dónde guardar el backup
+Realizó un backup de las bases PRAS y PRAS_Seguridad en "{0}".:Realizó un backup de las bases PRAS y PRAS_Seguridad en "{0}".
+Falló el backup de la base.:Falló el backup de la base.
+Seleccione un archivo de backup (.bak) existente.:Seleccione un archivo de backup (.bak) existente.
+Inició la restauración de las bases desde "{0}".:Inició la restauración de las bases desde "{0}".
+Las bases PRAS y PRAS_Seguridad fueron restauradas correctamente. Se cierra la sesión.:Las bases PRAS y PRAS_Seguridad fueron restauradas correctamente. Se cierra la sesión.
+Falló la restauración de la base.:Falló la restauración de la base.
+La tabla {0} no tiene dígitos verificadores.:La tabla {0} no tiene dígitos verificadores.
+Indique dónde guardar el backup.:Indique dónde guardar el backup.
+No se encontró el archivo de backup.:No se encontró el archivo de backup.
+Falta la clave "ClaveAES" en el archivo de configuración.:Falta la clave "ClaveAES" en el archivo de configuración.
+La clave "ClaveAES" tiene que tener 32 bytes (AES-256).:La clave "ClaveAES" tiene que tener 32 bytes (AES-256).
+Se guardó el cliente {0}.:Se guardó el cliente {0}.
+No se pueden agregar elementos en un hijo tipo hoja:No se pueden agregar elementos en un hijo tipo hoja
+No se pueden eliminar elementos en un hijo tipo hoja:No se pueden eliminar elementos en un hijo tipo hoja
+El archivo no contiene un backup de las bases del sistema PRAS.:El archivo no contiene un backup de las bases del sistema PRAS.
+Las patentes del sistema no se pueden eliminar.:Las patentes del sistema no se pueden eliminar.
+Los datos del vehículo se guardaron correctamente.:Los datos del vehículo se guardaron correctamente.
+No existe un cliente con ese DNI.:No existe un cliente con ese DNI.
+¿Desea darlo de alta ahora?:¿Desea darlo de alta ahora?
+¿Confirma la compra del vehículo {0} ({1} {2}):¿Confirma la compra del vehículo {0} ({1} {2})
+a {0} por {1}?:a {0} por {1}?
+Seleccione un auto de la lista.:Seleccione un auto de la lista.
+¿Eliminar el vehículo {0}?:¿Eliminar el vehículo {0}?
+También se borra su compra. Use esta opción solo para corregir una carga equivocada.:También se borra su compra. Use esta opción solo para corregir una carga equivocada.
+El vehículo {0} fue eliminado.:El vehículo {0} fue eliminado.
+Proveedor dado de alta correctamente.:Proveedor dado de alta correctamente.
+Proveedor modificado correctamente.:Proveedor modificado correctamente.
+Agencia dada de alta correctamente.:Agencia dada de alta correctamente.
+Agencia modificada correctamente.:Agencia modificada correctamente.
+Cliente dado de alta correctamente.:Cliente dado de alta correctamente.
+Cliente modificado correctamente.:Cliente modificado correctamente.
+Seleccione un cliente de la lista.:Seleccione un cliente de la lista.
+¿Deshabilitar al cliente {0}?:¿Deshabilitar al cliente {0}?
+¿Volver a habilitar al cliente {0}?:¿Volver a habilitar al cliente {0}?
+Mecánico dado de alta correctamente.:Mecánico dado de alta correctamente.
+Mecánico modificado correctamente.:Mecánico modificado correctamente.
+Seleccione una agencia de la lista.:Seleccione una agencia de la lista.
+¿Deshabilitar la agencia {0}?:¿Deshabilitar la agencia {0}?
+¿Volver a habilitar la agencia {0}?:¿Volver a habilitar la agencia {0}?
+Seleccione un proveedor de la lista.:Seleccione un proveedor de la lista.
+¿Deshabilitar al proveedor {0}?:¿Deshabilitar al proveedor {0}?
+¿Volver a habilitar al proveedor {0}?:¿Volver a habilitar al proveedor {0}?
+Seleccione un mecánico de la lista.:Seleccione un mecánico de la lista.
+¿Deshabilitar al mecánico {0}?:¿Deshabilitar al mecánico {0}?
+¿Volver a habilitar al mecánico {0}?:¿Volver a habilitar al mecánico {0}?
+¿Registrar que {0} entregó el pedido {1}?:¿Registrar que {0} entregó el pedido {1}?
+Su total ({0}) se suma al presupuesto de la OT {1}.:Su total ({0}) se suma al presupuesto de la OT {1}.
+¿Retirar el vehículo {0} de {1}?:¿Retirar el vehículo {0} de {1}?
+Si está publicado, la publicación se da de baja y el auto vuelve a "Reparado".:Si está publicado, la publicación se da de baja y el auto vuelve a "Reparado".
+¿Dar de baja la publicación de {0} en {1}?:¿Dar de baja la publicación de {0} en {1}?
+El auto sigue en la agencia.:El auto sigue en la agencia.
+¿Registrar la venta de {0} a {1} por {2}?:¿Registrar la venta de {0} a {1} por {2}?
+No hay autos "En reparación".:No hay autos "En reparación".
+Primero ingrese uno al taller desde Taller > Asignación de presupuesto.:Primero ingrese uno al taller desde Taller > Asignación de presupuesto.
+Hay gastos sin guardar para el auto anterior. ¿Descartarlos?:Hay gastos sin guardar para el auto anterior. ¿Descartarlos?
+Seleccione en la lista un gasto "Nuevo (sin guardar)".:Seleccione en la lista un gasto "Nuevo (sin guardar)".
+Los gastos se guardaron correctamente.:Los gastos se guardaron correctamente.
+Hay gastos sin guardar. Guárdelos o quítelos antes de finalizar.:Hay gastos sin guardar. Guárdelos o quítelos antes de finalizar.
+¿Finalizar la reparación de {0}?:¿Finalizar la reparación de {0}?
+El auto pasa a "Reparado" y ya no se le pueden cargar costos.:El auto pasa a "Reparado" y ya no se le pueden cargar costos.
+¿Marcar como finalizada la tarea "{0}" ({1})?:¿Marcar como finalizada la tarea "{0}" ({1})?
+¿Finalizar la OT {0} ({1})? El auto queda "Reparado".:¿Finalizar la OT {0} ({1})? El auto queda "Reparado".
+No hay autos en estado "Comprado" para ingresar al taller.:No hay autos en estado "Comprado" para ingresar al taller.
+Primero registre una compra.:Primero registre una compra.
+No hay mecánicos habilitados. Cargue uno desde Maestros > Mecánicos.:No hay mecánicos habilitados. Cargue uno desde Maestros > Mecánicos.
+El vehículo {0} ingresó al taller.:El vehículo {0} ingresó al taller.
+Superó los {0} intentos permitidos. El sistema se cerrará.:Superó los {0} intentos permitidos. El sistema se cerrará.
+Su pedido de ayuda quedó registrado. El administrador lo va a ver en la bitácora.:Su pedido de ayuda quedó registrado. El administrador lo va a ver en la bitácora.
+No hay un programa de correo configurado en esta PC. Su pedido quedó registrado en la bitácora.:No hay un programa de correo configurado en esta PC. Su pedido quedó registrado en la bitácora.
+La contraseña se cambió correctamente.:La contraseña se cambió correctamente.
+La pregunta de seguridad se guardó correctamente.:La pregunta de seguridad se guardó correctamente.
+¿Quitar "{0}" de la familia "{1}"?:¿Quitar "{0}" de la familia "{1}"?
+¿Eliminar la familia "{0}"? Los usuarios que la tengan asignada perderán esos permisos.:¿Eliminar la familia "{0}"? Los usuarios que la tengan asignada perderán esos permisos.
+La contraseña se cambió correctamente. Ya puede ingresar con la contraseña nueva.:La contraseña se cambió correctamente. Ya puede ingresar con la contraseña nueva.
+Superó los intentos permitidos. Comuníquese con el administrador.:Superó los intentos permitidos. Comuníquese con el administrador.
+Usuario dado de alta correctamente.:Usuario dado de alta correctamente.
+Usuario modificado correctamente.:Usuario modificado correctamente.
+Seleccione un usuario de la lista.:Seleccione un usuario de la lista.
+¿Deshabilitar al usuario "{0}"?:¿Deshabilitar al usuario "{0}"?
+No podrá ingresar al sistema.:No podrá ingresar al sistema.
+¿Volver a habilitar al usuario "{0}"?:¿Volver a habilitar al usuario "{0}"?
+No se encontró el archivo de ayuda (Ayuda\PRAS.chm). Reinstale el sistema o consulte al administrador.:No se encontró el archivo de ayuda (Ayuda\PRAS.chm). Reinstale el sistema o consulte al administrador.
+El proveedor ya no existe.:El proveedor ya no existe.
+El proveedor tiene pedidos de repuestos pendientes de entrega. No se puede deshabilitar.:El proveedor tiene pedidos de repuestos pendientes de entrega. No se puede deshabilitar.
+El proveedor ya está deshabilitado.:El proveedor ya está deshabilitado.
+El proveedor {0} está deshabilitado.:El proveedor {0} está deshabilitado.
+El mecánico ya está deshabilitado.:El mecánico ya está deshabilitado.
+El mecánico {0} tiene tareas asignadas sin terminar. No se puede deshabilitar.:El mecánico {0} tiene tareas asignadas sin terminar. No se puede deshabilitar.
+El mecánico ya no existe.:El mecánico ya no existe.
+El mecánico {0} está deshabilitado.:El mecánico {0} está deshabilitado.
+Faltan los datos del vehículo.:Faltan los datos del vehículo.
+El vehículo con dominio {0} ya está registrado ({1}).:El vehículo con dominio {0} ya está registrado ({1}).
+El año debe estar entre {0} y {1}.:El año debe estar entre {0} y {1}.
+El vehículo ya no existe.:El vehículo ya no existe.
+El cliente {0} está deshabilitado.:El cliente {0} está deshabilitado.
+El cliente ya está deshabilitado.:El cliente ya está deshabilitado.
+El cliente ya no existe.:El cliente ya no existe.
+El pedido ya no existe.:El pedido ya no existe.
+Agregue al menos un repuesto al pedido.:Agregue al menos un repuesto al pedido.
+El porcentaje de comisión debe ser mayor a 0 y como máximo 100.:El porcentaje de comisión debe ser mayor a 0 y como máximo 100.
+La fecha de venta no puede ser anterior a la entrega del auto a la agencia.:La fecha de venta no puede ser anterior a la entrega del auto a la agencia.
+La publicación ya no existe.:La publicación ya no existe.
+La consignación ya no existe.:La consignación ya no existe.
+El precio ({0}) no puede ser menor al precio mínimo de la consignación ({1}).:El precio ({0}) no puede ser menor al precio mínimo de la consignación ({1}).
+La publicación ya está finalizada.:La publicación ya está finalizada.
+El diagnóstico ya no existe.:El diagnóstico ya no existe.
+La tarea ya no existe.:La tarea ya no existe.
+El costo estimado no puede ser negativo.:El costo estimado no puede ser negativo.
+El diagnóstico ya está finalizado.:El diagnóstico ya está finalizado.
+Solo puede registrar sus propias tareas.:Solo puede registrar sus propias tareas.
+La orden de trabajo ya no existe.:La orden de trabajo ya no existe.
+No hay gastos nuevos para guardar.:No hay gastos nuevos para guardar.
+El usuario ya no existe.:El usuario ya no existe.
+Usuario o contraseña incorrectos.:Usuario o contraseña incorrectos.
+No puede deshabilitar su propio usuario.:No puede deshabilitar su propio usuario.
+El usuario está deshabilitado. Consulte con el Administrador.:El usuario está deshabilitado. Consulte con el Administrador.
+La contraseña debe tener al menos {0} caracteres.:La contraseña debe tener al menos {0} caracteres.
+Ya existe una familia llamada "{0}".:Ya existe una familia llamada "{0}".
+La contraseña y su confirmación no coinciden.:La contraseña y su confirmación no coinciden.
+El usuario no tiene permisos asignados. Consulte con el Administrador.:El usuario no tiene permisos asignados. Consulte con el Administrador.
+No tiene permisos para realizar esta operación.:No tiene permisos para realizar esta operación.
+El usuario ya está deshabilitado.:El usuario ya está deshabilitado.
+No puede modificar sus propios permisos. Pídaselo a otro administrador.:No puede modificar sus propios permisos. Pídaselo a otro administrador.
+La contraseña actual no es correcta.:La contraseña actual no es correcta.
+No se puede recuperar la contraseña de ese usuario. Comuníquese con el administrador.:No se puede recuperar la contraseña de ese usuario. Comuníquese con el administrador.
+El nombre de usuario no puede contener espacios.:El nombre de usuario no puede contener espacios.
+La respuesta a la pregunta de seguridad no es correcta.:La respuesta a la pregunta de seguridad no es correcta.
+Ya existe un usuario llamado "{0}".:Ya existe un usuario llamado "{0}".
+Seleccione un rol válido.:Seleccione un rol válido.
+La agencia {0} está deshabilitada.:La agencia {0} está deshabilitada.
+La agencia ya está deshabilitada.:La agencia ya está deshabilitada.
+La agencia tiene autos en consignación. Primero hay que retirarlos para poder deshabilitarla.:La agencia tiene autos en consignación. Primero hay que retirarlos para poder deshabilitarla.
+La agencia ya no existe.:La agencia ya no existe.
+El campo {0} admite como máximo {1} caracteres.:El campo {0} admite como máximo {1} caracteres.
+El DNI debe tener 7 u 8 números (sin letras).:El DNI debe tener 7 u 8 números (sin letras).
+La fecha de {0} no puede ser posterior a hoy.:La fecha de {0} no puede ser posterior a hoy.
+La fecha "desde" no puede ser posterior a la fecha "hasta".:La fecha "desde" no puede ser posterior a la fecha "hasta".
+{0} debe ser mayor a 0.:{0} debe ser mayor a 0.
+El campo {0} es obligatorio.:El campo {0} es obligatorio.
+Seleccione {0}.:Seleccione {0}.
+Ocurrió un error inesperado en la pantalla.:Ocurrió un error inesperado en la pantalla.
+El registro de {0} con ID '{1}' no fue encontrado.:El registro de {0} con ID '{1}' no fue encontrado.
+Mecánica general:Mecánica general
+Mecanica general:Mecanica general
+Chapa y pintura:Chapa y pintura
+Electricidad:Electricidad
+Sacabollos:Sacabollos
+Ingresó {0}:Ingresó {0}
+Venta {0}:Venta {0}
+Ya existe un proveedor con el CUIT {0}:Ya existe un proveedor con el CUIT {0}
+Ya existe un cliente con el DNI {0}:Ya existe un cliente con el DNI {0}
+Ya existe una agencia con el CUIT {0}:Ya existe una agencia con el CUIT {0}
+El vehículo {0} está "{1}":El vehículo {0} está "{1}"
+no se puede {0}.:no se puede {0}.
+No puedo iniciar sesión:No puedo iniciar sesión
+Error al guardar datos:Error al guardar datos
+No veo una opción del menú (permisos):No veo una opción del menú (permisos)
+Problema con un reporte:Problema con un reporte
+Problema con el backup o la restauración:Problema con el backup o la restauración
+El sistema está lento o no responde:El sistema está lento o no responde
+Otro problema:Otro problema
+¿Cuál es el nombre de tu primera mascota?:¿Cuál es el nombre de tu primera mascota?
+¿En qué ciudad naciste?:¿En qué ciudad naciste?
+¿Cuál fue tu primer auto?:¿Cuál fue tu primer auto?
+¿Cómo se llama tu mejor amigo de la infancia?:¿Cómo se llama tu mejor amigo de la infancia?
+¿Cuál es tu comida favorita?:¿Cuál es tu comida favorita?
+¿Cuál es el nombre del sistema?:¿Cuál es el nombre del sistema?
+Verificación realizada el {0}:Verificación realizada el {0}
+Tabla {0} (base {1}):Tabla {0} (base {1})
+{0} registro(s) revisados uno por uno con el DVH, {1} alterado(s):{0} registro(s) revisados uno por uno con el DVH, {1} alterado(s)
+{0} vehículo(s) en el taller:{0} vehículo(s) en el taller
+{0} venta(s) en el mes por {1}:{0} venta(s) en el mes por {1}
+{0} auto(s) en agencia:{0} auto(s) en agencia
+Compras de autos chocados registradas en {0}.:Compras de autos chocados registradas en {0}.
+Arriba (en verde) las ventas de {0}; abajo los autos que la agencia tiene para vender.:Arriba (en verde) las ventas de {0}; abajo los autos que la agencia tiene para vender.
+{0} vehículo(s):{0} vehículo(s)
+Base {0}, tabla {1}, registro {2} = {3}:Base {0}, tabla {1}, registro {2} = {3}
+sus datos fueron modificados por fuera del sistema (DVH).:sus datos fueron modificados por fuera del sistema (DVH).
+Base {0}, tabla {1}:Base {0}, tabla {1}
+se agregaron o borraron filas por fuera del sistema (DVV).:se agregaron o borraron filas por fuera del sistema (DVV).
+Pedido de ayuda [{0}]:Pedido de ayuda [{0}]
+Verificó la integridad de los datos:Verificó la integridad de los datos
+sin cambios externos.:sin cambios externos.
+{0} problema(s) encontrado(s).:{0} problema(s) encontrado(s).
+Exportó un reporte a PDF:Exportó un reporte a PDF
+Permisos:Permisos

@@ -32,7 +32,9 @@ namespace PRAS.DAL.Implementaciones.SqlServer.Adaptadores
                 Rol = (Rol)Convert.ToInt32(fila["Rol"]),   // en la base es TINYINT
                 IdMecanico = fila["IdMecanico"] as int?,   // "as int?" deja null si en la base hay NULL
                 Activo = (bool)fila["Activo"],
-                Idioma = fila["Idioma"] as string   // null si nunca eligió idioma
+                Idioma = fila["Idioma"] as string,   // null si nunca eligió idioma
+                PreguntaSeguridad = fila.Table.Columns.Contains("PreguntaSeguridad") ? fila["PreguntaSeguridad"] as string : null,
+                RespuestaSeguridadHash = fila.Table.Columns.Contains("RespuestaHash") ? fila["RespuestaHash"] as string : null
             };
         }
     }

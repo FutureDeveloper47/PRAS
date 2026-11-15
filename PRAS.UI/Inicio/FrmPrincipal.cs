@@ -20,12 +20,21 @@ namespace PRAS.UI
         /// <summary>Tarjeta que tiene el mouse encima (se dibuja con borde azul). null = ninguna.</summary>
         private Panel _tarjetaResaltada;
 
+        /// <summary>Espacio libre entre el borde de la tarjeta y sus textos (así los textos no tapan el borde).</summary>
+        private const int MargenTarjeta = 4;
+
+        /// <summary>Color de fondo de la tarjeta mientras tiene el mouse encima (celeste muy suave).</summary>
+        private static readonly Color FondoTarjetaResaltada = Color.FromArgb(240, 246, 252);
+
         /// <summary>true si el usuario eligió "Cerrar sesión" (Program.cs vuelve a mostrar el login).</summary>
         public bool CerroSesion { get; private set; }
 
         public FrmPrincipal()
         {
             InitializeComponent();
+
+            // Cada vez que cambia el tamaño de la ventana, las tarjetas se reparten la pantalla.
+            Resize += (sender, e) => AcomodarInicio();
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -34,7 +43,67 @@ namespace PRAS.UI
             CargarIdiomas();
             AplicarPermisos();
             PrepararTarjetas();
+            AcomodarInicio();
             CargarInicio();
+        }
+
+        // Tamaño de la pantalla de Inicio
+
+        /// <summary>
+        /// Reparte la pantalla de Inicio en todo el espacio de la ventana (antes quedaba un bloque
+        /// fijo de 960 x 470 en el medio). Columnas: TALLER | INGRESOS | AGENCIA + ACTIVIDAD RECIENTE.
+        /// TALLER e INGRESOS ocupan una cuarta parte cada una y la columna derecha, la mitad.
+        /// </summary>
+        private void AcomodarInicio()
+        {
+            if (pnlInicio == null || ClientSize.Width == 0)
+                return;   // la ventana está minimizada
+
+            const int margen = 24;
+            const int separacion = 20;
+            const int arribaTarjetas = 75;
+
+            int arriba = menuPrincipal.Bottom + 10;
+            int abajo = barraEstado.Top - 10;
+            int ancho = Math.Max(900, ClientSize.Width - 2 * margen);
+            int alto = Math.Max(450, abajo - arriba);
+
+            pnlInicio.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            pnlInicio.SetBounds(Math.Max(0, (ClientSize.Width - ancho) / 2), arriba, ancho, alto);
+            lblTitulo.SetBounds(0, 5, ancho, 50);
+
+            int columna = (ancho - 2 * separacion) / 4;
+            int altoTarjetas = alto - arribaTarjetas - 5;
+            pnlTaller.SetBounds(0, arribaTarjetas, columna, altoTarjetas);
+            pnlIngresos.SetBounds(columna + separacion, arribaTarjetas, columna, altoTarjetas);
+
+            int xDerecha = 2 * (columna + separacion);
+            int anchoDerecha = ancho - xDerecha;
+            int altoAgencia = Math.Max(160, altoTarjetas * 38 / 100);
+            pnlAgencia.SetBounds(xDerecha, arribaTarjetas, anchoDerecha, altoAgencia);
+
+            lblActividadTitulo.Location = new Point(xDerecha, arribaTarjetas + altoAgencia + 15);
+            int arribaLista = lblActividadTitulo.Bottom + 5;
+            lstActividad.SetBounds(xDerecha, arribaLista, anchoDerecha, arribaTarjetas + altoTarjetas - arribaLista);
+
+            AcomodarTarjeta(pnlTaller, lblTallerTitulo, lblTallerDato, null, lblTallerVer);
+            AcomodarTarjeta(pnlIngresos, lblIngresosTitulo, lblIngresosDato, lblIngresosAclaracion, lblIngresosVer);
+            AcomodarTarjeta(pnlAgencia, lblAgenciaTitulo, lblAgenciaDato, null, lblAgenciaVer);
+        }
+
+        /// <summary>
+        /// Acomoda los textos de una tarjeta a su nuevo tamaño. Dejamos un margen de 4 píxeles
+        /// a cada lado: antes los textos iban de borde a borde y tapaban el borde azul
+        /// que se dibuja al pasar el mouse (por eso la tarjeta se veía "recortada").
+        /// </summary>
+        private static void AcomodarTarjeta(Panel tarjeta, Label titulo, Label dato, Label aclaracion, Label ver)
+        {
+            int ancho = tarjeta.ClientSize.Width - 2 * MargenTarjeta;
+
+            titulo.SetBounds(MargenTarjeta, 25, ancho, 35);
+            dato.SetBounds(MargenTarjeta, 85, ancho, 25);
+            aclaracion?.SetBounds(MargenTarjeta, 110, ancho, 20);
+            ver.SetBounds(MargenTarjeta, tarjeta.ClientSize.Height - 40, ancho, 22);
         }
 
         /// <summary>Barra de abajo: "Usuario: admin | Rol: Administrador" (traducido).</summary>
@@ -135,7 +204,7 @@ namespace PRAS.UI
                 else
                 {
                     foreach (ActividadReciente actividad in resumen.Actividades)
-                        lstActividad.Items.Add($"{TextoFecha(actividad.Fecha)} - {actividad.Descripcion}");
+                        lstActividad.Items.Add($"{TextoFecha(actividad.Fecha)} - {actividad.Descripcion.TraducirMensaje()}");
                 }
             }
             catch (Exception ex)
@@ -223,6 +292,7 @@ namespace PRAS.UI
             var tipo = (TipoDetalleInicio)tarjeta.Tag;
 
             _tarjetaResaltada = null;
+            tarjeta.BackColor = Tema.Superficie;
             tarjeta.Invalidate();
 
             AbrirPantalla(new FrmDetalleInicio(tipo));
@@ -235,6 +305,7 @@ namespace PRAS.UI
                 return;
 
             _tarjetaResaltada = tarjeta;
+            tarjeta.BackColor = FondoTarjetaResaltada;   // los textos de adentro toman el mismo color
             tarjeta.Invalidate();   // Invalidate hace que se vuelva a dibujar
         }
 
@@ -249,6 +320,7 @@ namespace PRAS.UI
                 return;
 
             _tarjetaResaltada = null;
+            tarjeta.BackColor = Tema.Superficie;
             tarjeta.Invalidate();
         }
 
@@ -348,6 +420,32 @@ namespace PRAS.UI
         private void mnuSalir_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Mi perfil: cambiar mi contraseña, mi pregunta de seguridad y mi idioma.
+        /// Al volver, se traduce de nuevo el menú por si cambió el idioma.
+        /// </summary>
+        private void mnuMiPerfil_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FrmMiPerfil())
+                frm.ShowDialog(this);
+
+            Traductor.Traducir(this);
+            MostrarUsuario();
+            CargarIdiomas();
+            CargarInicio();
+        }
+
+        private void mnuPedirAyuda_Click(object sender, EventArgs e)
+        {
+            AbrirPantalla(new FrmPedirAyuda());
+        }
+
+        /// <summary>Abre el índice de la ayuda (archivo PRAS.chm hecho con HTML Help Workshop).</summary>
+        private void mnuAyuda_Click(object sender, EventArgs e)
+        {
+            AyudaUI.Mostrar(this);
         }
 
         // Seguridad

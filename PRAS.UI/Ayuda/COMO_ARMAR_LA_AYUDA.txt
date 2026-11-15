@@ -1,0 +1,8 @@
+Cómo armar el archivo de ayuda PRAS.chm
+=========================================
+1) Instalar HTML Help Workshop (archivo htmlhelp.exe).
+2) Abrir "HTML Help Workshop" > File > Open > elegir este archivo PRAS.hhp.
+3) File > Compile > Compile. Se crea PRAS.chm en esta misma carpeta (PRAS.UI\Ayuda).
+4) Volver a compilar la solución en Visual Studio: el .chm se copia solo a la carpeta Ayuda del programa
+   (y el instalador lo incluye).
+Para cambiar el texto de la ayuda: editar los .htm y volver a compilar (paso 3).

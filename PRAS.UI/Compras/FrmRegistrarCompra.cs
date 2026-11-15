@@ -1,6 +1,7 @@
 ﻿using PRAS.BLL;
 using PRAS.Entidades;
 using PRAS.BLL.Excepciones;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -42,7 +43,7 @@ namespace PRAS.UI
         private void MostrarFaltanDatos(string detalle)
         {
             pnlExito.Visible = false;
-            lblFaltanDatos.Text = "FALTAN COMPLETAR DATOS PARA SU REGISTRO\n\n" + detalle;
+            lblFaltanDatos.Text = "FALTAN COMPLETAR DATOS PARA SU REGISTRO".Traducir() + "\n\n" + detalle.TraducirMensaje();
             pnlFaltanDatos.Visible = true;
         }
 
@@ -50,7 +51,7 @@ namespace PRAS.UI
         private void MostrarExito(string detalle)
         {
             pnlFaltanDatos.Visible = false;
-            lblExito.Text = "AUTO REGISTRADO EXITOSAMENTE!\n\n" + detalle;
+            lblExito.Text = "AUTO REGISTRADO EXITOSAMENTE!".Traducir() + "\n\n" + detalle.TraducirMensaje();
             pnlExito.Visible = true;
         }
 
@@ -147,7 +148,7 @@ namespace PRAS.UI
         {
             if (_vendedor == null)
             {
-                lblVendedor.Text = "Sin seleccionar";
+                lblVendedor.Text = "Sin seleccionar".Traducir();
                 lblVendedor.ForeColor = SystemColors.GrayText;
             }
             else
@@ -228,7 +229,7 @@ namespace PRAS.UI
                     control.Enabled = false;
             }
 
-            btnCancelar.Text = "CERRAR";
+            btnCancelar.Text = "CERRAR".Traducir();
             btnCancelar.DialogResult = DialogResult.OK;
             btnCancelar.Focus();
         }

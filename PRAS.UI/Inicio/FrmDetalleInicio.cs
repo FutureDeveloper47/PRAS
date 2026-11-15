@@ -1,6 +1,7 @@
 using System.Globalization;
 using PRAS.BLL;
 using PRAS.Entidades;
+using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
 {
@@ -60,7 +61,8 @@ namespace PRAS.UI
         /// <summary>Ej: "septiembre de 2026".</summary>
         private static string MesActual()
         {
-            return DateTime.Today.ToString("MMMM 'de' yyyy", Argentina);
+            // Mes y año en el idioma elegido (ej: "noviembre de 2026" / "November 2026").
+            return DateTime.Today.ToString("Y", CultureInfo.CurrentCulture);
         }
 
         private static string Plata(decimal monto)
@@ -74,19 +76,19 @@ namespace PRAS.UI
         {
             List<DetalleInicio> filas = _inicioService.ObtenerDetalleTaller();
 
-            Text = "Detalle - Taller";
-            lblTitulo.Text = "TALLER: vehículos en el taller";
-            lblSubtitulo.Text = "Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.";
+            Text = "Detalle - Taller".Traducir();
+            lblTitulo.Text = "TALLER".Traducir() + ": " + "vehículos en el taller".Traducir();
+            lblSubtitulo.Text = "Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad.".Traducir();
 
-            colFecha.HeaderText = "Ingreso al taller";
-            colPersona.HeaderText = "Mecánico";
-            colExtra.HeaderText = "Prioridad";
+            colFecha.HeaderText = "Ingreso al taller".Traducir();
+            colPersona.HeaderText = "Mecánico".Traducir();
+            colExtra.HeaderText = "Prioridad".Traducir();
             colMonto.Visible = false;   // en el taller todavía no hay precio
 
             dgvDetalle.DataSource = filas;
             lblTotal.Text = filas.Count == 0
-                ? "No hay vehículos en el taller."
-                : $"{filas.Count} vehículo(s) en el taller";
+                ? "No hay vehículos en el taller.".Traducir()
+                : $"{filas.Count} vehículo(s) en el taller".TraducirMensaje();
         }
 
         // Ingresos
@@ -95,21 +97,21 @@ namespace PRAS.UI
         {
             List<DetalleInicio> filas = _inicioService.ObtenerDetalleIngresos();
 
-            Text = "Detalle - Ingresos";
-            lblTitulo.Text = "INGRESOS: chocados comprados";
-            lblSubtitulo.Text = $"Compras de autos chocados registradas en {MesActual()}.";
+            Text = "Detalle - Ingresos".Traducir();
+            lblTitulo.Text = "INGRESOS".Traducir() + ": " + "chocados comprados".Traducir();
+            lblSubtitulo.Text = $"Compras de autos chocados registradas en {MesActual()}.".TraducirMensaje();
 
-            colFecha.HeaderText = "Fecha de compra";
-            colPersona.HeaderText = "Vendedor";
-            colMonto.HeaderText = "Precio de compra";
-            colExtra.HeaderText = "Forma de pago";
+            colFecha.HeaderText = "Fecha de compra".Traducir();
+            colPersona.HeaderText = "Vendedor".Traducir();
+            colMonto.HeaderText = "Precio de compra".Traducir();
+            colExtra.HeaderText = "Forma de pago".Traducir();
 
             dgvDetalle.DataSource = filas;
 
             decimal total = filas.Sum(f => f.Monto ?? 0);
             lblTotal.Text = filas.Count == 0
-                ? "No hay compras en el mes."
-                : $"{filas.Count} compra(s)  -  Total invertido: {Plata(total)}";
+                ? "No hay compras en el mes.".Traducir()
+                : $"{filas.Count} {"compra(s)".Traducir()}  -  {"Total invertido".Traducir()}: {Plata(total)}";
         }
 
         // Agencia
@@ -118,14 +120,14 @@ namespace PRAS.UI
         {
             List<DetalleInicio> filas = _inicioService.ObtenerDetalleAgencia();
 
-            Text = "Detalle - Agencia";
-            lblTitulo.Text = "AGENCIA: ventas y autos en agencia";
-            lblSubtitulo.Text = $"Arriba (en verde) las ventas de {MesActual()}; abajo los autos que la agencia tiene para vender.";
+            Text = "Detalle - Agencia".Traducir();
+            lblTitulo.Text = "AGENCIA".Traducir() + ": " + "ventas y autos en agencia".Traducir();
+            lblSubtitulo.Text = $"Arriba (en verde) las ventas de {MesActual()}; abajo los autos que la agencia tiene para vender.".TraducirMensaje();
 
-            colFecha.HeaderText = "Fecha";
-            colPersona.HeaderText = "Comprador";
-            colMonto.HeaderText = "Precio";
-            colExtra.HeaderText = "Agencia";
+            colFecha.HeaderText = "Fecha".Traducir();
+            colPersona.HeaderText = "Comprador".Traducir();
+            colMonto.HeaderText = "Precio".Traducir();
+            colExtra.HeaderText = "Agencia".Traducir();
 
             dgvDetalle.DataSource = filas;
 
@@ -133,7 +135,7 @@ namespace PRAS.UI
             decimal totalVendido = ventas.Sum(f => f.Monto ?? 0);
             int enAgencia = filas.Count - ventas.Count;
 
-            lblTotal.Text = $"{ventas.Count} venta(s) en el mes por {Plata(totalVendido)}  -  {enAgencia} auto(s) en agencia";
+            lblTotal.Text = $"{ventas.Count} venta(s) en el mes por {Plata(totalVendido)}".TraducirMensaje() + "  -  " + $"{enAgencia} auto(s) en agencia".TraducirMensaje();
         }
 
         /// <summary>
