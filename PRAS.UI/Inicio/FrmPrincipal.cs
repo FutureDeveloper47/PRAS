@@ -757,6 +757,108 @@ namespace PRAS.UI
                     ? ModoPedidos.Registrar : ModoPedidos.Consulta)));
             AgregarBotonMecanico("btnMecPerfil", "Mi perfil", () => true, () => mnuMiPerfil_Click(this, EventArgs.Empty));
             AgregarBotonMecanico("btnMecAyuda", "Ayuda", () => true, () => AyudaUI.Mostrar(this));
+
+            // Listas con lo suyo (cada renglón abre la ficha del auto). Mismos permisos que las tarjetas.
+            AgregarListaMecanico("MIS AUTOS ESPERANDO DIAGNÓSTICO", Funcion.ConsultarDiagnostico, () => _inicioService.ObtenerDetalleAutosEnDiagnostico());
+            AgregarListaMecanico("MIS ÓRDENES ABIERTAS", Funcion.ConsultarOrdenesTrabajo, () => _inicioService.ObtenerDetalleMisOrdenes());
+            AgregarListaMecanico("ÚLTIMAS TAREAS REALIZADAS", Funcion.RegistrarTareasRealizadas, () => _inicioService.ObtenerDetalleMisTareas());
+            AgregarListaMecanico("PEDIDOS DE REPUESTOS PENDIENTES", Funcion.ConsultarPedidosRepuestos, () => _inicioService.ObtenerDetalleMisPedidos());
+        }
+
+        private readonly List<(Label Titulo, ListBox Lista, Funcion Permiso, Func<List<DetalleInicio>> Datos)> _listasMecanico =
+            new List<(Label, ListBox, Funcion, Func<List<DetalleInicio>>)>();
+
+        private void AgregarListaMecanico(string titulo, Funcion permiso, Func<List<DetalleInicio>> datos)
+        {
+            int numero = _listasMecanico.Count + 1;
+            var lblTituloLista = new Label { Name = "lblListaMec" + numero + "Titulo", Text = titulo, AutoSize = false, Font = new Font("Segoe UI", 9.75F, FontStyle.Bold) };
+            var lista = new ListBox { Name = "lstMec" + numero, IntegralHeight = false, SelectionMode = SelectionMode.None };
+            PrepararListaConLinks(lista);
+            pnlMecanico.Controls.Add(lblTituloLista);
+            pnlMecanico.Controls.Add(lista);
+            _listasMecanico.Add((lblTituloLista, lista, permiso, datos));
+        }
+
+        // Listas con renglones "link" (los usan las listas del mecánico): manito, subrayado y clic = ficha del auto.
+
+        private readonly Dictionary<ListBox, int> _renglonResaltado = new Dictionary<ListBox, int>();
+
+        private void PrepararListaConLinks(ListBox lista)
+        {
+            lista.DrawMode = DrawMode.OwnerDrawFixed;
+            lista.ItemHeight = 24;
+            _renglonResaltado[lista] = -1;
+            lista.DrawItem += ListaLink_DrawItem;
+            lista.MouseMove += (sender, e) => ResaltarRenglon(lista, lista.IndexFromPoint(e.Location));
+            lista.MouseLeave += (sender, e) => ResaltarRenglon(lista, -1);
+            lista.MouseClick += (sender, e) =>
+            {
+                int indice = lista.IndexFromPoint(e.Location);
+                if (indice >= 0 && indice < lista.Items.Count && lista.Items[indice] is ItemActividad { IdVehiculo: int idVehiculo })
+                    AbrirPantalla(new FrmFichaVehiculo(idVehiculo));
+            };
+        }
+
+        private void ListaLink_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var lista = (ListBox)sender;
+            if (e.Index < 0 || e.Index >= lista.Items.Count)
+                return;
+
+            var item = (ItemActividad)lista.Items[e.Index];
+            bool resaltado = e.Index == _renglonResaltado[lista] && item.IdVehiculo.HasValue;
+            using (var fondo = new SolidBrush(resaltado ? Tema.Seleccion : lista.BackColor))
+                e.Graphics.FillRectangle(fondo, e.Bounds);
+
+            Color color = item.IdVehiculo.HasValue ? Tema.Acento : Tema.TextoApagado;
+            using var fuente = new Font(lista.Font, resaltado ? FontStyle.Underline : FontStyle.Regular);
+            var area = new Rectangle(e.Bounds.X + 6, e.Bounds.Y, e.Bounds.Width - 6, e.Bounds.Height);
+            TextRenderer.DrawText(e.Graphics, item.Texto, fuente, area, color,
+                TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
+        }
+
+        private void ResaltarRenglon(ListBox lista, int indice)
+        {
+            bool tieneAuto = indice >= 0 && indice < lista.Items.Count && ((ItemActividad)lista.Items[indice]).IdVehiculo.HasValue;
+            if (!tieneAuto)
+                indice = -1;
+            lista.Cursor = tieneAuto ? Cursors.Hand : Cursors.Default;
+            if (_renglonResaltado[lista] == indice)
+                return;
+            _renglonResaltado[lista] = indice;
+            lista.Invalidate();
+        }
+
+        /// <summary>Llena las listas del mecánico: "fecha · patente · auto · dato", hasta 15 renglones cada una.</summary>
+        private void CargarListasMecanico()
+        {
+            foreach (var l in _listasMecanico)
+            {
+                bool ver = MostrarTarjetaMecanico(l.Permiso);
+                l.Titulo.Visible = l.Lista.Visible = ver;
+                if (!ver)
+                    continue;
+
+                l.Lista.Items.Clear();
+                try
+                {
+                    foreach (DetalleInicio d in l.Datos().Take(15))
+                    {
+                        string dato = string.IsNullOrWhiteSpace(d.Persona) ? d.Extra.TraducirValor() : d.Persona;
+                        l.Lista.Items.Add(new ItemActividad
+                        {
+                            Texto = $"{d.Fecha:dd/MM/yyyy}  ·  {d.Dominio}  ·  {d.Vehiculo}" + (string.IsNullOrWhiteSpace(dato) ? "" : "  ·  " + dato),
+                            IdVehiculo = d.IdVehiculo
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.Handle();
+                }
+                if (l.Lista.Items.Count == 0)
+                    l.Lista.Items.Add(new ItemActividad { Texto = "Sin registros.".Traducir() });
+            }
         }
 
         private void AgregarTarjetaMecanico(string nombre, string titulo, string aclaracion, TipoDetalleInicio tipo, Funcion permiso)
@@ -822,6 +924,7 @@ namespace PRAS.UI
                 {
                     Mensajes.Error(ex);
                 }
+                CargarListasMecanico();
             }
 
             AcomodarInicio();
@@ -841,36 +944,63 @@ namespace PRAS.UI
         {
             pnlMecanico.SetBounds(0, arriba, ancho, alto - arriba);
 
-            const int separacion = 20;
+            // Medidas pensadas al 100 %: se multiplican por la escala de Windows (k).
+            float k = DeviceDpi / 96f;
+            int S(int valor) => (int)(valor * k);
+            int separacion = S(16);
+
+            // 1) Tarjetas: el título se mide (puede ocupar 1 o 2 renglones) y el número va debajo, sin taparlo.
             var tarjetas = _tarjetasMecanico.Where(t => MostrarTarjetaMecanico(t.Permiso)).ToList();
-            int altoTarjetas = Math.Min(240, Math.Max(210, pnlMecanico.Height * 40 / 100));
+            int altoTarjetas = 0;
             if (tarjetas.Count > 0)
             {
                 int anchoTarjeta = (ancho - (tarjetas.Count - 1) * separacion) / tarjetas.Count;
+                int interior = anchoTarjeta - 2 * MargenTarjeta;
+                int altoTitulo = tarjetas.Max(t => TextRenderer.MeasureText(t.Titulo.Text, t.Titulo.Font,
+                    new Size(interior, 0), TextFormatFlags.WordBreak).Height) + S(4);
+                altoTarjetas = S(14) + altoTitulo + S(52) + S(40) + S(36);
                 for (int i = 0; i < tarjetas.Count; i++)
                 {
                     var t = tarjetas[i];
                     t.Tarjeta.SetBounds(i * (anchoTarjeta + separacion), 0, anchoTarjeta, altoTarjetas);
-                    int interior = anchoTarjeta - 2 * MargenTarjeta;
-                    t.Titulo.SetBounds(MargenTarjeta, 14, interior, 62);
-                    t.Dato.SetBounds(MargenTarjeta, 78, interior, 60);
-                    t.Aclaracion.SetBounds(MargenTarjeta, 140, interior, 24);
-                    t.Ver.SetBounds(MargenTarjeta, altoTarjetas - 36, interior, 24);
+                    t.Titulo.SetBounds(MargenTarjeta, S(14), interior, altoTitulo);
+                    t.Dato.SetBounds(MargenTarjeta, t.Titulo.Bottom, interior, S(52));
+                    t.Aclaracion.SetBounds(MargenTarjeta, t.Dato.Bottom, interior, S(40));   // puede ocupar 2 renglones
+                    t.Ver.SetBounds(MargenTarjeta, altoTarjetas - S(32), interior, S(24));
                 }
             }
 
+            // 2) Botones a sus funciones, todos en una fila.
             // (Se pregunta por el permiso y no por Visible: Visible da false mientras la ventana no se mostró.)
             var botones = _botonesMecanico.Where(b => b.Visible()).Select(b => b.Boton).ToList();
-            const int columnas = 3;
-            int arribaBotones = tarjetas.Count > 0 ? altoTarjetas + 30 : 0;
-            int anchoBoton = (ancho - (columnas - 1) * separacion) / columnas;
-            int filas = Math.Max(1, (botones.Count + columnas - 1) / columnas);
-            int altoBoton = Math.Max(60, Math.Min(90, (pnlMecanico.Height - arribaBotones - (filas - 1) * separacion) / filas));
-            for (int i = 0; i < botones.Count; i++)
+            int arribaBotones = tarjetas.Count > 0 ? altoTarjetas + separacion : 0;
+            int altoBoton = S(52);
+            if (botones.Count > 0)
             {
-                int fila = i / columnas, columna = i % columnas;
-                botones[i].SetBounds(columna * (anchoBoton + separacion), arribaBotones + fila * (altoBoton + separacion),
-                                     anchoBoton, altoBoton);
+                int anchoBoton = (ancho - (botones.Count - 1) * S(10)) / botones.Count;
+                for (int i = 0; i < botones.Count; i++)
+                {
+                    botones[i].Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    botones[i].SetBounds(i * (anchoBoton + S(10)), arribaBotones, anchoBoton, altoBoton);
+                }
+            }
+
+            // 3) Listas en una grilla de 2 x 2 con todo el alto que queda.
+            var listas = _listasMecanico.Where(l => MostrarTarjetaMecanico(l.Permiso)).ToList();
+            if (listas.Count == 0)
+                return;
+            int arribaListas = arribaBotones + (botones.Count > 0 ? altoBoton + separacion : 0);
+            int columnas = listas.Count == 1 ? 1 : 2;
+            int filas = (listas.Count + columnas - 1) / columnas;
+            int anchoLista = (ancho - (columnas - 1) * separacion) / columnas;
+            int altoCelda = Math.Max(S(110), (pnlMecanico.Height - arribaListas - (filas - 1) * separacion) / filas);
+            for (int i = 0; i < listas.Count; i++)
+            {
+                int x = (i % columnas) * (anchoLista + separacion);
+                int y = arribaListas + (i / columnas) * (altoCelda + separacion);
+                listas[i].Titulo.SetBounds(x, y, anchoLista, S(22));
+                listas[i].Lista.ItemHeight = S(24);
+                listas[i].Lista.SetBounds(x, y + S(24), anchoLista, altoCelda - S(24));
             }
         }
 
