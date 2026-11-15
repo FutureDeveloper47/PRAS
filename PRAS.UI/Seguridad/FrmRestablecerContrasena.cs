@@ -31,6 +31,9 @@ namespace PRAS.UI
         {
             _usuario = usuario;
 
+            // SuspendLayout/ResumeLayout: al cerrar el bloque, WinForms agranda todo según la escala
+            // de Windows (AutoScaleMode.Dpi), igual que en las pantallas hechas con el diseñador.
+            SuspendLayout();
             Name = "FrmRestablecerContrasena";
             Text = "Restablecer contraseña";
             StartPosition = FormStartPosition.CenterParent;
@@ -97,6 +100,8 @@ namespace PRAS.UI
             CancelButton = btnCancelar;
             Controls.AddRange(new Control[] { lblTitulo, lblUsuario, txtUsuario, lblAviso, lblNueva, txtNueva,
                                               lblConfirmacion, txtConfirmacion, chkMostrar, btnGuardar, btnCancelar });
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)

@@ -28,6 +28,9 @@ namespace PRAS.UI
 
         public FrmUsuariosDePrueba()
         {
+            // SuspendLayout/ResumeLayout: al cerrar el bloque, WinForms agranda todo según la escala
+            // de Windows (AutoScaleMode.Dpi), igual que en las pantallas hechas con el diseñador.
+            SuspendLayout();
             Name = "FrmUsuariosDePrueba";
             Text = "Usuarios de prueba";
             StartPosition = FormStartPosition.CenterParent;
@@ -80,6 +83,8 @@ namespace PRAS.UI
             Controls.Add(btnCerrar);
 
             Load += FrmUsuariosDePrueba_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void FrmUsuariosDePrueba_Load(object sender, EventArgs e)

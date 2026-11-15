@@ -32,7 +32,9 @@ namespace PRAS.DAL.Implementaciones.SqlServer.Adaptadores
                 Especialidad = fila["Especialidad"] as string,
                 Telefono = fila["Telefono"] as string,
                 Email = fila["Email"] as string,
-                Activo = (bool)fila["Activo"]
+                Activo = (bool)fila["Activo"],
+                QueRepara = fila.Table.Columns.Contains("QueRepara") ? fila["QueRepara"] as string : null,
+                MatriculaExperiencia = fila.Table.Columns.Contains("MatriculaExperiencia") ? fila["MatriculaExperiencia"] as string : null
             };
         }
     }

@@ -23,10 +23,39 @@ namespace PRAS.UI
         /// <summary>Link "Usuarios de prueba" (se crea por código; solo si App.config lo permite).</summary>
         private readonly LinkLabel lnkUsuariosPrueba = new LinkLabel();
 
+        /// <summary>Link "Solicitar acceso" (CU.Seguridad.016): siempre visible.</summary>
+        private readonly LinkLabel lnkSolicitarAcceso = new LinkLabel();
+
         public FrmLogin()
         {
             InitializeComponent();
+            AgregarLinkSolicitarAcceso();
             AgregarLinkUsuariosDePrueba();
+        }
+
+        /// <summary>
+        /// "Solicitar acceso": una persona sin usuario pide su cuenta. Queda deshabilitada hasta que
+        /// un administrador la habilite (así nadie se puede crear un Administrador por su cuenta).
+        /// </summary>
+        private void AgregarLinkSolicitarAcceso()
+        {
+            lnkSolicitarAcceso.Name = "lnkSolicitarAcceso";
+            lnkSolicitarAcceso.Text = "Solicitar acceso";
+            lnkSolicitarAcceso.AutoSize = true;
+            lnkSolicitarAcceso.Location = new Point(lnkOlvideContrasena.Left, lnkOlvideContrasena.Bottom + 10);
+            lnkSolicitarAcceso.LinkClicked += (sender, e) =>
+            {
+                using (var frm = new FrmSolicitarCuenta())
+                {
+                    if (frm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        txtUsuario.Text = frm.UsuarioSolicitado;
+                        txtContrasena.Clear();
+                    }
+                }
+            };
+            Controls.Add(lnkSolicitarAcceso);
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + 28);
         }
 
         /// <summary>
@@ -42,7 +71,7 @@ namespace PRAS.UI
             lnkUsuariosPrueba.Name = "lnkUsuariosPrueba";
             lnkUsuariosPrueba.Text = "Usuarios de prueba";
             lnkUsuariosPrueba.AutoSize = true;
-            lnkUsuariosPrueba.Location = new Point(lnkOlvideContrasena.Left, lnkOlvideContrasena.Bottom + 10);
+            lnkUsuariosPrueba.Location = new Point(lnkSolicitarAcceso.Left, lnkSolicitarAcceso.Bottom + 10);
             lnkUsuariosPrueba.LinkClicked += lnkUsuariosPrueba_LinkClicked;
             Controls.Add(lnkUsuariosPrueba);
             ClientSize = new Size(ClientSize.Width, ClientSize.Height + 28);

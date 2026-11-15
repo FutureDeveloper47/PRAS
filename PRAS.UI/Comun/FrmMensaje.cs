@@ -21,6 +21,9 @@ namespace PRAS.UI
         {
             _texto = texto ?? "";
 
+            // SuspendLayout/ResumeLayout: al cerrar el bloque, WinForms agranda todo según la escala
+            // de Windows (AutoScaleMode.Dpi), igual que en las pantallas hechas con el diseñador.
+            SuspendLayout();
             Name = "FrmMensaje";
             Text = "PRAS";
             StartPosition = FormStartPosition.CenterParent;
@@ -37,8 +40,10 @@ namespace PRAS.UI
             picIcono.SetBounds(20, 22, 40, 40);
 
             // El tamaño del texto se calcula con lo que mide de verdad (así no se corta un mensaje largo).
-            Size medida = TextRenderer.MeasureText(_texto, Font, new Size(420, 0), TextFormatFlags.WordBreak);
-            int altoTexto = Math.Max(40, medida.Height + 8);
+            // Se mide a la escala real de la pantalla y se pasa a "100 %", porque al final el form se agranda solo.
+            float escala = DeviceDpi / 96f;
+            Size medida = TextRenderer.MeasureText(_texto, Font, new Size((int)(420 * escala), 0), TextFormatFlags.WordBreak);
+            int altoTexto = Math.Max(40, (int)(medida.Height / escala) + 8);
             lblTexto.Name = "txtMensaje";   // el nombre no termina en "Titulo": el tema no lo pinta de azul
             lblTexto.SetBounds(74, 22, 430, altoTexto);
 
@@ -62,6 +67,8 @@ namespace PRAS.UI
             ClientSize = new Size(530, arribaBotones + 32 + 18);
 
             Controls.AddRange(new Control[] { picIcono, lblTexto, btnAceptar, btnCancelar });
+            ResumeLayout(false);
+            PerformLayout();
 
             if (tipo == Tipo.Error)
                 System.Media.SystemSounds.Hand.Play();

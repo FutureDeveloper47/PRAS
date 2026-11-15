@@ -33,6 +33,10 @@ namespace PRAS.UI
         /// </summary>
         private void AgregarControlDeUsuarios()
         {
+            // Se ven todos los usuarios, también los deshabilitados: ahí aparecen las cuentas pedidas
+            // desde el ingreso (Solicitar acceso), que esperan que el administrador las habilite.
+            chkMostrarDeshabilitados.Checked = true;
+
             // La pantalla se agranda para que entren las columnas nuevas (la grilla está anclada y crece sola).
             ClientSize = new Size(Math.Max(ClientSize.Width, 900), Math.Max(ClientSize.Height, 440));
 

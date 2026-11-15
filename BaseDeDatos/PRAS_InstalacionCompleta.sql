@@ -80,7 +80,9 @@ CREATE TABLE Mecanico (
     Especialidad  NVARCHAR(50)  NULL,
     Telefono      VARCHAR(20)   NULL,
     Email         NVARCHAR(100) NULL,
-    Activo        BIT NOT NULL CONSTRAINT DF_Mecanico_Activo DEFAULT 1
+    Activo        BIT NOT NULL CONSTRAINT DF_Mecanico_Activo DEFAULT 1,
+    QueRepara             NVARCHAR(200) NULL,   -- lo carga quien pide una cuenta de mecánico
+    MatriculaExperiencia  NVARCHAR(200) NULL
 );
 
 CREATE TABLE Proveedor (

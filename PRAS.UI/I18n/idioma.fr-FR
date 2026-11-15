@@ -899,3 +899,16 @@ Tema:Thème
 Claro:Clair
 Oscuro:Sombre
 Aceptar:OK
+Solicitar acceso:Demander un accès
+SOLICITAR ACCESO:DEMANDER UN ACCÈS
+La cuenta queda deshabilitada hasta que un administrador la revise y la habilite.:Le compte reste désactivé jusqu'à ce qu'un administrateur le vérifie et l'active.
+Rol que solicita:Rôle demandé
+Datos del mecánico:Informations du mécanicien
+Qué repara:Ce qu'il répare
+Matrícula / experiencia:Licence / expérience
+Enviar solicitud:Envoyer la demande
+Su solicitud fue registrada. La cuenta queda deshabilitada hasta que un administrador la habilite.:Votre demande a été enregistrée. Le compte reste désactivé jusqu'à ce qu'un administrateur l'active.
+la pregunta de seguridad:la question de sécurité
+Se activó el mecánico {0} junto con su usuario.:Le mécanicien {0} a été activé avec son utilisateur.
+Solicitud de cuenta:Demande de compte
+usuario "{0}" ({1}, DNI {2}) pide el rol {3}. Queda deshabilitada hasta que la habilite un administrador.:utilisateur « {0} » ({1}, DNI {2}) demande le rôle {3}. Il reste désactivé jusqu'à ce qu'un administrateur l'active.

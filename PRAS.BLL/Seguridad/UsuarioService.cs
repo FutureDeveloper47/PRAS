@@ -476,6 +476,103 @@ namespace PRAS.BLL
 
                 DigitoVerificadorService.RecalcularRegistro("Usuario", idUsuario);
                 LoggerService.Info($"Habilitó al usuario \"{usuario.NombreUsuario}\".");
+
+                // Si es una cuenta de mecánico pedida desde el ingreso, su mecánico estaba inactivo: se activa
+                // junto con la cuenta (si no, el usuario entraría pero no podría tener tareas asignadas).
+                if (usuario.Mecanico != null && !usuario.Mecanico.Activo)
+                {
+                    _mecanicoRepositorio.CambiarEstado(usuario.Mecanico.IdMecanico, true);
+                    LoggerService.Info($"Se activó el mecánico {usuario.Mecanico.NombreCompleto} junto con su usuario.");
+                }
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
+        // Solicitar cuenta (CU.Seguridad.016) - desde la pantalla de ingreso, sin usuario logueado
+
+        /// <summary>
+        /// Una persona pide una cuenta desde el ingreso. La cuenta se crea DESHABILITADA:
+        /// no puede entrar hasta que un administrador la revise y la habilite (Mi perfil > Administrar usuarios).
+        /// Si no fuera así, cualquiera podría crearse un usuario Administrador y saltear toda la seguridad.
+        /// Si pide ser Mecánico, también se crea su registro en la tabla Mecanico (inactivo hasta que lo habiliten).
+        /// La contraseña y la respuesta de seguridad se guardan solo como hash SHA-256; teléfono y email, con AES.
+        /// Queda en la bitácora. Devuelve el Id del usuario creado.
+        /// </summary>
+        public int SolicitarCuenta(SolicitudCuenta solicitud, string contrasena, string confirmacion, string respuestaSeguridad)
+        {
+            try
+            {
+                // 1) Validaciones (todas antes de grabar nada)
+                string nombre = Validar.Requerido(solicitud.Nombre, "Nombre", 50);
+                string apellido = Validar.Requerido(solicitud.Apellido, "Apellido", 50);
+                string dni = Validar.DNI(solicitud.DNI);
+                string telefono = Validar.Requerido(solicitud.Telefono, "Teléfono", 20);
+                string email = Validar.Email(solicitud.Email, 100) ?? throw new DatoObligatorioException("Email");
+                string nombreUsuario = ValidarNombreUsuario(solicitud.NombreUsuario, 0);
+                ValidarRol(solicitud.RolSolicitado);
+                ValidarContrasena(contrasena, confirmacion);
+
+                if (string.IsNullOrWhiteSpace(solicitud.PreguntaSeguridad) || !PreguntasDeSeguridad().Contains(solicitud.PreguntaSeguridad))
+                    throw new SeleccionObligatoriaException("la pregunta de seguridad");
+                Validar.Requerido(respuestaSeguridad, "Respuesta", 100);
+
+                Mecanico mecanico = null;
+                if (solicitud.RolSolicitado == Rol.Mecanico)
+                {
+                    mecanico = new Mecanico
+                    {
+                        Nombre = nombre,
+                        Apellido = apellido,
+                        Especialidad = Validar.Requerido(solicitud.Especialidad, "Especialidad", 50),
+                        QueRepara = Validar.Requerido(solicitud.QueRepara, "Qué repara", 200),
+                        MatriculaExperiencia = Validar.Opcional(solicitud.MatriculaExperiencia, "Matrícula / experiencia", 200),
+                        Telefono = telefono,
+                        Email = email,
+                        Activo = false   // no aparece en el taller hasta que el administrador habilite la cuenta
+                    };
+                }
+
+                // 2) Mecánico (si corresponde) y usuario DESHABILITADO
+                if (mecanico != null)
+                    _mecanicoRepositorio.Add(mecanico);
+
+                var usuario = new Usuario
+                {
+                    NombreUsuario = nombreUsuario,
+                    Rol = solicitud.RolSolicitado,
+                    IdMecanico = mecanico?.IdMecanico,
+                    ContrasenaHash = CalcularHash(contrasena),
+                    Activo = false,
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    DNI = dni,
+                    Telefono = telefono,
+                    Email = email
+                };
+                _repositorio.Add(usuario);
+
+                DigitoVerificadorService.RecalcularRegistro("Usuario", usuario.IdUsuario);
+                _permisoService.AsignarFamiliaDelRol(usuario.IdUsuario, usuario.Rol);
+                _repositorio.GuardarPreguntaSeguridad(usuario.IdUsuario, solicitud.PreguntaSeguridad,
+                    CalcularHash(NormalizarRespuesta(respuestaSeguridad)));
+                _repositorio.GuardarPersona(usuario);
+
+                LoggerService.Warn($"Solicitud de cuenta: usuario \"{nombreUsuario}\" ({nombre} {apellido}, DNI {dni}) pide el rol " +
+                                   $"{Sesion.TextoRol(usuario.Rol)}. Queda deshabilitada hasta que la habilite un administrador.");
+                return usuario.IdUsuario;
             }
             catch (ReglaNegocioException ex)
             {

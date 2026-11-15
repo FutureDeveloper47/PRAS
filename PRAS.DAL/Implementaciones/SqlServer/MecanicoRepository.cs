@@ -25,7 +25,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         #endregion
 
         #region Statements
-        private const string Columnas = "IdMecanico, Nombre, Apellido, Especialidad, Telefono, Email, Activo";
+        private const string Columnas = "IdMecanico, Nombre, Apellido, Especialidad, Telefono, Email, Activo, QueRepara, MatriculaExperiencia";
 
         private string SelectOneStatement
         {
@@ -45,8 +45,8 @@ namespace PRAS.DAL.Implementaciones.SqlServer
 
         private string InsertStatement
         {
-            get => @"INSERT INTO Mecanico (Nombre, Apellido, Especialidad, Telefono, Email, Activo)
-                     VALUES (@Nombre, @Apellido, @Especialidad, @Telefono, @Email, @Activo);
+            get => @"INSERT INTO Mecanico (Nombre, Apellido, Especialidad, Telefono, Email, Activo, QueRepara, MatriculaExperiencia)
+                     VALUES (@Nombre, @Apellido, @Especialidad, @Telefono, @Email, @Activo, @QueRepara, @MatriculaExperiencia);
                      SELECT CAST(SCOPE_IDENTITY() AS INT);";
         }
 
@@ -97,7 +97,9 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                 SqlHelper.Param("@Especialidad", entity.Especialidad),
                 SqlHelper.Param("@Telefono", entity.Telefono),
                 SqlHelper.Param("@Email", entity.Email),
-                SqlHelper.Param("@Activo", entity.Activo));
+                SqlHelper.Param("@Activo", entity.Activo),
+                SqlHelper.Param("@QueRepara", entity.QueRepara),
+                SqlHelper.Param("@MatriculaExperiencia", entity.MatriculaExperiencia));
 
             entity.IdMecanico = (int)id;
         }

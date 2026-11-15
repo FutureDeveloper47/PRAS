@@ -899,3 +899,16 @@ Tema:Theme
 Claro:Light
 Oscuro:Dark
 Aceptar:OK
+Solicitar acceso:Request access
+SOLICITAR ACCESO:REQUEST ACCESS
+La cuenta queda deshabilitada hasta que un administrador la revise y la habilite.:The account stays disabled until an administrator reviews and enables it.
+Rol que solicita:Requested role
+Datos del mecánico:Mechanic details
+Qué repara:What they repair
+Matrícula / experiencia:License / experience
+Enviar solicitud:Send request
+Su solicitud fue registrada. La cuenta queda deshabilitada hasta que un administrador la habilite.:Your request was registered. The account stays disabled until an administrator enables it.
+la pregunta de seguridad:the security question
+Se activó el mecánico {0} junto con su usuario.:Mechanic {0} was activated together with their user.
+Solicitud de cuenta:Account request
+usuario "{0}" ({1}, DNI {2}) pide el rol {3}. Queda deshabilitada hasta que la habilite un administrador.:user "{0}" ({1}, DNI {2}) requests the role {3}. It stays disabled until an administrator enables it.

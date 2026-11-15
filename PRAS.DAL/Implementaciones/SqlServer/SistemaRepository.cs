@@ -110,7 +110,11 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             "IF COL_LENGTH('Vehiculo', 'AireAcondicionado') IS NULL ALTER TABLE Vehiculo ADD AireAcondicionado BIT NULL",
             "IF COL_LENGTH('Vehiculo', 'DireccionAsistida') IS NULL ALTER TABLE Vehiculo ADD DireccionAsistida BIT NULL",
             "IF COL_LENGTH('Vehiculo', 'EstadoChapaPintura') IS NULL ALTER TABLE Vehiculo ADD EstadoChapaPintura NVARCHAR(20) NULL",
-            "IF COL_LENGTH('Publicacion', 'Observaciones') IS NULL ALTER TABLE Publicacion ADD Observaciones NVARCHAR(500) NULL"
+            "IF COL_LENGTH('Publicacion', 'Observaciones') IS NULL ALTER TABLE Publicacion ADD Observaciones NVARCHAR(500) NULL",
+
+            // Solicitar cuenta (mecánico): qué repara y matrícula o experiencia.
+            "IF COL_LENGTH('Mecanico', 'QueRepara') IS NULL ALTER TABLE Mecanico ADD QueRepara NVARCHAR(200) NULL",
+            "IF COL_LENGTH('Mecanico', 'MatriculaExperiencia') IS NULL ALTER TABLE Mecanico ADD MatriculaExperiencia NVARCHAR(200) NULL"
         };
 
         public void ActualizarEstructura()
