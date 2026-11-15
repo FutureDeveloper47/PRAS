@@ -12,9 +12,14 @@
    Si alguna de las dos bases ya existe, el script se detiene sin tocar nada.
 
    USUARIOS PARA INGRESAR AL SISTEMA:
-     admin    / admin123     -> Administrador (todos los permisos)
-     dueno    / dueno123     -> Dueño (todo menos Seguridad)
+     admin    / admin123     -> Administrador (todos los permisos) - Matías Montoto
+     dueno    / dueno123     -> Dueño (todo menos Seguridad) - Gustavo Ibarra
      mecanico / mecanico123  -> Mecánico (Carlos Ferreyra: solo lo del taller)
+     jquiroga / mecanico123  -> Mecánico (Jorge Quiroga)
+     pledesma / mecanico123  -> Mecánico (Pablo Ledesma)
+   Los usuarios de cada mecánico (jquiroga, pledesma...) y las operaciones de prueba 2024-2026 los crea
+   el programa al abrirse (DatosPruebaService), si App.config tiene CargarDatosDePrueba = true.
+   Todos los usuarios de prueba tienen pregunta de seguridad: "¿Cuál es el nombre del sistema?" -> pras
    (Cambiar las contraseñas después del primer ingreso.)
 
    Los dígitos verificadores NO se calculan acá: el sistema los calcula solo

@@ -33,6 +33,7 @@ namespace PRAS.DAL.Factory
         public static IInicioRepository InicioRepository { get; private set; }
         public static IReporteRepository ReporteRepository { get; private set; }
         public static ISistemaRepository SistemaRepository { get; private set; }
+        public static IDatosPruebaRepository DatosPruebaRepository { get; private set; }
 
         static FactoryDataAccess()
         {
@@ -60,6 +61,7 @@ namespace PRAS.DAL.Factory
             InicioRepository = Implementaciones.SqlServer.InicioRepository.Current;
             ReporteRepository = Implementaciones.SqlServer.ReporteRepository.Current;
             SistemaRepository = Implementaciones.SqlServer.SistemaRepository.Current;
+            DatosPruebaRepository = Implementaciones.SqlServer.DatosPruebaRepository.Current;
         }
     }
 }

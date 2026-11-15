@@ -57,7 +57,8 @@ namespace PRAS.UI
                     splash.Hide();
                     MessageBox.Show(
                         "Las bases de datos se crearon correctamente.\n\n" +
-                        "Usuarios para ingresar:\n  admin / admin123\n  dueno / dueno123\n  mecanico / mecanico123",
+                        "Usuarios para ingresar:\n  admin / admin123\n  dueno / dueno123\n  mecanico / mecanico123\n" +
+                        "  (y un usuario por cada mecánico, con contraseña mecanico123: ver \"Usuarios de prueba\" en el ingreso)",
                         "PRAS - Primera ejecución", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     splash.Show();
                 }
@@ -95,6 +96,10 @@ namespace PRAS.UI
                 // No frena el sistema: solo no va a funcionar la pregunta de seguridad. Queda en la bitácora.
                 ex.Handle();
             }
+
+            // 2c) Usuarios y operaciones de prueba (solo si App.config dice CargarDatosDePrueba = true).
+            splash.Avanzar("Revisando los datos de prueba...", 90);
+            new DatosPruebaService().AsegurarDatosDePrueba();
 
             splash.Avanzar("Listo. Abriendo el sistema...", 100);
             Thread.Sleep(600);   // para que se alcance a ver la presentación completa

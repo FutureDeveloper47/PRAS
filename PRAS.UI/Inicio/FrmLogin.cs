@@ -18,10 +18,47 @@ namespace PRAS.UI
         private readonly IntegridadService _integridadService = new IntegridadService();
         private readonly ClienteService _clienteService = new ClienteService();
         private int _intentosFallidos = 0;
+        private readonly DatosPruebaService _datosPruebaService = new DatosPruebaService();
+
+        /// <summary>Link "Usuarios de prueba" (se crea por código; solo si App.config lo permite).</summary>
+        private readonly LinkLabel lnkUsuariosPrueba = new LinkLabel();
 
         public FrmLogin()
         {
             InitializeComponent();
+            AgregarLinkUsuariosDePrueba();
+        }
+
+        /// <summary>
+        /// Debajo de "¿Olvidó su contraseña?" va el link "Usuarios de prueba", que abre la tabla con
+        /// los usuarios para mostrar el sistema. Solo aparece si App.config tiene
+        /// MostrarUsuariosDePrueba = true (en una instalación real se apaga).
+        /// </summary>
+        private void AgregarLinkUsuariosDePrueba()
+        {
+            if (!_datosPruebaService.MostrarUsuariosDePrueba)
+                return;
+
+            lnkUsuariosPrueba.Name = "lnkUsuariosPrueba";
+            lnkUsuariosPrueba.Text = "Usuarios de prueba";
+            lnkUsuariosPrueba.AutoSize = true;
+            lnkUsuariosPrueba.Location = new Point(lnkOlvideContrasena.Left, lnkOlvideContrasena.Bottom + 10);
+            lnkUsuariosPrueba.LinkClicked += lnkUsuariosPrueba_LinkClicked;
+            Controls.Add(lnkUsuariosPrueba);
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + 28);
+        }
+
+        private void lnkUsuariosPrueba_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (var frm = new FrmUsuariosDePrueba())
+            {
+                if (frm.ShowDialog(this) == DialogResult.OK && frm.UsuarioElegido != null)
+                {
+                    txtUsuario.Text = frm.UsuarioElegido;
+                    txtContrasena.Clear();
+                    txtContrasena.Focus();
+                }
+            }
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
