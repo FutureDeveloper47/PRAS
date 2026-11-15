@@ -726,3 +726,35 @@ sin cambios externos.:sin cambios externos.
 {0} problema(s) encontrado(s).:{0} problema(s) encontrado(s).
 Exportó un reporte a PDF:Exportó un reporte a PDF
 Permisos:Permisos
+(últimos 12 meses):(últimos 12 meses)
+Ventas (últimos 12 meses):Ventas (últimos 12 meses)
+Compras de autos chocados de los últimos 12 meses ({0}). Doble clic para ver la ficha del auto.:Compras de autos chocados de los últimos 12 meses ({0}). Doble clic para ver la ficha del auto.
+No hay compras en los últimos 12 meses.:No hay compras en los últimos 12 meses.
+Arriba (en verde) las ventas de los últimos 12 meses ({0}); abajo los autos que la agencia tiene para vender.:Arriba (en verde) las ventas de los últimos 12 meses ({0}); abajo los autos que la agencia tiene para vender.
+{0} venta(s) en los últimos 12 meses por {1}:{0} venta(s) en los últimos 12 meses por {1}
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad. Doble clic para ver la ficha del auto.:Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad. Doble clic para ver la ficha del auto.
+Ficha del vehículo:Ficha del vehículo
+FICHA DEL VEHÍCULO:FICHA DEL VEHÍCULO
+COMPRA:COMPRA
+DIAGNÓSTICO:DIAGNÓSTICO
+ORDEN DE TRABAJO:ORDEN DE TRABAJO
+AGENCIA Y PUBLICACIÓN:AGENCIA Y PUBLICACIÓN
+VENTA:VENTA
+Marca y modelo:Marca y modelo
+Nº de chasis:Nº de chasis
+Nº de motor:Nº de motor
+Estado actual:Estado actual
+Daños encontrados:Daños encontrados
+Fecha de la orden:Fecha de la orden
+Entregado a la agencia:Entregado a la agencia
+Estado de la consignación:Estado de la consignación
+Fecha de publicación:Fecha de publicación
+Estado de la publicación:Estado de la publicación
+Fecha de venta:Fecha de venta
+MercadoLibre:MercadoLibre
+Facebook Marketplace:Facebook Marketplace
+Instagram:Instagram
+Aprobado:Aprobado
+Rechazado:Rechazado
+Tarjeta de crédito:Tarjeta de crédito
+Tarjeta de débito:Tarjeta de débito

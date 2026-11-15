@@ -726,3 +726,35 @@ sin cambios externos.:aucune modification externe.
 {0} problema(s) encontrado(s).:{0} problème(s) trouvé(s).
 Exportó un reporte a PDF:A exporté un rapport en PDF
 Permisos:Permissions
+(últimos 12 meses):(12 derniers mois)
+Ventas (últimos 12 meses):Ventes (12 derniers mois)
+Compras de autos chocados de los últimos 12 meses ({0}). Doble clic para ver la ficha del auto.:Achats de voitures accidentées des 12 derniers mois ({0}). Double-cliquez pour voir la fiche de la voiture.
+No hay compras en los últimos 12 meses.:Aucun achat au cours des 12 derniers mois.
+Arriba (en verde) las ventas de los últimos 12 meses ({0}); abajo los autos que la agencia tiene para vender.:En haut (en vert) les ventes des 12 derniers mois ({0}) ; en bas les voitures que l'agence a à vendre.
+{0} venta(s) en los últimos 12 meses por {1}:{0} vente(s) au cours des 12 derniers mois pour {1}
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad. Doble clic para ver la ficha del auto.:Voitures actuellement en diagnostic ou en réparation, avec leur mécanicien et leur priorité. Double-cliquez pour voir la fiche de la voiture.
+Ficha del vehículo:Fiche du véhicule
+FICHA DEL VEHÍCULO:FICHE DU VÉHICULE
+COMPRA:ACHAT
+DIAGNÓSTICO:DIAGNOSTIC
+ORDEN DE TRABAJO:ORDRE DE TRAVAIL
+AGENCIA Y PUBLICACIÓN:AGENCE ET ANNONCE
+VENTA:VENTE
+Marca y modelo:Marque et modèle
+Nº de chasis:N° de châssis
+Nº de motor:N° de moteur
+Estado actual:État actuel
+Daños encontrados:Dommages constatés
+Fecha de la orden:Date de l'ordre
+Entregado a la agencia:Livré à l'agence
+Estado de la consignación:État de la consignation
+Fecha de publicación:Date de publication
+Estado de la publicación:État de l'annonce
+Fecha de venta:Date de vente
+MercadoLibre:MercadoLibre
+Facebook Marketplace:Facebook Marketplace
+Instagram:Instagram
+Aprobado:Approuvé
+Rechazado:Refusé
+Tarjeta de crédito:Carte de crédit
+Tarjeta de débito:Carte de débit

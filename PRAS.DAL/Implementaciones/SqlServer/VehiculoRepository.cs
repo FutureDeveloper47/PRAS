@@ -76,6 +76,55 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         {
             get => "DELETE FROM Vehiculo WHERE IdVehiculo = @IdVehiculo AND EstadoVehiculo = @Comprado";
         }
+
+        /// <summary>
+        /// Ficha del vehículo: el auto y, al lado, lo último de cada etapa.
+        /// OUTER APPLY = "traeme el último registro relacionado, si hay; si no, dejalo vacío"
+        /// (un auto recién comprado no tiene diagnóstico ni venta, y igual tiene que aparecer).
+        /// </summary>
+        private string SelectFichaStatement
+        {
+            get => $@"SELECT {ColumnasConAlias},
+                             C.FechaCompra, C.PrecioCompra, C.FormaPago AS FormaPagoCompra,
+                             VEN.Apellido + ', ' + VEN.Nombre AS Vendedor, C.Observaciones AS ObservacionesCompra,
+                             D.FechaDiagnostico, D.DescripcionDanios, D.EstadoDiagnostico,
+                             P.MontoTotal AS MontoPresupuesto,
+                             OT.FechaCreacion AS FechaOrden, OT.EstadoOrden, OT.Prioridad,
+                             A.RazonSocial AS Agencia, CO.FechaEntrega AS FechaEntregaAgencia, CO.EstadoConsignacion,
+                             PU.FechaPublicacion, PU.Plataforma, PU.PrecioPublicado, PU.EstadoPublicacion,
+                             VT.FechaVenta, VT.PrecioVenta, COMP.Apellido + ', ' + COMP.Nombre AS Comprador,
+                             VT.FormaPago AS FormaPagoVenta
+                      FROM Vehiculo V
+                      LEFT JOIN Compra C    ON C.IdVehiculo = V.IdVehiculo
+                      LEFT JOIN Cliente VEN ON VEN.IdCliente = C.IdCliente
+                      OUTER APPLY (SELECT TOP 1 FechaDiagnostico, DescripcionDanios, EstadoDiagnostico FROM Diagnostico
+                                   WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaDiagnostico DESC, IdDiagnostico DESC) D
+                      OUTER APPLY (SELECT TOP 1 MontoTotal FROM Presupuesto
+                                   WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaEmision DESC, IdPresupuesto DESC) P
+                      OUTER APPLY (SELECT TOP 1 FechaCreacion, EstadoOrden, Prioridad FROM OrdenTrabajo
+                                   WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaCreacion DESC, IdOrdenTrabajo DESC) OT
+                      OUTER APPLY (SELECT TOP 1 IdConsignacion, IdAgencia, FechaEntrega, EstadoConsignacion FROM Consignacion
+                                   WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaEntrega DESC, IdConsignacion DESC) CO
+                      LEFT JOIN Agencia A ON A.IdAgencia = CO.IdAgencia
+                      OUTER APPLY (SELECT TOP 1 FechaPublicacion, Plataforma, PrecioPublicado, EstadoPublicacion FROM Publicacion
+                                   WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaPublicacion DESC, IdPublicacion DESC) PU
+                      LEFT JOIN Venta VT     ON VT.IdConsignacion = CO.IdConsignacion
+                      LEFT JOIN Cliente COMP ON COMP.IdCliente = VT.IdCliente
+                      WHERE V.IdVehiculo = @IdVehiculo";
+        }
+
+        /// <summary>Tareas de la última orden de trabajo del auto, con el mecánico de cada una.</summary>
+        private string SelectTareasFichaStatement
+        {
+            get => @"SELECT T.DescripcionTarea, T.EstadoTarea, T.CostoEstimado,
+                            M.Apellido + ', ' + M.Nombre AS Mecanico
+                     FROM TareaOrdenTrabajo T
+                     INNER JOIN Mecanico M ON M.IdMecanico = T.IdMecanico
+                     WHERE T.IdOrdenTrabajo = (SELECT TOP 1 IdOrdenTrabajo FROM OrdenTrabajo
+                                               WHERE IdVehiculo = @IdVehiculo
+                                               ORDER BY FechaCreacion DESC, IdOrdenTrabajo DESC)
+                     ORDER BY T.IdTarea";
+        }
         #endregion
 
         public Vehiculo GetById(int id)
@@ -96,6 +145,20 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                 SqlHelper.Param("@Estado", estado.HasValue ? (int)estado.Value : null),
                 SqlHelper.Param("@Patente", patente ?? ""));
             return VehiculoAdaptador.Current.FillLista(tabla);
+        }
+
+        public FichaVehiculo ObtenerFicha(int idVehiculo)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(SelectFichaStatement, SqlHelper.Param("@IdVehiculo", idVehiculo));
+            FichaVehiculo ficha = FichaVehiculoAdaptador.Current.FillPrimero(tabla);
+            if (ficha == null)
+                return null;
+
+            var tareas = SqlHelper.ExecuteDataTable(SelectTareasFichaStatement, SqlHelper.Param("@IdVehiculo", idVehiculo));
+            foreach (System.Data.DataRow fila in tareas.Rows)
+                ficha.Tareas.Add(FichaVehiculoAdaptador.Current.FillTarea(fila));
+
+            return ficha;
         }
 
         public List<Vehiculo> GetAll()

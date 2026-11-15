@@ -26,6 +26,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer.Adaptadores
         {
             return new DetalleInicio
             {
+                IdVehiculo = (int)fila["IdVehiculo"],
                 Fecha = fila["Fecha"] == DBNull.Value ? null : (DateTime?)fila["Fecha"],
                 Dominio = (string)fila["Dominio"],
                 Vehiculo = $"{fila["Marca"]} {fila["Modelo"]} ({fila["Anio"]})",

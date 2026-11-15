@@ -26,6 +26,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer.Adaptadores
         {
             return new ActividadReciente
             {
+                IdVehiculo = (int)fila["IdVehiculo"],
                 Fecha = (DateTime)fila["Fecha"],
                 Tipo = (string)fila["Tipo"] == "Ingreso" ? TipoActividad.Ingreso : TipoActividad.Venta,
                 Marca = (string)fila["Marca"],

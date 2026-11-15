@@ -483,7 +483,7 @@ namespace PRAS.UI
             lblIngresosAclaracion.Name = "lblIngresosAclaracion";
             lblIngresosAclaracion.Size = new Size(218, 20);
             lblIngresosAclaracion.TabIndex = 2;
-            lblIngresosAclaracion.Text = "(en el mes actual)";
+            lblIngresosAclaracion.Text = "(últimos 12 meses)";
             lblIngresosAclaracion.TextAlign = ContentAlignment.MiddleCenter;
             //
             // lblIngresosVer
@@ -524,7 +524,7 @@ namespace PRAS.UI
             lblAgenciaDato.Name = "lblAgenciaDato";
             lblAgenciaDato.Size = new Size(438, 25);
             lblAgenciaDato.TabIndex = 1;
-            lblAgenciaDato.Text = "Ventas del mes: 0";
+            lblAgenciaDato.Text = "Ventas (últimos 12 meses): 0";
             lblAgenciaDato.TextAlign = ContentAlignment.MiddleCenter;
             //
             // lblAgenciaVer

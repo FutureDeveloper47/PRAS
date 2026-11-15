@@ -7,6 +7,9 @@ namespace PRAS.Entidades
     /// </summary>
     public class DetalleInicio
     {
+        /// <summary>Auto del renglón (con doble clic se abre su ficha).</summary>
+        public int IdVehiculo { get; set; }
+
         /// <summary>Fecha del movimiento: ingreso al taller, compra, venta o entrega a la agencia.</summary>
         public DateTime? Fecha { get; set; }
 

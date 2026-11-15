@@ -9,11 +9,11 @@ namespace PRAS.Entidades
         /// <summary>Recuadro TALLER: autos en diagnóstico o en reparación.</summary>
         public int VehiculosEnTaller { get; set; }
 
-        /// <summary>Recuadro INGRESOS: autos chocados comprados en el mes actual.</summary>
-        public int ChocadosIngresadosMes { get; set; }
+        /// <summary>Recuadro INGRESOS: autos chocados comprados en los últimos 12 meses (incluye el actual).</summary>
+        public int ChocadosIngresadosUltimoAnio { get; set; }
 
-        /// <summary>Recuadro AGENCIA: ventas realizadas en el mes actual.</summary>
-        public int VentasMes { get; set; }
+        /// <summary>Recuadro AGENCIA: ventas realizadas en los últimos 12 meses (incluye el actual).</summary>
+        public int VentasUltimoAnio { get; set; }
 
         /// <summary>Lista ACTIVIDAD RECIENTE: últimos ingresos y ventas, del más nuevo al más viejo.</summary>
         public List<ActividadReciente> Actividades { get; set; } = new List<ActividadReciente>();

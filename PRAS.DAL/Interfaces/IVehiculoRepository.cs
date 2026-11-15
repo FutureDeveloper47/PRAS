@@ -15,5 +15,11 @@ namespace PRAS.DAL.Interfaces
         /// Devuelve false si el auto ya avanzó y no se puede borrar.
         /// </summary>
         bool EliminarConCompra(int idVehiculo);
+
+        /// <summary>
+        /// Historia completa del auto (compra, taller, agencia y venta) para la ficha de solo lectura.
+        /// Devuelve null si el auto no existe.
+        /// </summary>
+        FichaVehiculo ObtenerFicha(int idVehiculo);
     }
 }

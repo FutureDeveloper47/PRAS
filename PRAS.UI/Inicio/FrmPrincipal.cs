@@ -26,6 +26,20 @@ namespace PRAS.UI
         /// <summary>Color de fondo de la tarjeta mientras tiene el mouse encima (celeste muy suave).</summary>
         private static readonly Color FondoTarjetaResaltada = Color.FromArgb(240, 246, 252);
 
+        /// <summary>Renglón de "Actividad reciente" que tiene el mouse encima (se dibuja subrayado). -1 = ninguno.</summary>
+        private int _actividadResaltada = -1;
+
+        /// <summary>
+        /// Un renglón de la lista "Actividad reciente": el texto que se ve y el auto al que pertenece
+        /// (para abrir su ficha con un clic). ToString es lo que dibuja la lista.
+        /// </summary>
+        private sealed class ItemActividad
+        {
+            public string Texto { get; init; }
+            public int? IdVehiculo { get; init; }
+            public override string ToString() => Texto;
+        }
+
         /// <summary>true si el usuario eligió "Cerrar sesión" (Program.cs vuelve a mostrar el login).</summary>
         public bool CerroSesion { get; private set; }
 
@@ -35,6 +49,8 @@ namespace PRAS.UI
 
             // Cada vez que cambia el tamaño de la ventana, las tarjetas se reparten la pantalla.
             Resize += (sender, e) => AcomodarInicio();
+
+            PrepararActividad();
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -193,18 +209,25 @@ namespace PRAS.UI
                 ResumenInicio resumen = _inicioService.ObtenerResumen();
 
                 lblTallerDato.Text = $"{"Vehículos en taller".Traducir()}: {resumen.VehiculosEnTaller}";
-                lblIngresosDato.Text = $"{"Chocados ingresados".Traducir()}: {resumen.ChocadosIngresadosMes}";
-                lblAgenciaDato.Text = $"{"Ventas del mes".Traducir()}: {resumen.VentasMes}";
+                lblIngresosDato.Text = $"{"Chocados ingresados".Traducir()}: {resumen.ChocadosIngresadosUltimoAnio}";
+                lblAgenciaDato.Text = $"{"Ventas (últimos 12 meses)".Traducir()}: {resumen.VentasUltimoAnio}";
 
                 lstActividad.Items.Clear();
+                _actividadResaltada = -1;
                 if (resumen.Actividades.Count == 0)
                 {
-                    lstActividad.Items.Add("Todavía no hay movimientos.".Traducir());
+                    lstActividad.Items.Add(new ItemActividad { Texto = "Todavía no hay movimientos.".Traducir() });
                 }
                 else
                 {
                     foreach (ActividadReciente actividad in resumen.Actividades)
-                        lstActividad.Items.Add($"{TextoFecha(actividad.Fecha)} - {actividad.Descripcion.TraducirMensaje()}");
+                    {
+                        lstActividad.Items.Add(new ItemActividad
+                        {
+                            Texto = $"{TextoFecha(actividad.Fecha)} - {actividad.Descripcion.TraducirMensaje()}",
+                            IdVehiculo = actividad.IdVehiculo
+                        });
+                    }
                 }
             }
             catch (Exception ex)
@@ -214,21 +237,86 @@ namespace PRAS.UI
         }
 
         /// <summary>
-        /// Convierte una fecha en texto corto como en el diseño: "Hoy 10:00", "Ayer", "25/09".
-        /// La hora se muestra solo si la fecha la tiene (las compras se guardan sin hora).
+        /// Convierte una fecha en texto corto: "Hoy", "Ayer" o "25/09/2026".
+        /// Nunca se muestra la hora: algunos movimientos se guardan con hora y otros no,
+        /// y mezclados quedaba desprolijo ("26/09 19:01" al lado de "25/09").
         /// </summary>
         private static string TextoFecha(DateTime fecha)
         {
-            string dia;
             if (fecha.Date == DateTime.Today)
-                dia = "Hoy".Traducir();
-            else if (fecha.Date == DateTime.Today.AddDays(-1))
-                dia = "Ayer".Traducir();
-            else
-                dia = fecha.ToString("dd/MM");
+                return "Hoy".Traducir();
+            if (fecha.Date == DateTime.Today.AddDays(-1))
+                return "Ayer".Traducir();
+            return fecha.ToString("dd/MM/yyyy");
+        }
 
-            bool tieneHora = fecha.TimeOfDay != TimeSpan.Zero;
-            return tieneHora ? $"{dia} {fecha:HH:mm}" : dia;
+        // Actividad reciente clickeable
+
+        /// <summary>
+        /// La lista se dibuja "a mano" (OwnerDraw) para que cada renglón parezca un link:
+        /// manito y subrayado al pasar el mouse, y al hacer clic se abre la ficha del auto.
+        /// </summary>
+        private void PrepararActividad()
+        {
+            lstActividad.DrawMode = DrawMode.OwnerDrawFixed;
+            lstActividad.ItemHeight = 26;
+            lstActividad.DrawItem += lstActividad_DrawItem;
+            lstActividad.MouseMove += lstActividad_MouseMove;
+            lstActividad.MouseLeave += (sender, e) => ResaltarActividad(-1);
+            lstActividad.MouseClick += lstActividad_MouseClick;
+        }
+
+        private void lstActividad_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+                return;
+
+            var item = (ItemActividad)lstActividad.Items[e.Index];
+            bool resaltado = e.Index == _actividadResaltada && item.IdVehiculo.HasValue;
+
+            using (var fondo = new SolidBrush(resaltado ? Tema.Seleccion : lstActividad.BackColor))
+                e.Graphics.FillRectangle(fondo, e.Bounds);
+
+            // Los renglones con auto van en azul (como un link); el aviso "no hay movimientos", en gris.
+            Color color = item.IdVehiculo.HasValue ? Tema.Primario : Tema.TextoApagado;
+            FontStyle estilo = resaltado ? FontStyle.Underline : FontStyle.Regular;
+            using (var fuente = new Font(lstActividad.Font, estilo))
+            {
+                var area = new Rectangle(e.Bounds.X + 6, e.Bounds.Y, e.Bounds.Width - 6, e.Bounds.Height);
+                TextRenderer.DrawText(e.Graphics, item.Texto, fuente, area, color,
+                    TextFormatFlags.VerticalCenter | TextFormatFlags.Left | TextFormatFlags.EndEllipsis);
+            }
+        }
+
+        private void lstActividad_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResaltarActividad(lstActividad.IndexFromPoint(e.Location));
+        }
+
+        /// <summary>Cambia el renglón resaltado y el cursor (manito solo sobre renglones con auto).</summary>
+        private void ResaltarActividad(int indice)
+        {
+            bool tieneAuto = indice >= 0 && indice < lstActividad.Items.Count
+                             && ((ItemActividad)lstActividad.Items[indice]).IdVehiculo.HasValue;
+            if (!tieneAuto)
+                indice = -1;
+
+            lstActividad.Cursor = tieneAuto ? Cursors.Hand : Cursors.Default;
+            if (indice == _actividadResaltada)
+                return;
+
+            _actividadResaltada = indice;
+            lstActividad.Invalidate();
+        }
+
+        private void lstActividad_MouseClick(object sender, MouseEventArgs e)
+        {
+            int indice = lstActividad.IndexFromPoint(e.Location);
+            if (indice < 0 || indice >= lstActividad.Items.Count)
+                return;
+
+            if (lstActividad.Items[indice] is ItemActividad { IdVehiculo: int idVehiculo })
+                AbrirPantalla(new FrmFichaVehiculo(idVehiculo));
         }
 
         /// <summary>

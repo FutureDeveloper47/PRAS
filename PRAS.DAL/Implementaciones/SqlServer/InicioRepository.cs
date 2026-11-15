@@ -70,15 +70,15 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         public List<ActividadReciente> ListarActividadReciente(int cantidad)
         {
             var tabla = SqlHelper.ExecuteDataTable(
-                @"SELECT TOP (@Cantidad) Fecha, Tipo, Marca, Modelo, Dominio
+                @"SELECT TOP (@Cantidad) IdVehiculo, Fecha, Tipo, Marca, Modelo, Dominio
                   FROM (
-                        SELECT C.FechaCompra AS Fecha, 'Ingreso' AS Tipo, V.Marca, V.Modelo, V.Dominio
+                        SELECT V.IdVehiculo, C.FechaCompra AS Fecha, 'Ingreso' AS Tipo, V.Marca, V.Modelo, V.Dominio
                         FROM Compra C
                         INNER JOIN Vehiculo V ON V.IdVehiculo = C.IdVehiculo
 
                         UNION ALL
 
-                        SELECT VT.FechaVenta AS Fecha, 'Venta' AS Tipo, V.Marca, V.Modelo, V.Dominio
+                        SELECT V.IdVehiculo, VT.FechaVenta AS Fecha, 'Venta' AS Tipo, V.Marca, V.Modelo, V.Dominio
                         FROM Venta VT
                         INNER JOIN Consignacion CO ON CO.IdConsignacion = VT.IdConsignacion
                         INNER JOIN Vehiculo V      ON V.IdVehiculo      = CO.IdVehiculo
@@ -99,7 +99,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         public List<DetalleInicio> ListarVehiculosEnTaller()
         {
             var tabla = SqlHelper.ExecuteDataTable(
-                @"SELECT R.FechaIngreso AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                @"SELECT V.IdVehiculo, R.FechaIngreso AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
                          ISNULL(M.Apellido + ', ' + M.Nombre, '') AS Persona,
                          CAST(NULL AS DECIMAL(18,2)) AS Monto,
                          ISNULL(OT.Prioridad, '') AS Extra,
@@ -125,7 +125,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         public List<DetalleInicio> ListarComprasDetalle(DateTime desde, DateTime hastaExclusive)
         {
             var tabla = SqlHelper.ExecuteDataTable(
-                @"SELECT C.FechaCompra AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                @"SELECT V.IdVehiculo, C.FechaCompra AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
                          CL.Apellido + ', ' + CL.Nombre AS Persona,
                          C.PrecioCompra AS Monto,
                          C.FormaPago AS Extra,
@@ -148,9 +148,9 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         public List<DetalleInicio> ListarAgenciaDetalle(DateTime desde, DateTime hastaExclusive)
         {
             var tabla = SqlHelper.ExecuteDataTable(
-                @"SELECT Fecha, Dominio, Marca, Modelo, Anio, EstadoVehiculo, Persona, Monto, Extra, EsVenta
+                @"SELECT IdVehiculo, Fecha, Dominio, Marca, Modelo, Anio, EstadoVehiculo, Persona, Monto, Extra, EsVenta
                   FROM (
-                        SELECT VT.FechaVenta AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                        SELECT V.IdVehiculo, VT.FechaVenta AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
                                CL.Apellido + ', ' + CL.Nombre AS Persona,
                                VT.PrecioVenta AS Monto,
                                A.RazonSocial AS Extra,
@@ -164,7 +164,7 @@ namespace PRAS.DAL.Implementaciones.SqlServer
 
                         UNION ALL
 
-                        SELECT CO.FechaEntrega AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                        SELECT V.IdVehiculo, CO.FechaEntrega AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
                                N'' AS Persona,
                                ISNULL(P.PrecioPublicado, CO.PrecioMinimoVenta) AS Monto,
                                ISNULL(A.RazonSocial, N'') AS Extra,

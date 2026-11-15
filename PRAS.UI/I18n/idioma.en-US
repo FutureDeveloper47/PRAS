@@ -726,3 +726,35 @@ sin cambios externos.:no external changes.
 {0} problema(s) encontrado(s).:{0} problem(s) found.
 Exportó un reporte a PDF:Exported a report to PDF
 Permisos:Permissions
+(últimos 12 meses):(last 12 months)
+Ventas (últimos 12 meses):Sales (last 12 months)
+Compras de autos chocados de los últimos 12 meses ({0}). Doble clic para ver la ficha del auto.:Damaged car purchases of the last 12 months ({0}). Double-click to see the car record.
+No hay compras en los últimos 12 meses.:There are no purchases in the last 12 months.
+Arriba (en verde) las ventas de los últimos 12 meses ({0}); abajo los autos que la agencia tiene para vender.:At the top (in green) the sales of the last 12 months ({0}); below, the cars the agency has for sale.
+{0} venta(s) en los últimos 12 meses por {1}:{0} sale(s) in the last 12 months for {1}
+Autos que están ahora en diagnóstico o en reparación, con su mecánico y prioridad. Doble clic para ver la ficha del auto.:Cars currently in diagnosis or under repair, with their mechanic and priority. Double-click to see the car record.
+Ficha del vehículo:Vehicle record
+FICHA DEL VEHÍCULO:VEHICLE RECORD
+COMPRA:PURCHASE
+DIAGNÓSTICO:DIAGNOSIS
+ORDEN DE TRABAJO:WORK ORDER
+AGENCIA Y PUBLICACIÓN:AGENCY AND LISTING
+VENTA:SALE
+Marca y modelo:Make and model
+Nº de chasis:Chassis no.
+Nº de motor:Engine no.
+Estado actual:Current status
+Daños encontrados:Damage found
+Fecha de la orden:Order date
+Entregado a la agencia:Delivered to the agency
+Estado de la consignación:Consignment status
+Fecha de publicación:Listing date
+Estado de la publicación:Listing status
+Fecha de venta:Sale date
+MercadoLibre:MercadoLibre
+Facebook Marketplace:Facebook Marketplace
+Instagram:Instagram
+Aprobado:Approved
+Rechazado:Rejected
+Tarjeta de crédito:Credit card
+Tarjeta de débito:Debit card

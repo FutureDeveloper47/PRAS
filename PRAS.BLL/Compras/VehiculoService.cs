@@ -58,6 +58,41 @@ namespace PRAS.BLL
             return _compraRepositorio.ObtenerPorVehiculo(idVehiculo);
         }
 
+        /// <summary>
+        /// Ficha completa del auto (solo lectura): datos, compra, diagnóstico, orden de trabajo,
+        /// agencia, publicación y venta. La pueden ver los que consultan el negocio (reportes),
+        /// los que manejan vehículos y los del taller, porque a todos les sirve ver la historia del auto.
+        /// </summary>
+        public FichaVehiculo ObtenerFicha(int idVehiculo)
+        {
+            try
+            {
+                bool puedeVer = Sesion.TienePermiso(Funcion.VerReportes)
+                             || Sesion.TienePermiso(Funcion.GestionarVehiculos)
+                             || Sesion.TienePermiso(Funcion.ConsultarOrdenesTrabajo)
+                             || Sesion.TienePermiso(Funcion.ConsultarDiagnostico);
+                if (!puedeVer)
+                    Sesion.ExigirPermiso(Funcion.VerReportes);   // tira PermisoDenegadoException
+
+                return _repositorio.ObtenerFicha(idVehiculo)
+                    ?? throw new VehiculoNoEncontradoException(idVehiculo);
+            }
+            catch (ReglaNegocioException ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+            catch (DataAccessException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.HandleException(ex);
+                throw;
+            }
+        }
+
         public void Modificar(Vehiculo vehiculo)
         {
             try

@@ -28,8 +28,15 @@ namespace PRAS.BLL
         /// <summary>Día 1 del mes actual (se incluye en las consultas).</summary>
         private static DateTime InicioMes => new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
 
-        /// <summary>Día 1 del mes que viene (NO se incluye: así queda justo el mes actual).</summary>
+        /// <summary>Día 1 del mes que viene (NO se incluye: así queda justo hasta fin del mes actual).</summary>
         private static DateTime InicioMesSiguiente => InicioMes.AddMonths(1);
+
+        /// <summary>
+        /// Día 1 del mes de hace 11 meses: desde acá hasta InicioMesSiguiente son 12 meses completos
+        /// (contando el actual). Antes las tarjetas mostraban solo el mes actual y casi siempre
+        /// quedaban con 0 o 1 auto; con un año se ve el movimiento real del negocio.
+        /// </summary>
+        public static DateTime InicioUltimoAnio => InicioMes.AddMonths(-11);
 
         public ResumenInicio ObtenerResumen()
         {
@@ -41,8 +48,8 @@ namespace PRAS.BLL
                 VehiculosEnTaller = _repositorio.ContarVehiculos(EstadoVehiculo.EnDiagnostico)
                                   + _repositorio.ContarVehiculos(EstadoVehiculo.EnReparacion),
 
-                ChocadosIngresadosMes = _repositorio.ContarCompras(InicioMes, InicioMesSiguiente),
-                VentasMes = _repositorio.ContarVentas(InicioMes, InicioMesSiguiente),
+                ChocadosIngresadosUltimoAnio = _repositorio.ContarCompras(InicioUltimoAnio, InicioMesSiguiente),
+                VentasUltimoAnio = _repositorio.ContarVentas(InicioUltimoAnio, InicioMesSiguiente),
                 Actividades = _repositorio.ListarActividadReciente(CantidadActividades)
             };
         }
@@ -57,18 +64,21 @@ namespace PRAS.BLL
             return _repositorio.ListarVehiculosEnTaller();
         }
 
-        /// <summary>Tarjeta INGRESOS: chocados comprados en el mes actual.</summary>
+        /// <summary>Tarjeta INGRESOS: chocados comprados en los últimos 12 meses.</summary>
         public List<DetalleInicio> ObtenerDetalleIngresos()
         {
             Sesion.ExigirPermiso(Funcion.VerReportes);
-            return _repositorio.ListarComprasDetalle(InicioMes, InicioMesSiguiente);
+            return _repositorio.ListarComprasDetalle(InicioUltimoAnio, InicioMesSiguiente);
         }
 
-        /// <summary>Tarjeta AGENCIA: ventas del mes actual y autos que la agencia tiene para vender.</summary>
+        /// <summary>
+        /// Tarjeta AGENCIA: ventas de los últimos 12 meses y, debajo, los autos que la agencia
+        /// tiene ahora para vender (entregados o publicados).
+        /// </summary>
         public List<DetalleInicio> ObtenerDetalleAgencia()
         {
             Sesion.ExigirPermiso(Funcion.VerReportes);
-            return _repositorio.ListarAgenciaDetalle(InicioMes, InicioMesSiguiente);
+            return _repositorio.ListarAgenciaDetalle(InicioUltimoAnio, InicioMesSiguiente);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace PRAS.Entidades
     /// </summary>
     public class ActividadReciente
     {
+        /// <summary>Auto del movimiento (sirve para abrir su ficha al hacer clic).</summary>
+        public int IdVehiculo { get; set; }
         public DateTime Fecha { get; set; }
         public TipoActividad Tipo { get; set; }
         public string Marca { get; set; }
