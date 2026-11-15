@@ -19,8 +19,8 @@ namespace PRAS.UI
 
         private void FrmVentas_Load(object sender, EventArgs e)
         {
-            dtpHasta.Value = DateTime.Today;
-            dtpDesde.Value = DateTime.Today.AddMonths(-3);
+            dtpHasta.Value = FiltroFechas.HastaPorDefecto;
+            dtpDesde.Value = FiltroFechas.DesdePorDefecto;   // desde 2024, así se ven todas las ventas
             CargarGrilla();
         }
 

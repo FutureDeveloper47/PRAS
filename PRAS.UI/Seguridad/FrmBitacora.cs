@@ -22,8 +22,8 @@ namespace PRAS.UI
 
         private void FrmBitacora_Load(object sender, EventArgs e)
         {
-            dtpDesde.Value = DateTime.Today.AddDays(-30);
-            dtpHasta.Value = DateTime.Today;
+            dtpDesde.Value = FiltroFechas.DesdePorDefecto;
+            dtpHasta.Value = FiltroFechas.HastaPorDefecto;
 
             // Combo de niveles: "(Todos)" y cada valor del enum LogLevel
             cmbNivel.Items.Add("(Todos)".Traducir());
@@ -60,8 +60,8 @@ namespace PRAS.UI
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            dtpDesde.Value = DateTime.Today.AddDays(-30);
-            dtpHasta.Value = DateTime.Today;
+            dtpDesde.Value = FiltroFechas.DesdePorDefecto;
+            dtpHasta.Value = FiltroFechas.HastaPorDefecto;
             cmbNivel.SelectedIndex = 0;
             txtUsuario.Clear();
             txtTexto.Clear();

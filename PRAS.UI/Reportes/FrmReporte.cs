@@ -46,8 +46,8 @@ namespace PRAS.UI
             bool usaFechas = ReporteService.UsaFechas(_tipo);
             lblDesde.Visible = dtpDesde.Visible = lblHasta.Visible = dtpHasta.Visible = usaFechas;
 
-            dtpHasta.Value = DateTime.Today;
-            dtpDesde.Value = new DateTime(DateTime.Today.Year, 1, 1);   // por defecto, el año actual
+            dtpHasta.Value = FiltroFechas.HastaPorDefecto;
+            dtpDesde.Value = FiltroFechas.DesdePorDefecto;   // por defecto, desde 2024 (todo el historial)
             Generar();
         }
 

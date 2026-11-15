@@ -20,8 +20,8 @@ namespace PRAS.UI
         private void FrmCompras_Load(object sender, EventArgs e)
         {
             // Por defecto, el último mes.
-            dtpHasta.Value = DateTime.Today;
-            dtpDesde.Value = DateTime.Today.AddMonths(-1);
+            dtpHasta.Value = FiltroFechas.HastaPorDefecto;
+            dtpDesde.Value = FiltroFechas.DesdePorDefecto;   // desde 2024, así se ven todas las compras
             CargarGrilla();
         }
 
