@@ -32,6 +32,17 @@ namespace PRAS.UI
         private readonly InicioService _inicioService = new InicioService();
         private readonly TipoDetalleInicio _tipo;
 
+        /// <summary>Mecánico elegido por el dueño en el panel MECÁNICOS (null = el mecánico logueado).</summary>
+        private readonly int? _idMecanico;
+        private readonly string _nombreMecanico;
+
+        /// <summary>Detalle del trabajo de un mecánico elegido (solo consulta). tipo: MecanicoOrdenes, MecanicoTareas o MecanicoPedidos.</summary>
+        public FrmDetalleInicio(TipoDetalleInicio tipo, int idMecanico, string nombreMecanico) : this(tipo)
+        {
+            _idMecanico = idMecanico;
+            _nombreMecanico = nombreMecanico;
+        }
+
         public FrmDetalleInicio(TipoDetalleInicio tipo)
         {
             InitializeComponent();
@@ -191,7 +202,9 @@ namespace PRAS.UI
                     break;
 
                 case TipoDetalleInicio.MecanicoOrdenes:
-                    filas = _inicioService.ObtenerDetalleMisOrdenes();
+                    filas = _idMecanico.HasValue
+                        ? _inicioService.ObtenerDetalleDeMecanico(_idMecanico.Value, _nombreMecanico, "Ordenes")
+                        : _inicioService.ObtenerDetalleMisOrdenes();
                     Text = "Detalle - Mis órdenes de trabajo".Traducir();
                     lblTitulo.Text = "MIS ÓRDENES DE TRABAJO".Traducir();
                     lblSubtitulo.Text = "Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.".Traducir();
@@ -202,7 +215,9 @@ namespace PRAS.UI
                     break;
 
                 case TipoDetalleInicio.MecanicoPedidos:
-                    filas = _inicioService.ObtenerDetalleMisPedidos();
+                    filas = _idMecanico.HasValue
+                        ? _inicioService.ObtenerDetalleDeMecanico(_idMecanico.Value, _nombreMecanico, "Pedidos")
+                        : _inicioService.ObtenerDetalleMisPedidos();
                     Text = "Detalle - Pedidos de repuestos pendientes".Traducir();
                     lblTitulo.Text = "PEDIDOS DE REPUESTOS PENDIENTES".Traducir();
                     lblSubtitulo.Text = "Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.".Traducir();
@@ -213,7 +228,9 @@ namespace PRAS.UI
                     break;
 
                 default:
-                    filas = _inicioService.ObtenerDetalleMisTareas();
+                    filas = _idMecanico.HasValue
+                        ? _inicioService.ObtenerDetalleDeMecanico(_idMecanico.Value, _nombreMecanico, "Tareas")
+                        : _inicioService.ObtenerDetalleMisTareas();
                     Text = "Detalle - Tareas realizadas este mes".Traducir();
                     lblTitulo.Text = "TAREAS REALIZADAS ESTE MES".Traducir();
                     lblSubtitulo.Text = "Tareas que terminó este mes. Doble clic para ver la ficha del auto.".Traducir();
@@ -222,6 +239,13 @@ namespace PRAS.UI
                     colMonto.HeaderText = "Costo estimado".Traducir();
                     colExtra.HeaderText = "Estado".Traducir();
                     break;
+            }
+
+            // Si lo abrió el dueño para un mecánico, el título dice de quién es.
+            if (_idMecanico.HasValue)
+            {
+                lblTitulo.Text += " — " + _nombreMecanico;
+                Text += " — " + _nombreMecanico;
             }
 
             dgvDetalle.DataSource = filas;

@@ -63,6 +63,171 @@ namespace PRAS.UI
             CrearMenuTema();
             CrearEncabezadoInicio();
             CrearPanelSistema();
+            CrearPanelDueno();
+        }
+
+        // Panel TALLER Y MECÁNICOS (inicio del dueño)
+
+        private readonly Panel pnlDueno = new Panel();
+        private readonly Label lblDuenoTitulo = new Label();
+        private readonly Label lblDuenoIndicadores = new Label();
+        private readonly Label lblDuenoAlertas = new Label();
+        private readonly DataGridView dgvMecanicosInicio = new DataGridView();
+        private readonly FlowLayoutPanel pnlAccionesMecanico = new FlowLayoutPanel();
+        private readonly FlowLayoutPanel pnlModuloTaller = new FlowLayoutPanel();
+        private readonly Label lblModuloTallerTitulo = new Label();
+        private readonly List<(Button Boton, Funcion Permiso)> _accesosTaller = new List<(Button, Funcion)>();
+
+        /// <summary>
+        /// Inicio del dueño: indicadores y alertas del taller, y la lista de MECÁNICOS con el trabajo de cada uno.
+        /// Eligiendo un mecánico se consultan sus órdenes, sus tareas del mes y sus pedidos (solo lectura,
+        /// queda en la bitácora). Abajo, accesos a las 7 opciones del módulo Taller según sus permisos.
+        /// </summary>
+        private void CrearPanelDueno()
+        {
+            pnlDueno.Name = "pnlDueno";
+            pnlDueno.BorderStyle = BorderStyle.FixedSingle;   // Tema lo dibuja como tarjeta
+            pnlDueno.Visible = false;
+
+            lblDuenoTitulo.Name = "lblDuenoTitulo";
+            lblDuenoTitulo.Text = "TALLER Y MECÁNICOS";
+            lblDuenoTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblDuenoTitulo.AutoSize = true;
+
+            lblDuenoIndicadores.Font = new Font("Segoe UI", 10.5F);
+            lblDuenoAlertas.Font = new Font("Segoe UI", 10F);
+
+            dgvMecanicosInicio.Name = "dgvMecanicosInicio";
+            dgvMecanicosInicio.AutoGenerateColumns = false;
+            dgvMecanicosInicio.ReadOnly = true;
+            dgvMecanicosInicio.AllowUserToAddRows = false;
+            dgvMecanicosInicio.AllowUserToDeleteRows = false;
+            dgvMecanicosInicio.AllowUserToResizeRows = false;
+            dgvMecanicosInicio.RowHeadersVisible = false;
+            dgvMecanicosInicio.MultiSelect = false;
+            dgvMecanicosInicio.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMecanicosInicio.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMecanicosInicio.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;   // encabezados en un renglón
+            AgregarColumna("Mecanico", "Mecánico", 150);
+            AgregarColumna("Especialidad", "Especialidad", 120);
+            AgregarColumna("AutosAsignados", "Autos asignados", 80);
+            AgregarColumna("OrdenesAbiertas", "Órdenes abiertas", 80);
+            AgregarColumna("TareasRealizadasMes", "Tareas del mes", 80);
+            AgregarColumna("PedidosPendientes", "Pedidos pendientes", 80);
+            dgvMecanicosInicio.CellDoubleClick += (sender, e) => { if (e.RowIndex >= 0) VerTrabajoDeMecanico(TipoDetalleInicio.MecanicoOrdenes); };
+
+            pnlAccionesMecanico.WrapContents = true;
+            AgregarBotonPanel(pnlAccionesMecanico, "btnVerOrdenesMecanico", "Sus órdenes", (s, e) => VerTrabajoDeMecanico(TipoDetalleInicio.MecanicoOrdenes));
+            AgregarBotonPanel(pnlAccionesMecanico, "btnVerTareasMecanico", "Sus tareas del mes", (s, e) => VerTrabajoDeMecanico(TipoDetalleInicio.MecanicoTareas));
+            AgregarBotonPanel(pnlAccionesMecanico, "btnVerPedidosMecanico", "Sus pedidos", (s, e) => VerTrabajoDeMecanico(TipoDetalleInicio.MecanicoPedidos));
+
+            lblModuloTallerTitulo.Name = "lblModuloTallerTitulo";
+            lblModuloTallerTitulo.Text = "MÓDULO TALLER";
+            lblModuloTallerTitulo.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblModuloTallerTitulo.AutoSize = true;
+            pnlModuloTaller.WrapContents = true;
+            AgregarAccesoTaller("btnTallerIngreso", "Ingreso al taller", Funcion.RegistrarRecepcion, mnuRecepcion_Click);
+            AgregarAccesoTaller("btnTallerRegDiagnostico", "Registrar diagnóstico", Funcion.RegistrarDiagnostico, mnuRegistrarDiagnostico_Click);
+            AgregarAccesoTaller("btnTallerConsDiagnostico", "Consultar diagnóstico", Funcion.ConsultarDiagnostico, mnuConsultarDiagnostico_Click);
+            AgregarAccesoTaller("btnTallerCostos", "Carga de costos", Funcion.GestionarPresupuestos, mnuPresupuestos_Click);
+            AgregarAccesoTaller("btnTallerOrdenes", "Órdenes de trabajo", Funcion.GestionarOrdenesTrabajo, mnuOrdenesTrabajo_Click);
+            AgregarAccesoTaller("btnTallerConsOrdenes", "Consultar órdenes", Funcion.ConsultarOrdenesTrabajo, mnuConsultarOrdenesTrabajo_Click);
+            AgregarAccesoTaller("btnTallerTareas", "Tareas realizadas", Funcion.RegistrarTareasRealizadas, mnuTareasRealizadas_Click);
+
+            pnlDueno.Controls.AddRange(new Control[] { lblDuenoTitulo, lblDuenoIndicadores, lblDuenoAlertas, dgvMecanicosInicio,
+                                                       pnlAccionesMecanico, lblModuloTallerTitulo, pnlModuloTaller });
+            pnlInicio.Controls.Add(pnlDueno);
+        }
+
+        private void AgregarColumna(string propiedad, string titulo, int peso)
+        {
+            var columna = new DataGridViewTextBoxColumn { Name = "col" + propiedad, DataPropertyName = propiedad, HeaderText = titulo, FillWeight = peso };
+            dgvMecanicosInicio.Columns.Add(columna);
+        }
+
+        private static void AgregarBotonPanel(FlowLayoutPanel panel, string nombre, string texto, EventHandler accion)
+        {
+            var boton = new Button { Name = nombre, Text = texto, AutoSize = true, Font = new Font("Segoe UI", 9F), Padding = new Padding(4, 0, 4, 0), Margin = new Padding(0, 0, 6, 6) };
+            boton.Click += accion;
+            panel.Controls.Add(boton);
+        }
+
+        private void AgregarAccesoTaller(string nombre, string texto, Funcion permiso, EventHandler accion)
+        {
+            AgregarBotonPanel(pnlModuloTaller, nombre, texto, accion);
+            _accesosTaller.Add(((Button)pnlModuloTaller.Controls[pnlModuloTaller.Controls.Count - 1], permiso));
+        }
+
+        /// <summary>Abre el trabajo del mecánico elegido en la grilla (solo consulta; queda en la bitácora).</summary>
+        private void VerTrabajoDeMecanico(TipoDetalleInicio tipo)
+        {
+            if (dgvMecanicosInicio.CurrentRow?.DataBoundItem is not ResumenMecanico mecanico)
+            {
+                Mensajes.Advertencia("Seleccione un mecánico de la lista.".Traducir());
+                return;
+            }
+            AbrirPantalla(new FrmDetalleInicio(tipo, mecanico.IdMecanico, mecanico.Mecanico));
+        }
+
+        /// <summary>El panel del dueño se ve si puede ver los mecánicos y no se está mostrando el panel SISTEMA.</summary>
+        private bool MostrarPanelDueno()
+        {
+            return Sesion.HayUsuarioLogueado && !MostrarPanelSistema() && _inicioService.PuedeVerMecanicos();
+        }
+
+        private void CargarPanelDueno(ResumenInicio resumen)
+        {
+            bool mostrar = MostrarPanelDueno();
+            pnlDueno.Visible = mostrar;
+            if (!mostrar)
+                return;
+
+            foreach (var acceso in _accesosTaller)
+                acceso.Boton.Visible = Sesion.TienePermiso(acceso.Permiso);
+
+            lblDuenoIndicadores.Text =
+                $"{"Órdenes abiertas".Traducir()}: {resumen.OrdenesAbiertas}  ·  {"Presupuestos pendientes".Traducir()}: {resumen.PresupuestosPendientes}";
+
+            // Alertas: autos que esperan entrar al taller y órdenes demoradas.
+            var alertas = new List<string>();
+            if (resumen.AutosSinIngresar > 0)
+                alertas.Add($"{resumen.AutosSinIngresar} auto(s) comprado(s) esperando entrar al taller.".TraducirMensaje());
+            if (resumen.OrdenesDemoradas > 0)
+                alertas.Add($"{resumen.OrdenesDemoradas} orden(es) abierta(s) hace más de {InicioService.DiasDemora} días.".TraducirMensaje());
+            lblDuenoAlertas.Text = alertas.Count == 0 ? "Sin alertas.".Traducir() : "⚠ " + string.Join(Environment.NewLine + "⚠ ", alertas);
+            lblDuenoAlertas.ForeColor = alertas.Count == 0 ? Tema.Exito : Tema.Peligro;
+
+            try
+            {
+                dgvMecanicosInicio.DataSource = _inicioService.ObtenerResumenPorMecanico();
+            }
+            catch (Exception ex)
+            {
+                ex.Handle();
+            }
+        }
+
+        private void AcomodarPanelDueno()
+        {
+            float k = DeviceDpi / 96f;
+            int S(int valor) => (int)(valor * k);
+            int ancho = pnlDueno.ClientSize.Width;
+            int alto = pnlDueno.ClientSize.Height;
+            int m = S(14);
+            int interior = ancho - 2 * m;
+
+            lblDuenoTitulo.Location = new Point(m, S(10));
+            lblDuenoIndicadores.SetBounds(m, lblDuenoTitulo.Bottom + S(4), interior, S(24));
+            lblDuenoAlertas.SetBounds(m, lblDuenoIndicadores.Bottom, interior, S(42));   // hasta 2 alertas, una por renglón
+
+            // De abajo hacia arriba: módulo Taller, acciones sobre el mecánico y la grilla con lo que queda.
+            int altoModulo = pnlModuloTaller.GetPreferredSize(new Size(interior, 0)).Height;
+            pnlModuloTaller.SetBounds(m, alto - altoModulo - S(4), interior, altoModulo);
+            lblModuloTallerTitulo.Location = new Point(m, pnlModuloTaller.Top - lblModuloTallerTitulo.Height - S(2));
+            int altoAcciones = pnlAccionesMecanico.GetPreferredSize(new Size(interior, 0)).Height;
+            pnlAccionesMecanico.SetBounds(m, lblModuloTallerTitulo.Top - altoAcciones - S(6), interior, altoAcciones);
+            int arribaGrilla = lblDuenoAlertas.Bottom + S(6);
+            dgvMecanicosInicio.SetBounds(m, arribaGrilla, interior, Math.Max(S(70), pnlAccionesMecanico.Top - S(6) - arribaGrilla));
         }
 
         // Saludo y "Actualizar" (arriba del inicio, para todos)
@@ -370,7 +535,11 @@ namespace PRAS.UI
             int columna = (ancho - 2 * separacion) / 4;
             int altoTarjetas = alto - arribaTarjetas - 5;
             // Si se ve el panel SISTEMA, TALLER e INGRESOS se achican y el panel ocupa el espacio de abajo.
-            int altoIzquierda = MostrarPanelSistema() ? Math.Max(170, altoTarjetas * 36 / 100) : altoTarjetas;
+            bool panelAbajo = MostrarPanelSistema() || MostrarPanelDueno();
+            // (El panel del dueño necesita más alto para la grilla de mecánicos: sus tarjetas quedan más bajas.)
+            int altoIzquierda = !panelAbajo ? altoTarjetas
+                              : MostrarPanelDueno() ? Math.Max(150, altoTarjetas * 26 / 100)
+                              : Math.Max(170, altoTarjetas * 36 / 100);
             pnlTaller.SetBounds(0, arribaTarjetas, columna, altoIzquierda);
             pnlIngresos.SetBounds(columna + separacion, arribaTarjetas, columna, altoIzquierda);
             if (MostrarPanelSistema())
@@ -378,6 +547,12 @@ namespace PRAS.UI
                 pnlSistema.SetBounds(0, arribaTarjetas + altoIzquierda + separacion, 2 * columna + separacion,
                                      altoTarjetas - altoIzquierda - separacion);
                 AcomodarPanelSistema();
+            }
+            else if (MostrarPanelDueno())
+            {
+                pnlDueno.SetBounds(0, arribaTarjetas + altoIzquierda + separacion, 2 * columna + separacion,
+                                   altoTarjetas - altoIzquierda - separacion);
+                AcomodarPanelDueno();
             }
 
             int xDerecha = 2 * (columna + separacion);
@@ -502,6 +677,8 @@ namespace PRAS.UI
             {
                 CargarPanelSistema();
                 ResumenInicio resumen = _inicioService.ObtenerResumen();
+                CargarPanelDueno(resumen);
+                AcomodarInicio();
 
                 lblTallerDato.Text = $"{"Vehículos en taller".Traducir()}: {resumen.VehiculosEnTaller}";
                 lblIngresosDato.Text = $"{"Chocados ingresados".Traducir()}: {resumen.ChocadosIngresadosUltimoAnio}";

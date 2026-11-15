@@ -23,6 +23,16 @@ namespace PRAS.DAL.Interfaces
 
         ResumenMecanico ObtenerResumenMecanico(int idMecanico, DateTime desdeMes, DateTime hastaExclusive);
 
+        /// <summary>Un renglón por mecánico activo con su trabajo (panel MECÁNICOS del dueño).</summary>
+        List<ResumenMecanico> ListarResumenPorMecanico(DateTime desdeMes, DateTime hastaExclusive);
+
+        int ContarOrdenesAbiertas();
+
+        int ContarPresupuestosPendientes();
+
+        /// <summary>Órdenes abiertas creadas antes de esa fecha (demoradas).</summary>
+        int ContarOrdenesAbiertasDesde(DateTime antesDe);
+
         List<DetalleInicio> ListarAutosEnDiagnostico();
 
         List<DetalleInicio> ListarOrdenesDeMecanico(int idMecanico);

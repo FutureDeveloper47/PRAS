@@ -939,3 +939,21 @@ MIS ÓRDENES ABIERTAS:MES ORDRES OUVERTS
 No hay nada pendiente.:Rien en attente.
 Tareas realizadas:Tâches réalisées
 Sin registros.:Aucun enregistrement.
+TALLER Y MECÁNICOS:ATELIER ET MÉCANICIENS
+MÓDULO TALLER:MODULE ATELIER
+Autos asignados:Voitures assignées
+Órdenes abiertas:Ordres ouverts
+Tareas del mes:Tâches du mois
+Pedidos pendientes:Commandes en attente
+Ver sus órdenes:Voir ses ordres
+Ver sus tareas del mes:Voir ses tâches du mois
+Ver sus pedidos pendientes:Voir ses commandes en attente
+Consultar órdenes:Consulter les ordres
+{0} auto(s) comprado(s) esperando entrar al taller.:{0} voiture(s) achetée(s) en attente d'entrer à l'atelier.
+{0} orden(es) abierta(s) hace más de {1} días.:{0} ordre(s) ouvert(s) depuis plus de {1} jours.
+Sin alertas.:Aucune alerte.
+Consultó el trabajo del mecánico {0}.:A consulté le travail du mécanicien {0}.
+Presupuestos pendientes:Devis en attente
+Sus órdenes:Ses ordres
+Sus tareas del mes:Ses tâches du mois
+Sus pedidos:Ses commandes

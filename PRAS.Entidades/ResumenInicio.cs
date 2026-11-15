@@ -17,5 +17,19 @@ namespace PRAS.Entidades
 
         /// <summary>Lista ACTIVIDAD RECIENTE: últimos ingresos y ventas, del más nuevo al más viejo.</summary>
         public List<ActividadReciente> Actividades { get; set; } = new List<ActividadReciente>();
+
+        // Indicadores y alertas del taller (inicio del dueño)
+
+        /// <summary>Órdenes de trabajo abiertas.</summary>
+        public int OrdenesAbiertas { get; set; }
+
+        /// <summary>Presupuestos que todavía no se aprobaron.</summary>
+        public int PresupuestosPendientes { get; set; }
+
+        /// <summary>Autos comprados que todavía no entraron al taller (estado Comprado).</summary>
+        public int AutosSinIngresar { get; set; }
+
+        /// <summary>Órdenes abiertas hace más de los días de demora (ver InicioService.DiasDemora).</summary>
+        public int OrdenesDemoradas { get; set; }
     }
 }

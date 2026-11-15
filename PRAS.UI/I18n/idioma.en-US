@@ -939,3 +939,21 @@ MIS ÓRDENES ABIERTAS:MY OPEN WORK ORDERS
 No hay nada pendiente.:Nothing pending.
 Tareas realizadas:Tasks done
 Sin registros.:No records.
+TALLER Y MECÁNICOS:WORKSHOP AND MECHANICS
+MÓDULO TALLER:WORKSHOP MODULE
+Autos asignados:Assigned cars
+Órdenes abiertas:Open orders
+Tareas del mes:Tasks this month
+Pedidos pendientes:Pending orders
+Ver sus órdenes:See their orders
+Ver sus tareas del mes:See their tasks this month
+Ver sus pedidos pendientes:See their pending orders
+Consultar órdenes:View orders
+{0} auto(s) comprado(s) esperando entrar al taller.:{0} purchased car(s) waiting to enter the workshop.
+{0} orden(es) abierta(s) hace más de {1} días.:{0} order(s) open for more than {1} days.
+Sin alertas.:No alerts.
+Consultó el trabajo del mecánico {0}.:Viewed the work of mechanic {0}.
+Presupuestos pendientes:Pending budgets
+Sus órdenes:Their orders
+Sus tareas del mes:Their tasks this month
+Sus pedidos:Their parts orders

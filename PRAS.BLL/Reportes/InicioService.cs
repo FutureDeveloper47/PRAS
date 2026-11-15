@@ -1,6 +1,7 @@
 using PRAS.DAL.Factory;
 using PRAS.DAL.Interfaces;
 using PRAS.Entidades;
+using PRAS.Services.Facade;
 
 namespace PRAS.BLL
 {
@@ -50,12 +51,65 @@ namespace PRAS.BLL
 
                 ChocadosIngresadosUltimoAnio = _repositorio.ContarCompras(InicioUltimoAnio, InicioMesSiguiente),
                 VentasUltimoAnio = _repositorio.ContarVentas(InicioUltimoAnio, InicioMesSiguiente),
+                OrdenesAbiertas = _repositorio.ContarOrdenesAbiertas(),
+                PresupuestosPendientes = _repositorio.ContarPresupuestosPendientes(),
+                AutosSinIngresar = _repositorio.ContarVehiculos(EstadoVehiculo.Comprado),
+                OrdenesDemoradas = _repositorio.ContarOrdenesAbiertasDesde(DateTime.Today.AddDays(-DiasDemora)),
                 Actividades = _repositorio.ListarActividadReciente(CantidadActividades)
             };
         }
 
         // Detalle de las tarjetas
         // Cada tarjeta usa el mismo criterio que su número, así si dice 3 hay 3 renglones.
+
+        /// <summary>Una orden abierta hace más de estos días se muestra como demorada en el inicio del dueño.</summary>
+        public const int DiasDemora = 15;
+
+        // Inicio del dueño: panel MECÁNICOS
+
+        /// <summary>
+        /// El panel MECÁNICOS lo ve quien ve el resumen del negocio y además gestiona las órdenes de trabajo
+        /// y los mecánicos (hoy, la familia Dueño). Se decide por permisos (Composite), no por el rol.
+        /// </summary>
+        public bool PuedeVerMecanicos()
+        {
+            return PuedeVerResumen() && Sesion.TienePermiso(Funcion.GestionarOrdenesTrabajo) && Sesion.TienePermiso(Funcion.GestionarMecanicos);
+        }
+
+        /// <summary>Un renglón por mecánico activo con su trabajo actual.</summary>
+        public List<ResumenMecanico> ObtenerResumenPorMecanico()
+        {
+            Sesion.ExigirPermiso(Funcion.VerReportes);
+            Sesion.ExigirPermiso(Funcion.GestionarMecanicos);
+            return _repositorio.ListarResumenPorMecanico(InicioMes, InicioMesSiguiente);
+        }
+
+        /// <summary>
+        /// Trabajo de UN mecánico elegido por el dueño (solo consulta): sus órdenes abiertas, las tareas
+        /// que terminó este mes o sus pedidos pendientes. Queda en la bitácora quién consultó a qué mecánico.
+        /// </summary>
+        public List<DetalleInicio> ObtenerDetalleDeMecanico(int idMecanico, string nombreMecanico, string que)
+        {
+            Sesion.ExigirPermiso(Funcion.GestionarOrdenesTrabajo);
+            Sesion.ExigirPermiso(Funcion.GestionarMecanicos);
+
+            List<DetalleInicio> filas;
+            switch (que)
+            {
+                case "Tareas":
+                    filas = _repositorio.ListarTareasRealizadasDeMecanico(idMecanico, InicioMes, InicioMesSiguiente);
+                    break;
+                case "Pedidos":
+                    filas = _repositorio.ListarPedidosPendientesDeMecanico(idMecanico);
+                    break;
+                default:
+                    filas = _repositorio.ListarOrdenesDeMecanico(idMecanico);
+                    break;
+            }
+
+            LoggerService.Info($"Consultó el trabajo del mecánico {nombreMecanico}.");
+            return filas;
+        }
 
         // Inicio del mecánico
 

@@ -17,5 +17,17 @@ namespace PRAS.Entidades
 
         /// <summary>Tareas que terminó en el mes actual.</summary>
         public int TareasRealizadasMes { get; set; }
+
+        // Para el panel MECÁNICOS del dueño (un renglón por mecánico).
+
+        public int IdMecanico { get; set; }
+
+        /// <summary>"Ferreyra, Carlos".</summary>
+        public string Mecanico { get; set; }
+
+        public string Especialidad { get; set; }
+
+        /// <summary>Autos distintos con alguna orden abierta donde el mecánico tiene tareas.</summary>
+        public int AutosAsignados { get; set; }
     }
 }

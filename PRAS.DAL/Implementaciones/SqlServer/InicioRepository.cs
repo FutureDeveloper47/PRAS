@@ -225,6 +225,67 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             };
         }
 
+        /// <summary>
+        /// Panel MECÁNICOS del dueño: por cada mecánico activo, autos asignados (con orden abierta),
+        /// órdenes abiertas, tareas terminadas en el mes y pedidos de repuestos pendientes de sus órdenes.
+        /// </summary>
+        public List<ResumenMecanico> ListarResumenPorMecanico(DateTime desdeMes, DateTime hastaExclusive)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                @"SELECT M.IdMecanico, M.Apellido + ', ' + M.Nombre AS Mecanico, ISNULL(M.Especialidad, N'') AS Especialidad,
+                         (SELECT COUNT(DISTINCT OT.IdVehiculo) FROM OrdenTrabajo OT
+                          WHERE OT.EstadoOrden = @Abierta AND EXISTS (SELECT 1 FROM TareaOrdenTrabajo T
+                                WHERE T.IdOrdenTrabajo = OT.IdOrdenTrabajo AND T.IdMecanico = M.IdMecanico)) AS AutosAsignados,
+                         (SELECT COUNT(*) FROM OrdenTrabajo OT
+                          WHERE OT.EstadoOrden = @Abierta AND EXISTS (SELECT 1 FROM TareaOrdenTrabajo T
+                                WHERE T.IdOrdenTrabajo = OT.IdOrdenTrabajo AND T.IdMecanico = M.IdMecanico)) AS OrdenesAbiertas,
+                         (SELECT COUNT(*) FROM TareaOrdenTrabajo T
+                          WHERE T.IdMecanico = M.IdMecanico AND T.EstadoTarea = @Finalizada
+                            AND T.FechaFin >= @Desde AND T.FechaFin < @Hasta) AS TareasRealizadasMes,
+                         (SELECT COUNT(*) FROM PedidoRepuesto P
+                          INNER JOIN OrdenTrabajo OT ON OT.IdOrdenTrabajo = P.IdOrdenTrabajo
+                          WHERE P.EstadoPedido = @Pendiente AND EXISTS (SELECT 1 FROM TareaOrdenTrabajo T
+                                WHERE T.IdOrdenTrabajo = OT.IdOrdenTrabajo AND T.IdMecanico = M.IdMecanico)) AS PedidosPendientes
+                  FROM Mecanico M
+                  WHERE M.Activo = 1
+                  ORDER BY M.Apellido, M.Nombre",
+                SqlHelper.Param("@Abierta", Estados.OrdenAbierta),
+                SqlHelper.Param("@Finalizada", Estados.TareaFinalizada),
+                SqlHelper.Param("@Pendiente", Estados.PedidoPendiente),
+                SqlHelper.Param("@Desde", desdeMes),
+                SqlHelper.Param("@Hasta", hastaExclusive));
+
+            return tabla.Rows.Cast<System.Data.DataRow>().Select(fila => new ResumenMecanico
+            {
+                IdMecanico = (int)fila["IdMecanico"],
+                Mecanico = (string)fila["Mecanico"],
+                Especialidad = (string)fila["Especialidad"],
+                AutosAsignados = (int)fila["AutosAsignados"],
+                OrdenesAbiertas = (int)fila["OrdenesAbiertas"],
+                TareasRealizadasMes = (int)fila["TareasRealizadasMes"],
+                PedidosPendientes = (int)fila["PedidosPendientes"]
+            }).ToList();
+        }
+
+        public int ContarOrdenesAbiertas()
+        {
+            return (int)SqlHelper.ExecuteScalar("SELECT COUNT(*) FROM OrdenTrabajo WHERE EstadoOrden = @Abierta",
+                SqlHelper.Param("@Abierta", Estados.OrdenAbierta));
+        }
+
+        public int ContarPresupuestosPendientes()
+        {
+            return (int)SqlHelper.ExecuteScalar("SELECT COUNT(*) FROM Presupuesto WHERE EstadoPresupuesto = 'Pendiente'");
+        }
+
+        public int ContarOrdenesAbiertasDesde(DateTime antesDe)
+        {
+            return (int)SqlHelper.ExecuteScalar(
+                "SELECT COUNT(*) FROM OrdenTrabajo WHERE EstadoOrden = @Abierta AND FechaCreacion < @AntesDe",
+                SqlHelper.Param("@Abierta", Estados.OrdenAbierta),
+                SqlHelper.Param("@AntesDe", antesDe));
+        }
+
         /// <summary>Autos esperando diagnóstico, con la fecha en que entraron y lo que se anotó al recibirlos.</summary>
         public List<DetalleInicio> ListarAutosEnDiagnostico()
         {
