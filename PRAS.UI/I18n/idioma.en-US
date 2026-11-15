@@ -912,3 +912,10 @@ la pregunta de seguridad:the security question
 Se activó el mecánico {0} junto con su usuario.:Mechanic {0} was activated together with their user.
 Solicitud de cuenta:Account request
 usuario "{0}" ({1}, DNI {2}) pide el rol {3}. Queda deshabilitada hasta que la habilite un administrador.:user "{0}" ({1}, DNI {2}) requests the role {3}. It stays disabled until an administrator enables it.
+PRAS:PRAS
+Iniciar sesión:Log in
+Mostrar:Show
+Ingrese su usuario y su contraseña.:Enter your user name and password.
+Compra de autos chocados · Taller · Agencia:Damaged car purchases · Workshop · Agency
+Versión {0}:Version {0}
+Bloq Mayús está activado.:Caps Lock is on.

@@ -544,6 +544,9 @@ namespace PRAS.UI
         /// </summary>
         private static void ArmarEncabezado(Form form)
         {
+            if (form is FormBase { MostrarEncabezado: false })
+                return;   // la pantalla tiene su propio encabezado (ej: el ingreso)
+
             if (form.MainMenuStrip != null)
             {
                 foreach (Control titulo in form.Controls.Find("lblTitulo", true))

@@ -10,6 +10,12 @@ namespace PRAS.UI
     public class FormBase : Form
     {
         /// <summary>
+        /// true (lo normal): el tema le pone a la pantalla la franja azul con el título.
+        /// Las pantallas con un diseño propio (como el ingreso) la apagan.
+        /// </summary>
+        public virtual bool MostrarEncabezado => true;
+
+        /// <summary>
         /// OnLoad se ejecuta justo antes de mostrar la pantalla.
         /// Primero aplicamos el tema y después (base.OnLoad) corre el Load de cada formulario.
         /// </summary>

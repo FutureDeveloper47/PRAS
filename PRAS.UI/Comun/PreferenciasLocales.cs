@@ -18,6 +18,9 @@ namespace PRAS.UI
         private sealed class Datos
         {
             public string UltimoTema { get; set; } = TemaClaro;
+
+            /// <summary>Último usuario que entró en esta PC (solo el nombre, nunca la contraseña).</summary>
+            public string UltimoUsuario { get; set; }
             public Dictionary<string, string> TemaPorUsuario { get; set; } = new Dictionary<string, string>();
         }
 
@@ -46,6 +49,11 @@ namespace PRAS.UI
             if (!string.IsNullOrEmpty(usuario))
                 datos.TemaPorUsuario[usuario.ToLowerInvariant()] = tema;
 
+            Grabar(datos);
+        }
+
+        private static void Grabar(Datos datos)
+        {
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Archivo));
@@ -53,8 +61,22 @@ namespace PRAS.UI
             }
             catch (Exception)
             {
-                // Sin permiso para escribir: la próxima vez arranca con el tema claro. No es un error del negocio.
+                // Sin permiso para escribir: la próxima vez arranca con los valores por defecto. No es un error del negocio.
             }
+        }
+
+        /// <summary>Nombre del último usuario que entró en esta PC (para dejarlo escrito en el ingreso).</summary>
+        public static string UltimoUsuario()
+        {
+            return Leer().UltimoUsuario;
+        }
+
+        /// <summary>Guarda el nombre del usuario que acaba de entrar. La contraseña NUNCA se guarda.</summary>
+        public static void GuardarUltimoUsuario(string usuario)
+        {
+            Datos datos = Leer();
+            datos.UltimoUsuario = usuario;
+            Grabar(datos);
         }
 
         private static Datos Leer()
