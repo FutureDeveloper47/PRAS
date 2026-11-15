@@ -28,5 +28,14 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Usuarios"><param name="Local" value="FrmUsuarios.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Ventas"><param name="Local" value="FrmVentas.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Órdenes de trabajo"><param name="Local" value="FrmOrdenesTrabajo.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Ficha del vehículo"><param name="Local" value="FrmFichaVehiculo.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Solicitar acceso"><param name="Local" value="FrmSolicitarCuenta.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Usuarios de prueba"><param name="Local" value="FrmUsuariosDePrueba.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Restablecer contraseña"><param name="Local" value="FrmRestablecerContrasena.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Tema claro u oscuro"><param name="Local" value="FrmMiPerfil.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Modo oscuro"><param name="Local" value="FrmMiPerfil.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Inicio del mecánico"><param name="Local" value="FrmPrincipal.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Administrar usuarios"><param name="Local" value="FrmUsuarios.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Armar descripción"><param name="Local" value="FrmPublicaciones.htm"></OBJECT>
 </UL>
 </BODY></HTML>

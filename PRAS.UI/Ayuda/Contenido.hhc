@@ -8,6 +8,8 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Sistema"></OBJECT>
 <UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Iniciar sesión"><param name="Local" value="FrmLogin.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Solicitar acceso"><param name="Local" value="FrmSolicitarCuenta.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Usuarios de prueba"><param name="Local" value="FrmUsuariosDePrueba.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Recuperar contraseña"><param name="Local" value="FrmRecuperarContrasena.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Pantalla de inicio"><param name="Local" value="FrmPrincipal.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Mi perfil"><param name="Local" value="FrmMiPerfil.htm"></OBJECT>
@@ -16,6 +18,7 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Seguridad"></OBJECT>
 <UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Usuarios"><param name="Local" value="FrmUsuarios.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Restablecer contraseña"><param name="Local" value="FrmRestablecerContrasena.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Permisos (familias y patentes)"><param name="Local" value="FrmPermisos.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Bitácora"><param name="Local" value="FrmBitacora.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Backup y restore"><param name="Local" value="FrmBackup.htm"></OBJECT>
@@ -32,6 +35,7 @@
 <UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Registrar compra"><param name="Local" value="FrmRegistrarCompra.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Consultar compras"><param name="Local" value="FrmCompras.htm"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Ficha del vehículo"><param name="Local" value="FrmFichaVehiculo.htm"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Buscador de autos"><param name="Local" value="FrmBuscadorAutos.htm"></OBJECT>
 </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Taller"></OBJECT>

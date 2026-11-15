@@ -19,7 +19,9 @@ namespace PRAS.UI
             "FrmClientes", "FrmMecanicos", "FrmProveedores", "FrmAgencias",
             "FrmRegistrarCompra", "FrmCompras", "FrmBuscadorAutos",
             "FrmAsignacionPresupuesto", "FrmDiagnosticos", "FrmCargaCostos", "FrmOrdenesTrabajo", "FrmTareasRealizadas",
-            "FrmPedidos", "FrmConsignaciones", "FrmPublicaciones", "FrmVentas", "FrmReporte"
+            "FrmPedidos", "FrmConsignaciones", "FrmPublicaciones", "FrmVentas", "FrmReporte",
+            // 15/11: pantallas nuevas
+            "FrmFichaVehiculo", "FrmSolicitarCuenta", "FrmUsuariosDePrueba", "FrmRestablecerContrasena"
         };
 
         /// <summary>Ruta completa del .chm (carpeta Ayuda al lado del .exe).</summary>
