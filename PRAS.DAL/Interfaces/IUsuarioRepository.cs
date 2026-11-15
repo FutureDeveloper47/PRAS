@@ -20,5 +20,8 @@ namespace PRAS.DAL.Interfaces
         void CambiarContrasena(int idUsuario, string contrasenaHash);
 
         void GuardarPreguntaSeguridad(int idUsuario, string pregunta, string respuestaHash);
+
+        /// <summary>Guarda nombre, apellido, DNI, teléfono y email del usuario (tabla UsuarioPersona).</summary>
+        void GuardarPersona(Usuario usuario);
     }
 }

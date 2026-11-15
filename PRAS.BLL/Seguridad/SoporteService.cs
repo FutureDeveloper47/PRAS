@@ -59,7 +59,8 @@ namespace PRAS.BLL
         /// <summary>Celular del administrador (App.config, clave SoporteTelefono).</summary>
         public string TelefonoAdministrador()
         {
-            return LeerConfiguracion("SoporteTelefono", "");
+            // Si falta en App.config usamos el celular del administrador, así el dato siempre se ve.
+            return LeerConfiguracion("SoporteTelefono", "11 6501-6694");
         }
 
         /// <summary>Email del administrador (App.config, clave SoporteEmail).</summary>

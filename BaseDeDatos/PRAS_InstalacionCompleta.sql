@@ -629,12 +629,40 @@ BEGIN
 END
 GO
 
--- Pregunta de prueba para el admin (respuesta: pras), así se puede mostrar "Recuperar contraseña".
+-- Pregunta de prueba para TODOS los usuarios de prueba (respuesta: pras), así se puede mostrar
+-- "Recuperar contraseña" con cualquiera. Los usuarios de cada mecánico la reciben cuando se crean.
 INSERT INTO UsuarioRecuperacion (IdUsuario, PreguntaSeguridad, RespuestaHash)
 SELECT U.IdUsuario, N'¿Cuál es el nombre del sistema?', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'pras'), 2)
 FROM Usuario U
-WHERE U.NombreUsuario = N'admin'
+WHERE U.NombreUsuario IN (N'admin', N'dueno', N'mecanico')
   AND NOT EXISTS (SELECT 1 FROM UsuarioRecuperacion R WHERE R.IdUsuario = U.IdUsuario);
+GO
+
+/* ---------------------------- USUARIO PERSONA ---------------------------- */
+-- Datos personales de cada usuario: nombre, apellido, DNI, teléfono y email.
+-- Va en una tabla aparte (como UsuarioRecuperacion) para no cambiar las columnas que protege el DVH.
+-- Teléfono y email se guardan encriptados con AES (igual que en Cliente).
+-- Los mecánicos toman el nombre de la tabla Mecanico de la base PRAS.
+IF OBJECT_ID('UsuarioPersona', 'U') IS NULL
+BEGIN
+    CREATE TABLE UsuarioPersona (
+        IdUsuario  INT            NOT NULL PRIMARY KEY
+                   CONSTRAINT FK_UsuarioPersona_Usuario REFERENCES Usuario(IdUsuario),
+        Nombre     NVARCHAR(50)   NOT NULL,
+        Apellido   NVARCHAR(50)   NOT NULL,
+        DNI        VARCHAR(10)    NULL,
+        Telefono   VARCHAR(200)   NULL,   -- encriptado con AES
+        Email      NVARCHAR(400)  NULL    -- encriptado con AES
+    );
+    PRINT 'Tabla UsuarioPersona creada.';
+END
+GO
+
+INSERT INTO UsuarioPersona (IdUsuario, Nombre, Apellido)
+SELECT U.IdUsuario, X.Nombre, X.Apellido
+FROM (VALUES (N'admin', N'Matías', N'Montoto'), (N'dueno', N'Gustavo', N'Ibarra')) AS X (Usuario, Nombre, Apellido)
+INNER JOIN Usuario U ON U.NombreUsuario = X.Usuario
+WHERE NOT EXISTS (SELECT 1 FROM UsuarioPersona P WHERE P.IdUsuario = U.IdUsuario);
 GO
 
 /* ---------------------- PERMISOS: patrón COMPOSITE ---------------------- */

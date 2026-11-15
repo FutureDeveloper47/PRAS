@@ -1,5 +1,6 @@
 using PRAS.BLL;
 using PRAS.BLL.Excepciones;
+using PRAS.Entidades;
 using PRAS.Services.Facade.Extensions;
 
 namespace PRAS.UI
@@ -21,11 +22,35 @@ namespace PRAS.UI
         private readonly SoporteService _soporteService = new SoporteService();
         private int _intentosFallidos;
 
+        /// <summary>
+        /// "mecanico — Carlos Ferreyra (Mecánico)": a quién pertenece el usuario escrito.
+        /// Se crea por código debajo del usuario y corre hacia abajo lo que sigue.
+        /// </summary>
+        private readonly Label lblTitular = new Label();
+        private const int AltoTitular = 26;
+
         /// <param name="usuario">Lo que ya había escrito en el ingreso (puede venir vacío).</param>
         public FrmRecuperarContrasena(string usuario)
         {
             InitializeComponent();
             txtUsuario.Text = usuario ?? "";
+            AgregarTitular();
+        }
+
+        private void AgregarTitular()
+        {
+            // Todo lo que está debajo del usuario baja un renglón para hacerle lugar.
+            foreach (Control control in Controls)
+                if (control != lblTitulo && control.Top > txtUsuario.Bottom)
+                    control.Top += AltoTitular;
+            ClientSize = new Size(ClientSize.Width, ClientSize.Height + AltoTitular);
+
+            lblTitular.Name = "lblTitular";
+            lblTitular.AutoSize = false;
+            lblTitular.SetBounds(txtUsuario.Left, txtUsuario.Bottom + 6, btnVerPregunta.Right - txtUsuario.Left, 20);
+            lblTitular.Font = new Font(Font, FontStyle.Bold);
+            lblTitular.ForeColor = Tema.Primario;
+            Controls.Add(lblTitular);
         }
 
         private void FrmRecuperarContrasena_Load(object sender, EventArgs e)
@@ -38,7 +63,7 @@ namespace PRAS.UI
         {
             string texto = soporte.NombreAdministrador();
             if (soporte.TelefonoAdministrador() != "")
-                texto += "\n" + "WhatsApp: " + soporte.TelefonoAdministrador();
+                texto += "\n" + "Celular (WhatsApp)".Traducir() + ": " + soporte.TelefonoAdministrador();
             texto += "\n" + "Email: " + soporte.EmailAdministrador();
             return texto;
         }
@@ -48,10 +73,16 @@ namespace PRAS.UI
         {
             try
             {
-                string pregunta = _usuarioService.ObtenerPreguntaSeguridad(txtUsuario.Text);
+                DatosRecuperacion datos = _usuarioService.ObtenerDatosRecuperacion(txtUsuario.Text);
+
+                // A quién pertenece: "mecanico — Carlos Ferreyra (Mecánico)" (el rol en el idioma elegido).
+                string rol = Sesion.TextoRol(datos.Rol).Traducir();
+                lblTitular.Text = string.IsNullOrEmpty(datos.NombrePersona)
+                    ? $"{datos.NombreUsuario} ({rol})"
+                    : $"{datos.NombreUsuario} — {datos.NombrePersona} ({rol})";
 
                 // La pregunta se guarda en español; si es una de las preguntas del sistema se ve traducida.
-                lblPregunta.Text = pregunta.TraducirMensaje();
+                lblPregunta.Text = datos.Pregunta.TraducirMensaje();
                 txtUsuario.ReadOnly = true;
                 HabilitarPaso2(true);
                 txtRespuesta.Focus();

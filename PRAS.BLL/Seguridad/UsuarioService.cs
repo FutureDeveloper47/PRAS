@@ -193,6 +193,16 @@ namespace PRAS.BLL
         /// </summary>
         public string ObtenerPreguntaSeguridad(string nombreUsuario)
         {
+            return ObtenerDatosRecuperacion(nombreUsuario).Pregunta;
+        }
+
+        /// <summary>
+        /// Paso 1 de "Recuperar contraseña": la pregunta de seguridad y A QUIÉN pertenece el usuario
+        /// ("mecanico — Carlos Ferreyra (Mecánico)"), así, si hay varios mecánicos, se sabe cuál es cuál.
+        /// Devuelve solo lo que se puede mostrar: nunca la contraseña ni la respuesta (ni siquiera su hash).
+        /// </summary>
+        public DatosRecuperacion ObtenerDatosRecuperacion(string nombreUsuario)
+        {
             try
             {
                 nombreUsuario = (nombreUsuario ?? "").Trim();
@@ -203,7 +213,13 @@ namespace PRAS.BLL
                 if (usuario == null || !usuario.Activo || string.IsNullOrEmpty(usuario.PreguntaSeguridad))
                     throw new UsuarioSinPreguntaSeguridadException();
 
-                return usuario.PreguntaSeguridad;
+                return new DatosRecuperacion
+                {
+                    NombreUsuario = usuario.NombreUsuario,
+                    NombrePersona = usuario.NombrePersona,
+                    Rol = usuario.Rol,
+                    Pregunta = usuario.PreguntaSeguridad
+                };
             }
             catch (ReglaNegocioException ex)
             {

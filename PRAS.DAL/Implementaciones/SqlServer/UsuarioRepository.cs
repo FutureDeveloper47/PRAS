@@ -2,6 +2,7 @@ using PRAS.DAL.Implementaciones.SqlServer.Adaptadores;
 using PRAS.DAL.Interfaces;
 using PRAS.DAL.Tools;
 using PRAS.Entidades;
+using PRAS.Services.Facade;
 
 namespace PRAS.DAL.Implementaciones.SqlServer
 {
@@ -25,12 +26,16 @@ namespace PRAS.DAL.Implementaciones.SqlServer
         #endregion
 
         #region Statements
-        // LEFT JOIN: la pregunta de seguridad está en otra tabla y puede no existir (queda NULL).
+        // LEFT JOIN: la pregunta de seguridad y los datos personales están en otras tablas
+        // y pueden no existir (quedan NULL).
         private const string SelectBase =
             @"SELECT U.IdUsuario, U.NombreUsuario, U.ContrasenaHash, U.Rol, U.IdMecanico, U.Activo, U.Idioma,
-                     R.PreguntaSeguridad, R.RespuestaHash
+                     R.PreguntaSeguridad, R.RespuestaHash,
+                     P.Nombre AS PersonaNombre, P.Apellido AS PersonaApellido, P.DNI AS PersonaDNI,
+                     P.Telefono AS PersonaTelefono, P.Email AS PersonaEmail
               FROM Usuario U
-              LEFT JOIN UsuarioRecuperacion R ON R.IdUsuario = U.IdUsuario";
+              LEFT JOIN UsuarioRecuperacion R ON R.IdUsuario = U.IdUsuario
+              LEFT JOIN UsuarioPersona P      ON P.IdUsuario = U.IdUsuario";
 
         private string SelectOneStatement
         {
@@ -47,11 +52,30 @@ namespace PRAS.DAL.Implementaciones.SqlServer
             get => $"{SelectBase} WHERE U.IdMecanico = @IdMecanico";
         }
 
+        /// <summary>
+        /// Lista de usuarios con su último ingreso: se saca de la bitácora (el registro "Inició sesión."
+        /// que deja cada login), así no hace falta una columna nueva en Usuario.
+        /// </summary>
         private string SelectAllStatement
         {
-            get => $@"{SelectBase}
-                      WHERE (@IncluirInactivos = 1 OR U.Activo = 1)
-                      ORDER BY U.NombreUsuario";
+            get => $@"SELECT X.*, ING.UltimoIngreso
+                      FROM ({SelectBase}) X
+                      OUTER APPLY (SELECT MAX(B.Fecha) AS UltimoIngreso FROM Bitacora B
+                                   WHERE B.Usuario = X.NombreUsuario AND B.Mensaje = N'Inició sesión.') ING
+                      WHERE (@IncluirInactivos = 1 OR X.Activo = 1)
+                      ORDER BY X.NombreUsuario";
+        }
+
+        /// <summary>Si el usuario ya tenía datos personales los reemplaza; si no, los agrega.</summary>
+        private string GuardarPersonaStatement
+        {
+            get => @"IF EXISTS (SELECT 1 FROM UsuarioPersona WHERE IdUsuario = @IdUsuario)
+                         UPDATE UsuarioPersona
+                         SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Telefono = @Telefono, Email = @Email
+                         WHERE IdUsuario = @IdUsuario
+                     ELSE
+                         INSERT INTO UsuarioPersona (IdUsuario, Nombre, Apellido, DNI, Telefono, Email)
+                         VALUES (@IdUsuario, @Nombre, @Apellido, @DNI, @Telefono, @Email)";
         }
 
         private string InsertStatement
@@ -192,6 +216,18 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                 SqlHelper.Param("@IdUsuario", idUsuario),
                 SqlHelper.Param("@Pregunta", pregunta),
                 SqlHelper.Param("@RespuestaHash", respuestaHash));
+        }
+
+        /// <summary>Datos personales del usuario (tabla UsuarioPersona). Teléfono y email se guardan con AES.</summary>
+        public void GuardarPersona(Usuario usuario)
+        {
+            SqlHelper.ExecuteNonQuerySeguridad(GuardarPersonaStatement,
+                SqlHelper.Param("@IdUsuario", usuario.IdUsuario),
+                SqlHelper.Param("@Nombre", usuario.Nombre),
+                SqlHelper.Param("@Apellido", usuario.Apellido),
+                SqlHelper.Param("@DNI", usuario.DNI),
+                SqlHelper.Param("@Telefono", CryptographyService.Encriptar(usuario.Telefono)),   // AES
+                SqlHelper.Param("@Email", CryptographyService.Encriptar(usuario.Email)));        // AES
         }
 
         public int ContarAdministradoresActivos(int idUsuarioExcluido)

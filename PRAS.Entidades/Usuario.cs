@@ -29,5 +29,37 @@ namespace PRAS.Entidades
         /// <summary>Hash SHA-256 de la respuesta (igual que la contraseña, la respuesta nunca se guarda en texto plano).</summary>
         public string RespuestaSeguridadHash { get; set; }
         public Mecanico Mecanico { get; set; }
+
+        // Datos personales (tabla UsuarioPersona de PRAS_Seguridad). Van aparte de Usuario
+        // para no cambiar las columnas que protege el dígito verificador (DVH).
+        // Para un mecánico, el nombre sale de la tabla Mecanico.
+
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string DNI { get; set; }
+
+        /// <summary>Teléfono: en la base se guarda encriptado con AES (igual que en Cliente).</summary>
+        public string Telefono { get; set; }
+
+        /// <summary>Email: en la base se guarda encriptado con AES (igual que en Cliente).</summary>
+        public string Email { get; set; }
+
+        /// <summary>Última vez que inició sesión (sale de la bitácora). null = nunca, o no se consultó.</summary>
+        public DateTime? UltimoIngreso { get; set; }
+
+        /// <summary>
+        /// Nombre de la persona dueña del usuario, para mostrar: "Carlos Ferreyra".
+        /// Si es mecánico se usa la tabla Mecanico; si no, sus datos personales. null si no hay datos.
+        /// </summary>
+        public string NombrePersona
+        {
+            get
+            {
+                if (Mecanico != null)
+                    return $"{Mecanico.Nombre} {Mecanico.Apellido}";
+                string nombre = $"{Nombre} {Apellido}".Trim();
+                return nombre == "" ? null : nombre;
+            }
+        }
     }
 }

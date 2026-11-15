@@ -56,9 +56,49 @@ namespace PRAS.DAL.Implementaciones.SqlServer
                 WHERE NombreUsuario = N'admin';
             END";
 
+        /// <summary>
+        /// Cambios del 15/11 (5ta tanda). Cada bloque se fija antes si ya está hecho (IF NOT EXISTS),
+        /// así se puede correr todas las veces que haga falta sin romper ni duplicar nada.
+        /// 1) Tabla UsuarioPersona: nombre, apellido, DNI, teléfono y email de cada usuario
+        ///    (aparte de Usuario para no tocar las columnas que protege el DVH).
+        /// 2) Pregunta de seguridad para los usuarios de prueba que todavía no tienen una
+        ///    (respuesta: pras). No pisa las preguntas que ya cargó cada usuario.
+        /// 3) Nombre de los usuarios de prueba admin y dueno (los mecánicos toman el de la tabla Mecanico).
+        /// </summary>
+        private static readonly string[] ActualizacionesSeguridad =
+        {
+            @"IF OBJECT_ID('UsuarioPersona', 'U') IS NULL
+              BEGIN
+                  CREATE TABLE UsuarioPersona (
+                      IdUsuario  INT            NOT NULL PRIMARY KEY
+                                 CONSTRAINT FK_UsuarioPersona_Usuario REFERENCES Usuario(IdUsuario),
+                      Nombre     NVARCHAR(50)   NOT NULL,
+                      Apellido   NVARCHAR(50)   NOT NULL,
+                      DNI        VARCHAR(10)    NULL,
+                      Telefono   VARCHAR(200)   NULL,   -- encriptado con AES
+                      Email      NVARCHAR(400)  NULL    -- encriptado con AES
+                  );
+              END",
+
+            @"INSERT INTO UsuarioRecuperacion (IdUsuario, PreguntaSeguridad, RespuestaHash)
+              SELECT U.IdUsuario, N'¿Cuál es el nombre del sistema?', CONVERT(VARCHAR(64), HASHBYTES('SHA2_256', 'pras'), 2)
+              FROM Usuario U
+              WHERE U.NombreUsuario IN (N'admin', N'dueno', N'mecanico', N'juan')
+                AND NOT EXISTS (SELECT 1 FROM UsuarioRecuperacion R WHERE R.IdUsuario = U.IdUsuario)",
+
+            @"INSERT INTO UsuarioPersona (IdUsuario, Nombre, Apellido)
+              SELECT U.IdUsuario, X.Nombre, X.Apellido
+              FROM (VALUES (N'admin', N'Matías', N'Montoto'), (N'dueno', N'Gustavo', N'Ibarra')) AS X (Usuario, Nombre, Apellido)
+              INNER JOIN Usuario U ON U.NombreUsuario = X.Usuario
+              WHERE NOT EXISTS (SELECT 1 FROM UsuarioPersona P WHERE P.IdUsuario = U.IdUsuario)"
+        };
+
         public void ActualizarEstructura()
         {
             SqlHelper.ExecuteNonQuerySeguridad(ActualizarEstructuraStatement);
+
+            foreach (string actualizacion in ActualizacionesSeguridad)
+                SqlHelper.ExecuteNonQuerySeguridad(actualizacion);
         }
 
         /// <summary>Pregunta a SQL Server (base master) si existen PRAS y PRAS_Seguridad.</summary>
