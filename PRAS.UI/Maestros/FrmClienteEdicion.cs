@@ -1,3 +1,4 @@
+using PRAS.Services.Facade.Extensions;
 using PRAS.BLL;
 using PRAS.Entidades;
 
@@ -27,11 +28,11 @@ namespace PRAS.UI
         {
             if (EsAlta)
             {
-                Text = "Alta de cliente";
+                Text = "Alta de cliente".Traducir();   // se traduce acá porque FormBase ya tradujo la pantalla antes del Load
                 return;
             }
 
-            Text = "Modificar cliente";
+            Text = "Modificar cliente".Traducir();   // se traduce acá porque FormBase ya tradujo la pantalla antes del Load
             txtNombre.Text = _cliente.Nombre;
             txtApellido.Text = _cliente.Apellido;
             txtDNI.Text = _cliente.DNI;

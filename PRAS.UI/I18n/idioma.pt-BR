@@ -758,3 +758,59 @@ Aprobado:Aprovado
 Rechazado:Rejeitado
 Tarjeta de crédito:Cartão de crédito
 Tarjeta de débito:Cartão de débito
+Gestionar usuarios:Gerenciar usuários
+Gestionar permisos (familias y patentes):Gerenciar permissões (famílias e patentes)
+Consultar bitácora:Consultar log
+Verificar integridad (dígitos verificadores):Verificar integridade (dígitos verificadores)
+Gestionar clientes:Gerenciar clientes
+Gestionar mecánicos:Gerenciar mecânicos
+Gestionar proveedores:Gerenciar fornecedores
+Gestionar agencias:Gerenciar agências
+Registrar y consultar compras:Registrar e consultar compras
+Ingreso de autos al taller:Entrada de carros na oficina
+Carga de costos (presupuestos):Lançamento de custos (orçamentos)
+Gestionar órdenes de trabajo:Gerenciar ordens de serviço
+Gestionar consignaciones:Gerenciar consignações
+Gestionar publicaciones:Gerenciar anúncios
+Registrar y consultar ventas:Registrar e consultar vendas
+Ver reportes:Ver relatórios
+reporte de presupuestos:relatório de orçamentos
+reporte de reparaciones:relatório de reparos
+reporte de vehículos:relatório de veículos
+reporte de ventas:relatório de vendas
+Descripción de la tarea:Descrição da tarefa
+Sitio web de la agencia:Site da agência
+Autocosmos:Autocosmos
+DeAutos:DeAutos
+Gomería:Borracharia
+Tapicería:Tapeçaria
+Alta de agencia:Nova agência
+Modificar agencia:Editar agência
+Alta de cliente:Novo cliente
+Modificar cliente:Editar cliente
+Alta de mecánico:Novo mecânico
+Modificar mecánico:Editar mecânico
+Alta de proveedor:Novo fornecedor
+Modificar proveedor:Editar fornecedor
+Alta de usuario:Novo usuário
+Modificar usuario:Editar usuário
+Detalle del vehículo:Detalhes do veículo
+Modificar vehículo:Editar veículo
+Programa de Registro Automotor Superior:Programa de Registro Automotivo Superior
+Mano de obra:Mão de obra
+El CUIT debe tener 11 números (por ejemplo, 20-12345678-9).:O CUIT deve ter 11 números (por exemplo, 20-12345678-9).
+El email no tiene un formato válido (por ejemplo, nombre@dominio.com).:O e-mail não tem um formato válido (por exemplo, nome@dominio.com).
+El dominio no es válido. Formatos aceptados:A placa não é válida. Formatos aceitos
+ABC123 (viejo) o AB123CD (Mercosur).:ABC123 (antigo) ou AB123CD (Mercosul).
+No se puede agregar la familia "{0}" dentro de "{1}":Não é possível adicionar a família "{0}" dentro de "{1}"
+"{0}" ya forma parte de "{1}".:"{0}" já faz parte de "{1}".
+Hay gastos sin guardar. ¿Salir igual y descartarlos?:Há gastos não salvos. Sair mesmo assim e descartá-los?
+La reparación de {0} quedó finalizada. Estado:O reparo de {0} foi finalizado. Situação
+Reparado.:Reparado.
+se agregaron o borraron filas por fuera del sistema:linhas foram adicionadas ou excluídas fora do sistema
+Elija la prioridad:Escolha a prioridade
+Alta, Media o Baja.:Alta, Média ou Baixa.
+Elija el tipo de gasto:Escolha o tipo de gasto
+Repuesto o Mano de obra.:Peça ou Mão de obra.
+El vehículo no está en ninguna agencia:O veículo não está em nenhuma agência
+primero hay que registrar la consignación.:primeiro é preciso registrar a consignação.

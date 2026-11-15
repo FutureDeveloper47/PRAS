@@ -35,5 +35,14 @@ namespace PRAS.Services.Facade
         {
             return IdiomaLogic.TraducirMensaje(mensaje);
         }
+
+        /// <summary>
+        /// Traduce un valor guardado en español (estado, prioridad, forma de pago...) solo para mostrarlo.
+        /// Si no es una clave del archivo de idioma (un nombre, una patente), lo devuelve igual.
+        /// </summary>
+        public static string TraducirValor(string valor)
+        {
+            return IdiomaLogic.TraducirValor(valor);
+        }
     }
 }

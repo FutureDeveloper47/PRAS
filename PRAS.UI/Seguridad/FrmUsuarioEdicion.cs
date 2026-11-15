@@ -37,7 +37,7 @@ namespace PRAS.UI
 
             if (EsAlta)
             {
-                Text = "Alta de usuario";
+                Text = "Alta de usuario".Traducir();   // se traduce acá porque FormBase ya tradujo la pantalla antes del Load
                 lblContrasena.Text = "Contraseña".Traducir() + ": *";
                 lblConfirmacion.Text = "Repetir contraseña".Traducir() + ": *";
                 cboRol.SelectedValue = Rol.Mecanico;
@@ -45,7 +45,7 @@ namespace PRAS.UI
             }
             else
             {
-                Text = "Modificar usuario";
+                Text = "Modificar usuario".Traducir();   // se traduce acá porque FormBase ya tradujo la pantalla antes del Load
                 txtNombreUsuario.Text = _usuario.NombreUsuario;
                 cboRol.SelectedValue = _usuario.Rol;
                 if (_usuario.IdMecanico != null)

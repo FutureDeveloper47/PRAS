@@ -758,3 +758,59 @@ Aprobado:Approved
 Rechazado:Rejected
 Tarjeta de crédito:Credit card
 Tarjeta de débito:Debit card
+Gestionar usuarios:Manage users
+Gestionar permisos (familias y patentes):Manage permissions (families and patents)
+Consultar bitácora:View log
+Verificar integridad (dígitos verificadores):Check integrity (check digits)
+Gestionar clientes:Manage customers
+Gestionar mecánicos:Manage mechanics
+Gestionar proveedores:Manage suppliers
+Gestionar agencias:Manage agencies
+Registrar y consultar compras:Register and view purchases
+Ingreso de autos al taller:Car check-in to the workshop
+Carga de costos (presupuestos):Cost entry (budgets)
+Gestionar órdenes de trabajo:Manage work orders
+Gestionar consignaciones:Manage consignments
+Gestionar publicaciones:Manage listings
+Registrar y consultar ventas:Register and view sales
+Ver reportes:View reports
+reporte de presupuestos:budget report
+reporte de reparaciones:repair report
+reporte de vehículos:vehicle report
+reporte de ventas:sales report
+Descripción de la tarea:Task description
+Sitio web de la agencia:Agency website
+Autocosmos:Autocosmos
+DeAutos:DeAutos
+Gomería:Tire shop
+Tapicería:Upholstery
+Alta de agencia:New agency
+Modificar agencia:Edit agency
+Alta de cliente:New customer
+Modificar cliente:Edit customer
+Alta de mecánico:New mechanic
+Modificar mecánico:Edit mechanic
+Alta de proveedor:New supplier
+Modificar proveedor:Edit supplier
+Alta de usuario:New user
+Modificar usuario:Edit user
+Detalle del vehículo:Vehicle details
+Modificar vehículo:Edit vehicle
+Programa de Registro Automotor Superior:Superior Automotive Registry Program
+Mano de obra:Labor
+El CUIT debe tener 11 números (por ejemplo, 20-12345678-9).:The CUIT must have 11 digits (for example, 20-12345678-9).
+El email no tiene un formato válido (por ejemplo, nombre@dominio.com).:The email does not have a valid format (for example, name@domain.com).
+El dominio no es válido. Formatos aceptados:The plate is not valid. Accepted formats
+ABC123 (viejo) o AB123CD (Mercosur).:ABC123 (old) or AB123CD (Mercosur).
+No se puede agregar la familia "{0}" dentro de "{1}":The family "{0}" cannot be added inside "{1}"
+"{0}" ya forma parte de "{1}".:"{0}" is already part of "{1}".
+Hay gastos sin guardar. ¿Salir igual y descartarlos?:There are unsaved expenses. Exit anyway and discard them?
+La reparación de {0} quedó finalizada. Estado:The repair of {0} is finished. Status
+Reparado.:Repaired.
+se agregaron o borraron filas por fuera del sistema:rows were added or deleted outside the system
+Elija la prioridad:Choose the priority
+Alta, Media o Baja.:High, Medium or Low.
+Elija el tipo de gasto:Choose the expense type
+Repuesto o Mano de obra.:Part or Labor.
+El vehículo no está en ninguna agencia:The vehicle is not at any agency
+primero hay que registrar la consignación.:the consignment must be registered first.

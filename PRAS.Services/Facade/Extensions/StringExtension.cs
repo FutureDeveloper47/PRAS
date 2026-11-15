@@ -21,5 +21,15 @@
         {
             return Logic.IdiomaLogic.TraducirMensaje(mensaje);
         }
+
+        /// <summary>
+        /// Para valores que vienen de la base o de un enum y se guardan en español:
+        ///     e.Value = estado.TraducirValor();   // "En reparación" -> "Under repair"
+        /// Solo traduce si el texto entero es una clave del archivo; los nombres y patentes quedan igual.
+        /// </summary>
+        public static string TraducirValor(this string valor)
+        {
+            return Logic.IdiomaLogic.TraducirValor(valor);
+        }
     }
 }

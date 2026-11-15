@@ -23,7 +23,7 @@ namespace PRAS.UI
 
         private void FrmVehiculoEdicion_Load(object sender, EventArgs e)
         {
-            Text = _soloLectura ? "Detalle del vehículo" : "Modificar vehículo";
+            Text = (_soloLectura ? "Detalle del vehículo" : "Modificar vehículo").Traducir();
             nudAnio.Maximum = DateTime.Today.Year + 1;
 
             txtDominio.Text = _vehiculo.Dominio;
@@ -33,7 +33,7 @@ namespace PRAS.UI
             txtColor.Text = _vehiculo.Color;
             txtChasis.Text = _vehiculo.NumeroChasis;
             txtMotor.Text = _vehiculo.NumeroMotor;
-            txtEstado.Text = VehiculoService.TextoEstado(_vehiculo.EstadoVehiculo);
+            txtEstado.Text = VehiculoService.TextoEstado(_vehiculo.EstadoVehiculo).Traducir();   // el estado se muestra en el idioma elegido
 
             MostrarCompra();
 
@@ -65,8 +65,9 @@ namespace PRAS.UI
                 }
 
                 lblCompra.Text =
-                    $"Vendedor: {compra.Cliente.NombreCompleto} (DNI {compra.Cliente.DNI})\n" +
-                    $"Fecha: {compra.FechaCompra:dd/MM/yyyy}   -   Precio: {compra.PrecioCompra:C2}   -   Pago: {compra.FormaPago}";
+                    $"{"Vendedor".Traducir()}: {compra.Cliente.NombreCompleto} (DNI {compra.Cliente.DNI})\n" +
+                    $"{"Fecha".Traducir()}: {compra.FechaCompra:dd/MM/yyyy}   -   {"Precio".Traducir()}: {compra.PrecioCompra:C2}   -   " +
+                    $"{"Forma de pago".Traducir()}: {compra.FormaPago.TraducirValor()}";   // la forma de pago se guarda en español
             }
             catch (Exception ex)
             {

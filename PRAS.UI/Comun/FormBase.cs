@@ -31,6 +31,10 @@ namespace PRAS.UI
                 // 4) Cuadros de texto que solo aceptan números (DNI, CUIT, teléfono...).
                 Entradas.Configurar(Controls);
 
+                // 4b) Valores guardados en español (estados, prioridades, formas de pago...) que se
+                //     muestran en grillas y combos: se traducen al mostrarlos, sin cambiar el dato.
+                ValoresTraducidos.Conectar(Controls);
+
                 // 5) Las pantallas con listados se agrandan para aprovechar la pantalla.
                 AgrandarSiEsListado();
             }

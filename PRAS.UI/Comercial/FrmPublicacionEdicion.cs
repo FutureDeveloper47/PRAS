@@ -38,6 +38,9 @@ namespace PRAS.UI
 
         private void FrmPublicacionEdicion_Load(object sender, EventArgs e)
         {
+            // Las plataformas se guardan en español y se muestran traducidas;
+            // el usuario también puede escribir otra que no esté en la lista.
+            ValoresTraducidos.ConectarEditable(cboPlataforma);
             cboPlataforma.Items.AddRange(PublicacionService.Plataformas);
             cboPlataforma.SelectedIndex = 0;
 
@@ -86,7 +89,11 @@ namespace PRAS.UI
                 cboConsignacion.Enabled = false;
 
                 // Ahora sí cargamos los datos actuales del aviso (pisan lo que sugirió el combo)
-                cboPlataforma.Text = _publicacion.Plataforma;
+                int indice = Array.IndexOf(PublicacionService.Plataformas, _publicacion.Plataforma);
+                if (indice >= 0)
+                    cboPlataforma.SelectedIndex = indice;   // una de la lista: se ve traducida
+                else
+                    cboPlataforma.Text = _publicacion.Plataforma;   // una que escribió el usuario
                 numPrecio.Value = Math.Min(_publicacion.PrecioPublicado, numPrecio.Maximum);
                 txtDescripcion.Text = _publicacion.Descripcion;
             }
@@ -94,6 +101,17 @@ namespace PRAS.UI
             {
                 Mensajes.Error(ex);
             }
+        }
+
+        /// <summary>
+        /// Plataforma para guardar: si eligió una de la lista, el valor original en español
+        /// (lo que se ve está traducido); si escribió otra, lo que escribió.
+        /// </summary>
+        private string PlataformaElegida()
+        {
+            bool eligioDeLaLista = cboPlataforma.SelectedIndex >= 0
+                && cboPlataforma.Text == cboPlataforma.GetItemText(cboPlataforma.SelectedItem);
+            return eligioDeLaLista ? (string)cboPlataforma.SelectedItem : cboPlataforma.Text;
         }
 
         private Consignacion ConsignacionElegida()
@@ -132,7 +150,7 @@ namespace PRAS.UI
                     _publicacionService.Registrar(new Publicacion
                     {
                         IdVehiculo = consignacion?.IdVehiculo ?? 0,
-                        Plataforma = cboPlataforma.Text,
+                        Plataforma = PlataformaElegida(),
                         PrecioPublicado = numPrecio.Value,
                         Descripcion = txtDescripcion.Text
                     });
@@ -145,7 +163,7 @@ namespace PRAS.UI
                     _publicacionService.Modificar(new Publicacion
                     {
                         IdPublicacion = _publicacion.IdPublicacion,
-                        Plataforma = cboPlataforma.Text,
+                        Plataforma = PlataformaElegida(),
                         PrecioPublicado = numPrecio.Value,
                         Descripcion = txtDescripcion.Text
                     });

@@ -6,7 +6,7 @@ namespace PRAS.BLL.Excepciones
         public string Email { get; }
 
         public EmailInvalidoException(string email)
-            : base("El email no tiene un formato válido (ej: nombre@dominio.com).", "EMAIL_INVALIDO")
+            : base("El email no tiene un formato válido (por ejemplo, nombre@dominio.com).", "EMAIL_INVALIDO")
         {
             Email = email;
         }

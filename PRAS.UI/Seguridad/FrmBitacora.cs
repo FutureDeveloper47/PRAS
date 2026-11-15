@@ -94,7 +94,8 @@ namespace PRAS.UI
             if (dgvBitacora.Rows[e.RowIndex].DataBoundItem is not LogEntry registro)
                 return;
 
-            if (dgvBitacora.Columns[e.ColumnIndex] == colMensaje && e.Value is string mensaje)
+            bool esTexto = dgvBitacora.Columns[e.ColumnIndex] == colMensaje || dgvBitacora.Columns[e.ColumnIndex] == colDetalle;
+            if (esTexto && e.Value is string mensaje)
             {
                 e.Value = mensaje.TraducirMensaje();
                 e.FormattingApplied = true;

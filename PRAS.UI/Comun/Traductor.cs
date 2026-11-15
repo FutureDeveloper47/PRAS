@@ -54,9 +54,15 @@ namespace PRAS.UI
                 }
             }
 
-            // No traducimos textos con ":" en el medio, ni números o símbolos sueltos.
-            if (limpio == "" || limpio.Contains(':') || !limpio.Any(char.IsLetter))
+            // No traducimos números o símbolos sueltos.
+            if (limpio == "" || !limpio.Any(char.IsLetter))
                 return texto;
+
+            // Textos con ":" en el medio (ej: "PRAS: Programa de Registro Automotor Superior").
+            // La clave no puede tener ":", así que se traduce cada parte por separado con
+            // TraducirMensaje, que además no anota nada en el archivo si no encuentra la frase.
+            if (limpio.Contains(':'))
+                return limpio.TraducirMensaje() + sufijo;
 
             string traduccion = limpio.Traducir();
 

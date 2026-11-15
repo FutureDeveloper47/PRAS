@@ -77,11 +77,11 @@ namespace PRAS.UI
         /// </summary>
         private static TreeNode CrearNodo(Component componente)
         {
-            var nodo = new TreeNode(componente.Descripcion) { Tag = componente };
+            var nodo = new TreeNode(componente.Descripcion.TraducirValor()) { Tag = componente };   // nombre guardado en español, se muestra traducido
 
             if (componente is Familia familia)
             {
-                nodo.Text = "[" + "Familia".Traducir() + "] " + familia.Nombre;
+                nodo.Text = "[" + "Familia".Traducir() + "] " + familia.Nombre.TraducirValor();
                 nodo.NodeFont = new Font("Segoe UI", 9F, FontStyle.Bold);
                 foreach (Component hijo in familia.GetHijos())
                     nodo.Nodes.Add(CrearNodo(hijo));

@@ -158,6 +158,33 @@ namespace PRAS.Services.Logic
             return linea;
         }
 
+        /// <summary>
+        /// Traduce un VALOR que viene de la base o de un enum (estado, prioridad, forma de pago, rol...).
+        /// Solo lo cambia si el texto completo es una clave del archivo de idioma; si no (un nombre,
+        /// una patente, una descripción escrita por el usuario) lo deja igual.
+        /// A diferencia de Traducir, no anota nada en el archivo y no usa plantillas {0}:
+        /// así nunca "adivina" una traducción para un dato.
+        /// </summary>
+        public static string TraducirValor(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+            {
+                return valor;
+            }
+
+            try
+            {
+                Dictionary<string, string> diccionario = IdiomaDal.ObtenerDiccionario();
+                return diccionario.TryGetValue(valor.Trim(), out string traduccion) && traduccion != ""
+                    ? traduccion
+                    : valor;
+            }
+            catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
+            {
+                return valor;
+            }
+        }
+
         public static List<CultureInfo> ObtenerIdiomas()
         {
             return IdiomaDal.ObtenerIdiomas();

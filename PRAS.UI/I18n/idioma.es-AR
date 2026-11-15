@@ -758,3 +758,59 @@ Aprobado:Aprobado
 Rechazado:Rechazado
 Tarjeta de crédito:Tarjeta de crédito
 Tarjeta de débito:Tarjeta de débito
+Gestionar usuarios:Gestionar usuarios
+Gestionar permisos (familias y patentes):Gestionar permisos (familias y patentes)
+Consultar bitácora:Consultar bitácora
+Verificar integridad (dígitos verificadores):Verificar integridad (dígitos verificadores)
+Gestionar clientes:Gestionar clientes
+Gestionar mecánicos:Gestionar mecánicos
+Gestionar proveedores:Gestionar proveedores
+Gestionar agencias:Gestionar agencias
+Registrar y consultar compras:Registrar y consultar compras
+Ingreso de autos al taller:Ingreso de autos al taller
+Carga de costos (presupuestos):Carga de costos (presupuestos)
+Gestionar órdenes de trabajo:Gestionar órdenes de trabajo
+Gestionar consignaciones:Gestionar consignaciones
+Gestionar publicaciones:Gestionar publicaciones
+Registrar y consultar ventas:Registrar y consultar ventas
+Ver reportes:Ver reportes
+reporte de presupuestos:reporte de presupuestos
+reporte de reparaciones:reporte de reparaciones
+reporte de vehículos:reporte de vehículos
+reporte de ventas:reporte de ventas
+Descripción de la tarea:Descripción de la tarea
+Sitio web de la agencia:Sitio web de la agencia
+Autocosmos:Autocosmos
+DeAutos:DeAutos
+Gomería:Gomería
+Tapicería:Tapicería
+Alta de agencia:Alta de agencia
+Modificar agencia:Modificar agencia
+Alta de cliente:Alta de cliente
+Modificar cliente:Modificar cliente
+Alta de mecánico:Alta de mecánico
+Modificar mecánico:Modificar mecánico
+Alta de proveedor:Alta de proveedor
+Modificar proveedor:Modificar proveedor
+Alta de usuario:Alta de usuario
+Modificar usuario:Modificar usuario
+Detalle del vehículo:Detalle del vehículo
+Modificar vehículo:Modificar vehículo
+Programa de Registro Automotor Superior:Programa de Registro Automotor Superior
+Mano de obra:Mano de obra
+El CUIT debe tener 11 números (por ejemplo, 20-12345678-9).:El CUIT debe tener 11 números (por ejemplo, 20-12345678-9).
+El email no tiene un formato válido (por ejemplo, nombre@dominio.com).:El email no tiene un formato válido (por ejemplo, nombre@dominio.com).
+El dominio no es válido. Formatos aceptados:El dominio no es válido. Formatos aceptados
+ABC123 (viejo) o AB123CD (Mercosur).:ABC123 (viejo) o AB123CD (Mercosur).
+No se puede agregar la familia "{0}" dentro de "{1}":No se puede agregar la familia "{0}" dentro de "{1}"
+"{0}" ya forma parte de "{1}".:"{0}" ya forma parte de "{1}".
+Hay gastos sin guardar. ¿Salir igual y descartarlos?:Hay gastos sin guardar. ¿Salir igual y descartarlos?
+La reparación de {0} quedó finalizada. Estado:La reparación de {0} quedó finalizada. Estado
+Reparado.:Reparado.
+se agregaron o borraron filas por fuera del sistema:se agregaron o borraron filas por fuera del sistema
+Elija la prioridad:Elija la prioridad
+Alta, Media o Baja.:Alta, Media o Baja.
+Elija el tipo de gasto:Elija el tipo de gasto
+Repuesto o Mano de obra.:Repuesto o Mano de obra.
+El vehículo no está en ninguna agencia:El vehículo no está en ninguna agencia
+primero hay que registrar la consignación.:primero hay que registrar la consignación.
