@@ -873,3 +873,25 @@ El campo {0} debe estar entre {1} y {2}.:The field {0} must be between {1} and {
 el combustible:the fuel
 la transmisión:the transmission
 el estado de chapa y pintura:the body and paint condition
+MIS AUTOS EN DIAGNÓSTICO:MY CARS IN DIAGNOSIS
+MIS ÓRDENES DE TRABAJO:MY WORK ORDERS
+PEDIDOS DE REPUESTOS PENDIENTES:PENDING PARTS ORDERS
+TAREAS REALIZADAS ESTE MES:TASKS DONE THIS MONTH
+AUTOS EN DIAGNÓSTICO:CARS IN DIAGNOSIS
+(esperando diagnóstico en el taller):(waiting for diagnosis in the workshop)
+(abiertas, con tareas mías):(open, with my tasks)
+(de mis órdenes):(from my orders)
+(terminadas por mí):(finished by me)
+Diagnósticos:Diagnoses
+Detalle - Autos en diagnóstico:Detail - Cars in diagnosis
+Detalle - Mis órdenes de trabajo:Detail - My work orders
+Detalle - Pedidos de repuestos pendientes:Detail - Pending parts orders
+Detalle - Tareas realizadas este mes:Detail - Tasks done this month
+Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.:Workshop cars waiting for diagnosis. Double-click to see the car record.
+Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.:Open orders where you have assigned tasks. Double-click to see the car record.
+Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.:Parts ordered for your orders that have not arrived yet. Double-click to see the car record.
+Tareas que terminó este mes. Doble clic para ver la ficha del auto.:Tasks you finished this month. Double-click to see the car record.
+Daños:Damage
+Fecha del pedido:Order date
+Fecha de fin:End date
+{0} registro(s):{0} record(s)

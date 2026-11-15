@@ -10,7 +10,13 @@ namespace PRAS.UI
     {
         Taller,
         Ingresos,
-        Agencia
+        Agencia,
+
+        // Inicio del mecánico
+        MecanicoDiagnostico,
+        MecanicoOrdenes,
+        MecanicoPedidos,
+        MecanicoTareas
     }
 
     /// <summary>
@@ -61,6 +67,12 @@ namespace PRAS.UI
                         break;
                     case TipoDetalleInicio.Ingresos:
                         MostrarIngresos();
+                        break;
+                    case TipoDetalleInicio.MecanicoDiagnostico:
+                    case TipoDetalleInicio.MecanicoOrdenes:
+                    case TipoDetalleInicio.MecanicoPedidos:
+                    case TipoDetalleInicio.MecanicoTareas:
+                        MostrarMecanico();
                         break;
                     default:
                         MostrarAgencia();
@@ -155,6 +167,65 @@ namespace PRAS.UI
             int enAgencia = filas.Count - ventas.Count;
 
             lblTotal.Text = $"{ventas.Count} venta(s) en los últimos 12 meses por {Plata(totalVendido)}".TraducirMensaje() + "  -  " + $"{enAgencia} auto(s) en agencia".TraducirMensaje();
+        }
+
+        // Inicio del mecánico
+
+        /// <summary>
+        /// Detalle de las tarjetas del mecánico. Usa la misma grilla: cambian el título y el nombre de las columnas.
+        /// </summary>
+        private void MostrarMecanico()
+        {
+            List<DetalleInicio> filas;
+            switch (_tipo)
+            {
+                case TipoDetalleInicio.MecanicoDiagnostico:
+                    filas = _inicioService.ObtenerDetalleAutosEnDiagnostico();
+                    Text = "Detalle - Autos en diagnóstico".Traducir();
+                    lblTitulo.Text = "AUTOS EN DIAGNÓSTICO".Traducir();
+                    lblSubtitulo.Text = "Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.".Traducir();
+                    colFecha.HeaderText = "Ingreso al taller".Traducir();
+                    colPersona.Visible = false;
+                    colMonto.Visible = false;
+                    colExtra.HeaderText = "Daños".Traducir();
+                    break;
+
+                case TipoDetalleInicio.MecanicoOrdenes:
+                    filas = _inicioService.ObtenerDetalleMisOrdenes();
+                    Text = "Detalle - Mis órdenes de trabajo".Traducir();
+                    lblTitulo.Text = "MIS ÓRDENES DE TRABAJO".Traducir();
+                    lblSubtitulo.Text = "Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.".Traducir();
+                    colFecha.HeaderText = "Fecha de la orden".Traducir();
+                    colPersona.HeaderText = "Tarea".Traducir();
+                    colMonto.Visible = false;
+                    colExtra.HeaderText = "Prioridad".Traducir();
+                    break;
+
+                case TipoDetalleInicio.MecanicoPedidos:
+                    filas = _inicioService.ObtenerDetalleMisPedidos();
+                    Text = "Detalle - Pedidos de repuestos pendientes".Traducir();
+                    lblTitulo.Text = "PEDIDOS DE REPUESTOS PENDIENTES".Traducir();
+                    lblSubtitulo.Text = "Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.".Traducir();
+                    colFecha.HeaderText = "Fecha del pedido".Traducir();
+                    colPersona.HeaderText = "Proveedor".Traducir();
+                    colMonto.HeaderText = "Monto".Traducir();
+                    colExtra.HeaderText = "Estado".Traducir();
+                    break;
+
+                default:
+                    filas = _inicioService.ObtenerDetalleMisTareas();
+                    Text = "Detalle - Tareas realizadas este mes".Traducir();
+                    lblTitulo.Text = "TAREAS REALIZADAS ESTE MES".Traducir();
+                    lblSubtitulo.Text = "Tareas que terminó este mes. Doble clic para ver la ficha del auto.".Traducir();
+                    colFecha.HeaderText = "Fecha de fin".Traducir();
+                    colPersona.HeaderText = "Tarea".Traducir();
+                    colMonto.HeaderText = "Costo estimado".Traducir();
+                    colExtra.HeaderText = "Estado".Traducir();
+                    break;
+            }
+
+            dgvDetalle.DataSource = filas;
+            lblTotal.Text = $"{filas.Count} registro(s)".TraducirMensaje();
         }
 
         /// <summary>

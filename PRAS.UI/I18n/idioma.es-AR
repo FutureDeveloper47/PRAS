@@ -873,3 +873,25 @@ El campo {0} debe estar entre {1} y {2}.:El campo {0} debe estar entre {1} y {2}
 el combustible:el combustible
 la transmisión:la transmisión
 el estado de chapa y pintura:el estado de chapa y pintura
+MIS AUTOS EN DIAGNÓSTICO:MIS AUTOS EN DIAGNÓSTICO
+MIS ÓRDENES DE TRABAJO:MIS ÓRDENES DE TRABAJO
+PEDIDOS DE REPUESTOS PENDIENTES:PEDIDOS DE REPUESTOS PENDIENTES
+TAREAS REALIZADAS ESTE MES:TAREAS REALIZADAS ESTE MES
+AUTOS EN DIAGNÓSTICO:AUTOS EN DIAGNÓSTICO
+(esperando diagnóstico en el taller):(esperando diagnóstico en el taller)
+(abiertas, con tareas mías):(abiertas, con tareas mías)
+(de mis órdenes):(de mis órdenes)
+(terminadas por mí):(terminadas por mí)
+Diagnósticos:Diagnósticos
+Detalle - Autos en diagnóstico:Detalle - Autos en diagnóstico
+Detalle - Mis órdenes de trabajo:Detalle - Mis órdenes de trabajo
+Detalle - Pedidos de repuestos pendientes:Detalle - Pedidos de repuestos pendientes
+Detalle - Tareas realizadas este mes:Detalle - Tareas realizadas este mes
+Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.:Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.
+Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.:Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.
+Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.:Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.
+Tareas que terminó este mes. Doble clic para ver la ficha del auto.:Tareas que terminó este mes. Doble clic para ver la ficha del auto.
+Daños:Daños
+Fecha del pedido:Fecha del pedido
+Fecha de fin:Fecha de fin
+{0} registro(s):{0} registro(s)

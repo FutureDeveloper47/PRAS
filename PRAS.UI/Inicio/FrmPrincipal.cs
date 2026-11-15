@@ -40,6 +40,12 @@ namespace PRAS.UI
             public override string ToString() => Texto;
         }
 
+        // Inicio del mecánico (se arma por código en el constructor, así el tema y la traducción lo alcanzan)
+        private readonly Panel pnlMecanico = new Panel();
+        private readonly List<(Panel Tarjeta, Label Titulo, Label Dato, Label Aclaracion, Label Ver, Funcion Permiso)> _tarjetasMecanico =
+            new List<(Panel, Label, Label, Label, Label, Funcion)>();
+        private readonly List<(Button Boton, Func<bool> Visible)> _botonesMecanico = new List<(Button, Func<bool>)>();
+
         /// <summary>true si el usuario eligió "Cerrar sesión" (Program.cs vuelve a mostrar el login).</summary>
         public bool CerroSesion { get; private set; }
 
@@ -51,6 +57,7 @@ namespace PRAS.UI
             Resize += (sender, e) => AcomodarInicio();
 
             PrepararActividad();
+            CrearInicioMecanico();
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -101,6 +108,8 @@ namespace PRAS.UI
             lblActividadTitulo.Location = new Point(xDerecha, arribaTarjetas + altoAgencia + 15);
             int arribaLista = lblActividadTitulo.Bottom + 5;
             lstActividad.SetBounds(xDerecha, arribaLista, anchoDerecha, arribaTarjetas + altoTarjetas - arribaLista);
+
+            AcomodarInicioMecanico(ancho, alto, arribaTarjetas);
 
             AcomodarTarjeta(pnlTaller, lblTallerTitulo, lblTallerDato, null, lblTallerVer);
             AcomodarTarjeta(pnlIngresos, lblIngresosTitulo, lblIngresosDato, lblIngresosAclaracion, lblIngresosVer);
@@ -193,16 +202,20 @@ namespace PRAS.UI
         /// </summary>
         private void CargarInicio()
         {
-            // El mecánico no ve los números del negocio, solo el título.
+            // El mecánico no ve los números del negocio: ve SU inicio (tarjetas y botones según sus permisos).
             bool puedeVer = _inicioService.PuedeVerResumen();
             pnlTaller.Visible = puedeVer;
             pnlIngresos.Visible = puedeVer;
             pnlAgencia.Visible = puedeVer;
             lblActividadTitulo.Visible = puedeVer;
             lstActividad.Visible = puedeVer;
+            pnlMecanico.Visible = !puedeVer;
 
             if (!puedeVer)
+            {
+                CargarInicioMecanico();
                 return;
+            }
 
             try
             {
@@ -421,6 +434,162 @@ namespace PRAS.UI
 
             using (var lapiz = new Pen(Tema.Primario, 2))
                 e.Graphics.DrawRectangle(lapiz, 1, 1, tarjeta.Width - 2, tarjeta.Height - 2);
+        }
+
+        // Inicio del mecánico
+
+        /// <summary>
+        /// Arma el Inicio del mecánico: 4 tarjetas (con cantidad y "Ver detalle") y botones grandes
+        /// a sus funciones. Se crea siempre (oculto) y se muestra solo a quien no ve el resumen del negocio.
+        /// Las tarjetas y los botones se muestran según los PERMISOS del usuario (Composite: Sesion/Funcion),
+        /// no según el rol: si el administrador le saca una patente, el botón desaparece.
+        /// </summary>
+        private void CrearInicioMecanico()
+        {
+            pnlMecanico.Name = "pnlMecanico";
+            pnlMecanico.Visible = false;
+            pnlInicio.Controls.Add(pnlMecanico);
+
+            AgregarTarjetaMecanico("pnlMecDiagnostico", "MIS AUTOS EN DIAGNÓSTICO", "(esperando diagnóstico en el taller)",
+                TipoDetalleInicio.MecanicoDiagnostico, Funcion.ConsultarDiagnostico);
+            AgregarTarjetaMecanico("pnlMecOrdenes", "MIS ÓRDENES DE TRABAJO", "(abiertas, con tareas mías)",
+                TipoDetalleInicio.MecanicoOrdenes, Funcion.ConsultarOrdenesTrabajo);
+            AgregarTarjetaMecanico("pnlMecPedidos", "PEDIDOS DE REPUESTOS PENDIENTES", "(de mis órdenes)",
+                TipoDetalleInicio.MecanicoPedidos, Funcion.ConsultarPedidosRepuestos);
+            AgregarTarjetaMecanico("pnlMecTareas", "TAREAS REALIZADAS ESTE MES", "(terminadas por mí)",
+                TipoDetalleInicio.MecanicoTareas, Funcion.RegistrarTareasRealizadas);
+
+            // Botones grandes: cada uno aparece solo si el usuario tiene el permiso correspondiente.
+            AgregarBotonMecanico("btnMecDiagnosticos", "Diagnósticos",
+                () => Sesion.TienePermiso(Funcion.ConsultarDiagnostico) || Sesion.TienePermiso(Funcion.RegistrarDiagnostico),
+                () => AbrirPantalla(new FrmDiagnosticos(!Sesion.TienePermiso(Funcion.RegistrarDiagnostico))));
+            AgregarBotonMecanico("btnMecOrdenes", "Órdenes de trabajo",
+                () => Sesion.TienePermiso(Funcion.ConsultarOrdenesTrabajo) || Sesion.TienePermiso(Funcion.GestionarOrdenesTrabajo),
+                () => AbrirPantalla(new FrmOrdenesTrabajo(Sesion.TienePermiso(Funcion.GestionarOrdenesTrabajo))));
+            AgregarBotonMecanico("btnMecTareas", "Tareas realizadas",
+                () => Sesion.TienePermiso(Funcion.RegistrarTareasRealizadas),
+                () => AbrirPantalla(new FrmTareasRealizadas()));
+            AgregarBotonMecanico("btnMecPedidos", "Pedidos de repuestos",
+                () => Sesion.TienePermiso(Funcion.RegistrarPedidoRepuestos) || Sesion.TienePermiso(Funcion.ConsultarPedidosRepuestos),
+                () => AbrirPantalla(new FrmPedidos(Sesion.TienePermiso(Funcion.RegistrarPedidoRepuestos)
+                    ? ModoPedidos.Registrar : ModoPedidos.Consulta)));
+            AgregarBotonMecanico("btnMecPerfil", "Mi perfil", () => true, () => mnuMiPerfil_Click(this, EventArgs.Empty));
+            AgregarBotonMecanico("btnMecAyuda", "Ayuda", () => true, () => AyudaUI.Mostrar(this));
+        }
+
+        private void AgregarTarjetaMecanico(string nombre, string titulo, string aclaracion, TipoDetalleInicio tipo, Funcion permiso)
+        {
+            // BorderStyle FixedSingle = Tema la dibuja como tarjeta (fondo blanco y franja azul arriba).
+            var tarjeta = new Panel { Name = nombre, BorderStyle = BorderStyle.FixedSingle };
+            var lblTitulo = new Label
+            {
+                Name = nombre + "Titulo", Text = titulo, TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold)
+            };
+            var lblDato = new Label
+            {
+                Name = nombre + "Dato", Text = "0", TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 28F, FontStyle.Bold), ForeColor = Tema.Primario
+            };
+            var lblAclaracion = new Label
+            {
+                Name = nombre + "Aclaracion", Text = aclaracion, TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Tema.TextoApagado
+            };
+            var lblVer = new Label { Name = nombre + "Ver", Text = "Ver detalle ›", TextAlign = ContentAlignment.MiddleCenter };
+
+            tarjeta.Controls.AddRange(new Control[] { lblTitulo, lblDato, lblAclaracion, lblVer });
+            pnlMecanico.Controls.Add(tarjeta);
+            PrepararTarjeta(tarjeta, tipo);   // misma manito, resaltado y clic que las tarjetas del administrador
+            lblVer.ForeColor = Tema.Primario;
+            lblVer.Font = new Font(lblVer.Font, FontStyle.Underline);
+
+            _tarjetasMecanico.Add((tarjeta, lblTitulo, lblDato, lblAclaracion, lblVer, permiso));
+        }
+
+        private void AgregarBotonMecanico(string nombre, string texto, Func<bool> visible, Action accion)
+        {
+            var boton = new Button
+            {
+                Name = nombre, Text = texto, Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            boton.Click += (sender, e) => accion();
+            pnlMecanico.Controls.Add(boton);
+            _botonesMecanico.Add((boton, visible));
+        }
+
+        /// <summary>Números de las tarjetas y qué tarjetas/botones se ven según los permisos.</summary>
+        private void CargarInicioMecanico()
+        {
+            foreach (var t in _tarjetasMecanico)
+                t.Tarjeta.Visible = MostrarTarjetaMecanico(t.Permiso);
+            foreach (var b in _botonesMecanico)
+                b.Boton.Visible = b.Visible();
+
+            if (_inicioService.EsInicioDeMecanico())
+            {
+                try
+                {
+                    ResumenMecanico resumen = _inicioService.ObtenerResumenMecanico();
+                    int[] valores = { resumen.AutosEnDiagnostico, resumen.OrdenesAbiertas, resumen.PedidosPendientes, resumen.TareasRealizadasMes };
+                    for (int i = 0; i < _tarjetasMecanico.Count; i++)
+                        _tarjetasMecanico[i].Dato.Text = valores[i].ToString();
+                }
+                catch (Exception ex)
+                {
+                    Mensajes.Error(ex);
+                }
+            }
+
+            AcomodarInicio();
+        }
+
+        /// <summary>Una tarjeta del mecánico se ve si el usuario tiene un mecánico vinculado y el permiso de esa tarjeta.</summary>
+        private bool MostrarTarjetaMecanico(Funcion permiso)
+        {
+            return Sesion.HayUsuarioLogueado && _inicioService.EsInicioDeMecanico() && Sesion.TienePermiso(permiso);
+        }
+
+        /// <summary>
+        /// Reparte el Inicio del mecánico: arriba las tarjetas visibles en una fila;
+        /// abajo los botones visibles en una grilla de 3 columnas.
+        /// </summary>
+        private void AcomodarInicioMecanico(int ancho, int alto, int arriba)
+        {
+            pnlMecanico.SetBounds(0, arriba, ancho, alto - arriba);
+
+            const int separacion = 20;
+            var tarjetas = _tarjetasMecanico.Where(t => MostrarTarjetaMecanico(t.Permiso)).ToList();
+            int altoTarjetas = Math.Min(240, Math.Max(210, pnlMecanico.Height * 40 / 100));
+            if (tarjetas.Count > 0)
+            {
+                int anchoTarjeta = (ancho - (tarjetas.Count - 1) * separacion) / tarjetas.Count;
+                for (int i = 0; i < tarjetas.Count; i++)
+                {
+                    var t = tarjetas[i];
+                    t.Tarjeta.SetBounds(i * (anchoTarjeta + separacion), 0, anchoTarjeta, altoTarjetas);
+                    int interior = anchoTarjeta - 2 * MargenTarjeta;
+                    t.Titulo.SetBounds(MargenTarjeta, 14, interior, 62);
+                    t.Dato.SetBounds(MargenTarjeta, 78, interior, 60);
+                    t.Aclaracion.SetBounds(MargenTarjeta, 140, interior, 24);
+                    t.Ver.SetBounds(MargenTarjeta, altoTarjetas - 36, interior, 24);
+                }
+            }
+
+            // (Se pregunta por el permiso y no por Visible: Visible da false mientras la ventana no se mostró.)
+            var botones = _botonesMecanico.Where(b => b.Visible()).Select(b => b.Boton).ToList();
+            const int columnas = 3;
+            int arribaBotones = tarjetas.Count > 0 ? altoTarjetas + 30 : 0;
+            int anchoBoton = (ancho - (columnas - 1) * separacion) / columnas;
+            int filas = Math.Max(1, (botones.Count + columnas - 1) / columnas);
+            int altoBoton = Math.Max(60, Math.Min(90, (pnlMecanico.Height - arribaBotones - (filas - 1) * separacion) / filas));
+            for (int i = 0; i < botones.Count; i++)
+            {
+                int fila = i / columnas, columna = i % columnas;
+                botones[i].SetBounds(columna * (anchoBoton + separacion), arribaBotones + fila * (altoBoton + separacion),
+                                     anchoBoton, altoBoton);
+            }
         }
 
         // Permisos

@@ -57,6 +57,57 @@ namespace PRAS.BLL
         // Detalle de las tarjetas
         // Cada tarjeta usa el mismo criterio que su número, así si dice 3 hay 3 renglones.
 
+        // Inicio del mecánico
+
+        /// <summary>
+        /// El Inicio del mecánico se muestra a quien NO ve el resumen del negocio y tiene un mecánico vinculado.
+        /// Cada tarjeta y cada botón se muestran según sus permisos (patentes), no por el rol.
+        /// </summary>
+        public bool EsInicioDeMecanico()
+        {
+            return !PuedeVerResumen() && Sesion.UsuarioActual?.IdMecanico != null;
+        }
+
+        /// <summary>Los números de las tarjetas del mecánico logueado.</summary>
+        public ResumenMecanico ObtenerResumenMecanico()
+        {
+            int idMecanico = MecanicoLogueado();
+            return _repositorio.ObtenerResumenMecanico(idMecanico, InicioMes, InicioMesSiguiente);
+        }
+
+        public List<DetalleInicio> ObtenerDetalleAutosEnDiagnostico()
+        {
+            Sesion.ExigirPermiso(Funcion.ConsultarDiagnostico);
+            return _repositorio.ListarAutosEnDiagnostico();
+        }
+
+        public List<DetalleInicio> ObtenerDetalleMisOrdenes()
+        {
+            Sesion.ExigirPermiso(Funcion.ConsultarOrdenesTrabajo);
+            return _repositorio.ListarOrdenesDeMecanico(MecanicoLogueado());
+        }
+
+        public List<DetalleInicio> ObtenerDetalleMisPedidos()
+        {
+            Sesion.ExigirPermiso(Funcion.ConsultarPedidosRepuestos);
+            return _repositorio.ListarPedidosPendientesDeMecanico(MecanicoLogueado());
+        }
+
+        public List<DetalleInicio> ObtenerDetalleMisTareas()
+        {
+            Sesion.ExigirPermiso(Funcion.RegistrarTareasRealizadas);
+            return _repositorio.ListarTareasRealizadasDeMecanico(MecanicoLogueado(), InicioMes, InicioMesSiguiente);
+        }
+
+        /// <summary>Mecánico vinculado al usuario logueado. Si no tiene, no puede ver "lo suyo".</summary>
+        private static int MecanicoLogueado()
+        {
+            int? idMecanico = Sesion.UsuarioActual?.IdMecanico;
+            if (idMecanico == null)
+                Sesion.ExigirPermiso(Funcion.GestionarOrdenesTrabajo);   // sin mecánico vinculado: PermisoDenegadoException
+            return idMecanico ?? 0;
+        }
+
         /// <summary>Tarjeta TALLER: autos en diagnóstico o en reparación.</summary>
         public List<DetalleInicio> ObtenerDetalleTaller()
         {

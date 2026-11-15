@@ -873,3 +873,25 @@ El campo {0} debe estar entre {1} y {2}.:O campo {0} deve estar entre {1} e {2}.
 el combustible:o combustível
 la transmisión:o câmbio
 el estado de chapa y pintura:o estado da lataria e pintura
+MIS AUTOS EN DIAGNÓSTICO:MEUS CARROS EM DIAGNÓSTICO
+MIS ÓRDENES DE TRABAJO:MINHAS ORDENS DE SERVIÇO
+PEDIDOS DE REPUESTOS PENDIENTES:PEDIDOS DE PEÇAS PENDENTES
+TAREAS REALIZADAS ESTE MES:TAREFAS REALIZADAS ESTE MÊS
+AUTOS EN DIAGNÓSTICO:CARROS EM DIAGNÓSTICO
+(esperando diagnóstico en el taller):(aguardando diagnóstico na oficina)
+(abiertas, con tareas mías):(abertas, com tarefas minhas)
+(de mis órdenes):(das minhas ordens)
+(terminadas por mí):(terminadas por mim)
+Diagnósticos:Diagnósticos
+Detalle - Autos en diagnóstico:Detalhe - Carros em diagnóstico
+Detalle - Mis órdenes de trabajo:Detalhe - Minhas ordens de serviço
+Detalle - Pedidos de repuestos pendientes:Detalhe - Pedidos de peças pendentes
+Detalle - Tareas realizadas este mes:Detalhe - Tarefas realizadas este mês
+Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.:Carros da oficina aguardando diagnóstico. Clique duas vezes para ver a ficha do carro.
+Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.:Ordens abertas onde você tem tarefas atribuídas. Clique duas vezes para ver a ficha do carro.
+Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.:Peças pedidas para suas ordens que ainda não chegaram. Clique duas vezes para ver a ficha do carro.
+Tareas que terminó este mes. Doble clic para ver la ficha del auto.:Tarefas que você terminou este mês. Clique duas vezes para ver a ficha do carro.
+Daños:Danos
+Fecha del pedido:Data do pedido
+Fecha de fin:Data de término
+{0} registro(s):{0} registro(s)

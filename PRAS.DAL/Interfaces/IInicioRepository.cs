@@ -18,5 +18,17 @@ namespace PRAS.DAL.Interfaces
         List<DetalleInicio> ListarComprasDetalle(DateTime desde, DateTime hastaExclusive);
 
         List<DetalleInicio> ListarAgenciaDetalle(DateTime desde, DateTime hastaExclusive);
+
+        // Inicio del mecánico (idMecanico = el mecánico vinculado al usuario logueado)
+
+        ResumenMecanico ObtenerResumenMecanico(int idMecanico, DateTime desdeMes, DateTime hastaExclusive);
+
+        List<DetalleInicio> ListarAutosEnDiagnostico();
+
+        List<DetalleInicio> ListarOrdenesDeMecanico(int idMecanico);
+
+        List<DetalleInicio> ListarPedidosPendientesDeMecanico(int idMecanico);
+
+        List<DetalleInicio> ListarTareasRealizadasDeMecanico(int idMecanico, DateTime desde, DateTime hastaExclusive);
     }
 }

@@ -873,3 +873,25 @@ El campo {0} debe estar entre {1} y {2}.:Le champ {0} doit être compris entre {
 el combustible:le carburant
 la transmisión:la transmission
 el estado de chapa y pintura:l'état de la carrosserie et de la peinture
+MIS AUTOS EN DIAGNÓSTICO:MES VOITURES EN DIAGNOSTIC
+MIS ÓRDENES DE TRABAJO:MES ORDRES DE TRAVAIL
+PEDIDOS DE REPUESTOS PENDIENTES:COMMANDES DE PIÈCES EN ATTENTE
+TAREAS REALIZADAS ESTE MES:TÂCHES RÉALISÉES CE MOIS-CI
+AUTOS EN DIAGNÓSTICO:VOITURES EN DIAGNOSTIC
+(esperando diagnóstico en el taller):(en attente de diagnostic à l'atelier)
+(abiertas, con tareas mías):(ouverts, avec mes tâches)
+(de mis órdenes):(de mes ordres)
+(terminadas por mí):(terminées par moi)
+Diagnósticos:Diagnostics
+Detalle - Autos en diagnóstico:Détail - Voitures en diagnostic
+Detalle - Mis órdenes de trabajo:Détail - Mes ordres de travail
+Detalle - Pedidos de repuestos pendientes:Détail - Commandes de pièces en attente
+Detalle - Tareas realizadas este mes:Détail - Tâches réalisées ce mois-ci
+Autos del taller que esperan el diagnóstico. Doble clic para ver la ficha del auto.:Voitures de l'atelier en attente de diagnostic. Double-cliquez pour voir la fiche de la voiture.
+Órdenes abiertas donde tiene tareas asignadas. Doble clic para ver la ficha del auto.:Ordres ouverts où vous avez des tâches assignées. Double-cliquez pour voir la fiche de la voiture.
+Repuestos pedidos para sus órdenes que todavía no llegaron. Doble clic para ver la ficha del auto.:Pièces commandées pour vos ordres qui ne sont pas encore arrivées. Double-cliquez pour voir la fiche de la voiture.
+Tareas que terminó este mes. Doble clic para ver la ficha del auto.:Tâches que vous avez terminées ce mois-ci. Double-cliquez pour voir la fiche de la voiture.
+Daños:Dommages
+Fecha del pedido:Date de la commande
+Fecha de fin:Date de fin
+{0} registro(s):{0} enregistrement(s)

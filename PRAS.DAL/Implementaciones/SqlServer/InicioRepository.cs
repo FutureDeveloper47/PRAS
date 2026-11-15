@@ -186,5 +186,115 @@ namespace PRAS.DAL.Implementaciones.SqlServer
 
             return DetalleInicioAdaptador.Current.FillLista(tabla);
         }
+
+        // ---------------------------- Inicio del mecánico ----------------------------
+        // "De un mecánico" = tiene alguna tarea a su nombre en la orden de trabajo (TareaOrdenTrabajo.IdMecanico).
+
+        private const string TieneTareaDelMecanico =
+            "EXISTS (SELECT 1 FROM TareaOrdenTrabajo T WHERE T.IdOrdenTrabajo = OT.IdOrdenTrabajo AND T.IdMecanico = @IdMecanico)";
+
+        /// <summary>Los cuatro números de las tarjetas del mecánico, en una sola consulta.</summary>
+        public ResumenMecanico ObtenerResumenMecanico(int idMecanico, DateTime desdeMes, DateTime hastaExclusive)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                $@"SELECT
+                     (SELECT COUNT(*) FROM Vehiculo WHERE EstadoVehiculo = @EnDiagnostico) AS AutosEnDiagnostico,
+                     (SELECT COUNT(*) FROM OrdenTrabajo OT
+                      WHERE OT.EstadoOrden = @Abierta AND {TieneTareaDelMecanico}) AS OrdenesAbiertas,
+                     (SELECT COUNT(*) FROM PedidoRepuesto P
+                      INNER JOIN OrdenTrabajo OT ON OT.IdOrdenTrabajo = P.IdOrdenTrabajo
+                      WHERE P.EstadoPedido = @Pendiente AND {TieneTareaDelMecanico}) AS PedidosPendientes,
+                     (SELECT COUNT(*) FROM TareaOrdenTrabajo T
+                      WHERE T.IdMecanico = @IdMecanico AND T.EstadoTarea = @Finalizada
+                        AND T.FechaFin >= @Desde AND T.FechaFin < @Hasta) AS TareasRealizadasMes",
+                SqlHelper.Param("@EnDiagnostico", (int)EstadoVehiculo.EnDiagnostico),
+                SqlHelper.Param("@Abierta", Estados.OrdenAbierta),
+                SqlHelper.Param("@Pendiente", Estados.PedidoPendiente),
+                SqlHelper.Param("@Finalizada", Estados.TareaFinalizada),
+                SqlHelper.Param("@IdMecanico", idMecanico),
+                SqlHelper.Param("@Desde", desdeMes),
+                SqlHelper.Param("@Hasta", hastaExclusive));
+
+            System.Data.DataRow fila = tabla.Rows[0];
+            return new ResumenMecanico
+            {
+                AutosEnDiagnostico = (int)fila["AutosEnDiagnostico"],
+                OrdenesAbiertas = (int)fila["OrdenesAbiertas"],
+                PedidosPendientes = (int)fila["PedidosPendientes"],
+                TareasRealizadasMes = (int)fila["TareasRealizadasMes"]
+            };
+        }
+
+        /// <summary>Autos esperando diagnóstico, con la fecha en que entraron y lo que se anotó al recibirlos.</summary>
+        public List<DetalleInicio> ListarAutosEnDiagnostico()
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                @"SELECT V.IdVehiculo, R.FechaIngreso AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                         N'' AS Persona, CAST(NULL AS DECIMAL(18,2)) AS Monto,
+                         ISNULL(LEFT(D.DescripcionDanios, 200), N'') AS Extra, CAST(0 AS BIT) AS EsVenta
+                  FROM Vehiculo V
+                  OUTER APPLY (SELECT TOP 1 FechaIngreso FROM RecepcionVehiculo
+                               WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaIngreso DESC) R
+                  OUTER APPLY (SELECT TOP 1 DescripcionDanios FROM Diagnostico
+                               WHERE IdVehiculo = V.IdVehiculo ORDER BY FechaDiagnostico DESC) D
+                  WHERE V.EstadoVehiculo = @EnDiagnostico
+                  ORDER BY R.FechaIngreso DESC",
+                SqlHelper.Param("@EnDiagnostico", (int)EstadoVehiculo.EnDiagnostico));
+            return DetalleInicioAdaptador.Current.FillLista(tabla);
+        }
+
+        /// <summary>Órdenes abiertas del mecánico, con su tarea y la prioridad.</summary>
+        public List<DetalleInicio> ListarOrdenesDeMecanico(int idMecanico)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                $@"SELECT V.IdVehiculo, OT.FechaCreacion AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                          ISNULL((SELECT TOP 1 T.DescripcionTarea FROM TareaOrdenTrabajo T
+                                  WHERE T.IdOrdenTrabajo = OT.IdOrdenTrabajo AND T.IdMecanico = @IdMecanico
+                                  ORDER BY T.IdTarea), N'') AS Persona,
+                          CAST(NULL AS DECIMAL(18,2)) AS Monto, OT.Prioridad AS Extra, CAST(0 AS BIT) AS EsVenta
+                   FROM OrdenTrabajo OT
+                   INNER JOIN Vehiculo V ON V.IdVehiculo = OT.IdVehiculo
+                   WHERE OT.EstadoOrden = @Abierta AND {TieneTareaDelMecanico}
+                   ORDER BY OT.FechaCreacion DESC",
+                SqlHelper.Param("@Abierta", Estados.OrdenAbierta),
+                SqlHelper.Param("@IdMecanico", idMecanico));
+            return DetalleInicioAdaptador.Current.FillLista(tabla);
+        }
+
+        /// <summary>Pedidos de repuestos pendientes de las órdenes del mecánico, con proveedor y monto.</summary>
+        public List<DetalleInicio> ListarPedidosPendientesDeMecanico(int idMecanico)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                $@"SELECT V.IdVehiculo, P.FechaPedido AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                          PR.RazonSocial AS Persona, P.MontoTotal AS Monto, P.EstadoPedido AS Extra, CAST(0 AS BIT) AS EsVenta
+                   FROM PedidoRepuesto P
+                   INNER JOIN OrdenTrabajo OT ON OT.IdOrdenTrabajo = P.IdOrdenTrabajo
+                   INNER JOIN Vehiculo V      ON V.IdVehiculo      = OT.IdVehiculo
+                   INNER JOIN Proveedor PR    ON PR.IdProveedor    = P.IdProveedor
+                   WHERE P.EstadoPedido = @Pendiente AND {TieneTareaDelMecanico}
+                   ORDER BY P.FechaPedido DESC",
+                SqlHelper.Param("@Pendiente", Estados.PedidoPendiente),
+                SqlHelper.Param("@IdMecanico", idMecanico));
+            return DetalleInicioAdaptador.Current.FillLista(tabla);
+        }
+
+        /// <summary>Tareas que el mecánico terminó entre dos fechas (el Inicio usa el mes actual).</summary>
+        public List<DetalleInicio> ListarTareasRealizadasDeMecanico(int idMecanico, DateTime desde, DateTime hastaExclusive)
+        {
+            var tabla = SqlHelper.ExecuteDataTable(
+                @"SELECT V.IdVehiculo, T.FechaFin AS Fecha, V.Dominio, V.Marca, V.Modelo, V.Anio, V.EstadoVehiculo,
+                         T.DescripcionTarea AS Persona, T.CostoEstimado AS Monto, T.EstadoTarea AS Extra, CAST(0 AS BIT) AS EsVenta
+                  FROM TareaOrdenTrabajo T
+                  INNER JOIN OrdenTrabajo OT ON OT.IdOrdenTrabajo = T.IdOrdenTrabajo
+                  INNER JOIN Vehiculo V      ON V.IdVehiculo      = OT.IdVehiculo
+                  WHERE T.IdMecanico = @IdMecanico AND T.EstadoTarea = @Finalizada
+                    AND T.FechaFin >= @Desde AND T.FechaFin < @Hasta
+                  ORDER BY T.FechaFin DESC",
+                SqlHelper.Param("@IdMecanico", idMecanico),
+                SqlHelper.Param("@Finalizada", Estados.TareaFinalizada),
+                SqlHelper.Param("@Desde", desde),
+                SqlHelper.Param("@Hasta", hastaExclusive));
+            return DetalleInicioAdaptador.Current.FillLista(tabla);
+        }
     }
 }
